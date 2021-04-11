@@ -1,0 +1,367 @@
+#include <Arduino.h>    
+
+void SendOutput(String dcmd) {   ///VIA SHD_PULS to MD Dome Board
+  
+    Serial2.print(dcmd);
+    Serial2.print('\r'); 
+    cmd = "OK";
+    return;
+}
+
+void parseCommand(String cmd) {
+/*
+################  MAIN CONTROLLER COMMANDS   ###########
+*/
+  if (cmd == "debug") {
+      if (debug){
+          Serial.println("######Comando - debug######");
+         Serial.println(cmd);
+       }
+       debug=1;
+  
+  Serial.println(F(__FILE__ " " __DATE__ " " __TIME__));
+  Serial.println("##### Master_Body_Controller ESP32 03.04.2021 #####");
+  Serial.println("Comandos von RC - CoinTaster - Wfif Modul werde verarbeitet");
+  Serial.println("INPUT:");
+  Serial.println("..... Nextion Display .............Serial 1 RX");
+  Serial.println("..... From WIFI....................Serial 2 RX");
+  Serial.println("");
+  Serial.println("OUTPUT:");
+  Serial.println("..... NEXTION Display an ..........Serial 1 TX");
+  Serial.println("..... To Dome Drive................Serial 2 TX");
+  Serial.println("");
+  Serial.println("...fuer DebugMode debug eingeben...");
+  Serial.println("...ende DebugMode debug off eingeben...");
+  Serial.println("...SERIAL is DEBUG 115200 - 9600 BAUD !!");
+  Serial.println("...MODE = ");
+  Serial.println(mode);
+  Serial.println("...PAGE = ");
+  Serial.println(PAGE);
+  
+    }
+
+    if (cmd == "debug off") {
+    if (debug){
+         Serial.println("######Comando - debug off######");
+         Serial.println(cmd);
+       }
+       debug=0;
+    }
+#include "NEXT_COM.h" 
+#include "COIN_COM.h"    
+/*
+#include "SHDW_COM.h"
+
+#include "NEXT_COM.h" 
+
+#include "COIN_COM.h" 
+*/
+      if (cmd == "find") {
+      Serial2.print("find\r");
+      Serial.print("disconnect...");
+       Ps3.end();
+      }
+  
+    if (cmd == "center") {
+    Serial2.print("center");           // hier geht es weiter zum Dome Controller
+    Serial2.print('\r');
+    }
+    
+    if (cmd == "reset") {
+    if (debug){
+        Serial.println("######Comando reset ######");
+        Serial.println(cmd);
+      }
+     ESP.restart();
+     mode = 3; ///Service
+      
+      Serial2.print("mode3\r");           // hier geht es weiter zum  SHD_PULSE
+      delay(100);
+      SendOutput(":SE10");
+ 
+    }
+
+    if (cmd == "mode1") {
+    if (debug){
+         Serial.println("######Comando - mode1######");
+         Serial.println(cmd);
+       }
+      Serial2.print("mode1\r");       
+      mode=1;
+      
+    }
+  
+    if (cmd == "mode2") {
+    if (debug){
+         Serial.println("######Comando - mode2######");
+         Serial.println(cmd);
+       }
+      Serial2.print("mode2\r");       
+      mode=2;
+    }
+  
+    if (cmd == "mode3") {
+    if (debug){
+         Serial.println("######Comando - mode3######");
+         Serial.println(cmd);
+       }
+      Serial2.print("mode3\r");
+      mode=3;
+    }
+  
+    if (cmd == "mode0") {
+    if (debug){
+         Serial.println("######Comando - mode0######");
+         Serial.println(cmd);
+       }
+      Serial2.print("mode0\r");
+      mode=0;
+    }
+
+    ///VOICE COMMANDS///
+    if (cmd == "tool0") {
+    if (debug){
+         Serial.println("######Comando - tool0######");
+         Serial.println(cmd);
+       }
+      ///Action
+      Serial2.print("usb\r");
+      //mode=0;
+     
+    }
+
+    if (cmd == "tool1") {
+    if (debug){
+         Serial.println("######Comando - tool1######");
+         Serial.println(cmd);
+       }
+      ///Action
+      Serial2.print("tool1\r");
+      //mode=0;
+      
+    }
+
+    if (cmd == "tool2") {
+    if (debug){
+         Serial.println("######Comando - tool2######");
+         Serial.println(cmd);
+       }
+      ///Action
+      Serial2.print("tool2\r");
+      //mode=0;
+      
+    }
+
+    if (cmd == "tool3") {
+    if (debug){
+         Serial.println("######Comando - tool3######");
+         Serial.println(cmd);
+       }
+      ///Action
+     // Serial2.print("tool3\r");
+      //mode=0;
+      
+    }
+
+    if (cmd == "tool4") {
+    if (debug){
+         Serial.println("######Comando - tool4######");
+         Serial.println(cmd);
+       }
+      ///Action
+      //Serial2.print("tool4\r");
+      //mode=0;
+      
+    }
+
+    if (cmd == "tool5") {
+    if (debug){
+         Serial.println("######Comando - tool5######");
+         Serial.println(cmd);
+       }
+      ///Action
+      //Serial2.print("tool5\r");
+      //mode=0;
+      
+    }
+
+    if (cmd == "tool6") {
+    if (debug){
+         Serial.println("######Comando - tool6######");
+         Serial.println(cmd);
+       }
+      ///Action
+      //Serial2.print("tool6\r");
+      //mode=0;
+      
+    }
+
+    if (cmd == "tool7") {
+    if (debug){
+         Serial.println("######Comando - tool7######");
+         Serial.println(cmd);
+       }
+      ///Action
+      //Serial2.print("tool7\r");
+      //mode=0;
+      
+    }
+    
+    if (cmd == "tool8") {
+    if (debug){
+         Serial.println("######Comando - tool8######");
+         Serial.println(cmd);
+       }
+      ///Action
+      //Serial2.print("tool7\r");
+      //mode=0;
+      
+    }
+    if (cmd == "tool9") {
+    if (debug){
+         Serial.println("######Comando - tool9######");
+         Serial.println(cmd);
+       }
+      ///Action
+      //Serial2.print("tool7\r");
+      //mode=0;
+      
+    }
+    if (cmd == "tool10") {
+    if (debug){
+         Serial.println("######Comando - tool10######");
+         Serial.println(cmd);
+       }
+      ///Action
+      //Serial2.print("tool7\r");
+      //mode=0;
+      
+    }
+    
+    
+
+    /// Filtern ob Dome Komando oder nicht ///
+    
+    if (cmd.startsWith(":")) {
+      if (debug){
+        Serial.println("######Comando Pefix : DOME ######");
+        Serial.println(cmd);
+      }
+     
+      SendOutput(cmd);
+    }
+
+    if (cmd.startsWith("#")) {
+      if (debug){
+        Serial.println("######Comando Prefix # BODY ######");
+        Serial.println(cmd);
+      }
+     
+      SendOutput(cmd);
+    }
+    
+
+    if (cmd.startsWith("$")) {
+     
+      if (debug){
+        Serial.println("######Comando Prefix $ SOUND######");
+        Serial.println(cmd);
+      }
+
+      if (cmd == "$+") {   
+        vol = vol-10;         
+      }
+
+      if (cmd == "$-") {
+        vol = vol+10;
+      }
+     SendOutput(cmd);
+    }
+
+    
+    if (cmd.startsWith("*")) 
+    {
+      if (debug){
+        Serial.println("######Comando Prefix * HOLO ######");
+        Serial.println(cmd);
+      }
+     SendOutput(cmd);
+    }
+
+   
+    NextCom(cmd);
+    cmd="";
+}
+
+/*//BODY Action with Prefix #
+ 
+DO ALL SE Marcduino Commands with : Prefix 
+
+
+Panels:
+#CL00
+#CL01 - 05
+
+#OP00
+#OP01 - 05
+
+Panels Flutter:
+
+#OF00
+#OF01 - 05
+
+ARMS :
+
+#OPUA   //Upper Arm
+#OPLA   //Lower Arm
+
+#CLUA   //Upper Arm
+#CLLA   //Lower Arm
+
+#LGA   //Lift Gripper Arm
+#DGA   //Down Gripper Arm
+
+#CC    //lose Claw
+#OC    //open Claw
+
+#CPUL  //CPU Arm Lift
+#CPUD  //CPU Arm Down
+
+#CPU1  //CPU Arm On
+#CPU0  //CPU Arm Off
+
+
+DRAWER:
+
+#OPD0  //ALL Drawer open
+#OPD1 - #OPD4
+
+#CLD0  //All Drawer close
+#CLD1  - #CLD4
+
+GADGETS:
+
+---Fire---
+#F0    //Fire Stop  TEST
+#FOUT  //Move Out   TEST
+#FIN   //Move In    TEST
+
+---Spray---
+
+#SP1   //Spray On
+#SP0   //Spray Off
+
+----ANIMATION----
+
+#GAON   //Open Door lift Arm and move Gripp
+:SE00   //reset that move
+
+#FION   // Open Door Move Fire out
+#FIOFF  // Move Fire In and close Door
+//Check position Input for Status//
+
+#SPRAY  // Move Spary ON and Off
+
+#SAON   // Open Door Move Arm and play On/off with Motor
+
+*/
