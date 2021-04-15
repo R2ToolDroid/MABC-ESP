@@ -6,7 +6,6 @@ void onConnect(){
     Serial.println("Connected.");
 }
 
-
 void resetSequence(){
   
   //servoSequencer.play(SeqBodyPanelAllSoftClose, SizeOfArray(SeqBodyPanelAllSoftClose), (GROUP_DOORS));
@@ -153,8 +152,13 @@ void NextUpdate(int TT) {
   Serial1.print("bt0.pic=1");
   NextEnd();
 
+  if (StickConnect){
   Serial1.print("r3.val=1");
   NextEnd();
+  } else {
+   Serial1.print("r3.val=0");
+  NextEnd(); 
+  }
 
   Serial1.print("r1.val=1");
   NextEnd();
@@ -167,4 +171,13 @@ if (TT > 100) {TT = 0;}
   NextEnd();
   } /// END Update Intervall
   
+}
+
+void printOutput()
+{
+    if (output != "")
+    {
+        if (Serial) Serial.println(output);
+        output = ""; // Reset output string
+    }
 }

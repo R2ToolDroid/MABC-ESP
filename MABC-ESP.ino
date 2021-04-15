@@ -24,14 +24,15 @@ Servo GrippLift;
 #include "functions.h"
 #include "command.h"
 #include "stick.h"
-#include "IRinput.h"
+//#include "IRinput.h"
 
 void setup(void) {
 
   Ps3.attach(notify);
   Ps3.attachOnConnect(onConnect);
     //Ps3.begin("01:02:03:04:05:06");
-  Ps3.begin("01:1a:7d:da:71:12");
+  Ps3.begin("01:1a:7d:da:71:12"); ///#645
+  
 
   pinMode(FUEL_CELL_A, INPUT_PULLUP);
   pinMode(FUEL_CELL_B, INPUT_PULLUP);
@@ -70,6 +71,16 @@ void setup(void) {
   GrippRoll.attach(GRIP_ROLL);
   GrippLift.attach(GRIP_LIFT);
 
+  pinMode(GRIP_MOTA1, OUTPUT);
+  pinMode(GRIP_MOTA2, OUTPUT);
+
+  pinMode(GRIP_MOTB1, OUTPUT);
+  pinMode(GRIP_MOTB2, OUTPUT);
+  
+  digitalWrite(GRIP_MOTA1, LOW); //L298 0 0 is Stop
+  digitalWrite(GRIP_MOTA2, LOW); //L298 0 0 is Stop
+  digitalWrite(GRIP_MOTB1, LOW); //L298 0 0 is Stop
+  digitalWrite(GRIP_MOTB2, LOW); //L298 0 0 is Stop
 
   Serial.println("R2...Ready");
   
@@ -149,27 +160,31 @@ void readWifi(){
 
 void loop() {
   
-  CheckIR(5000);
+  //CheckIR(5000);
+  
   if(Ps3.isConnected()){
 
+    StickConnect = 1;
     
-    
+  } else {
+    StickConnect = 0;
   }
-       
+      
   
  
  // displayFuel();
 
-  if (PAGE == 0) {NextUpdate(40);
-   
+  if (PAGE == 0) {
+    NextUpdate(40);
     }
-  if (PAGE == 2) { //Rsetup(40);
+  if (PAGE == 2) { 
+    //Rsetup(40);}
   }
 
   readNextion();
-  readWifi();
+  //readWifi();
   readCom(); 
-   
+  printOutput(); 
  
   
 }

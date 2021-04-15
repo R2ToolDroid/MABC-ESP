@@ -2,19 +2,150 @@
 
 void notify()
 {
-    /* Stick Command */
+    /* Stick Command */   
+    //SHIFT
+    if( Ps3.event.button_down.circle && (SHIFT == 0))  {SHIFT = SH_CIRCLE;}
+    if( Ps3.event.button_down.cross && (SHIFT == 0))  {SHIFT = SH_CROSS;}
+    if( Ps3.event.button_down.ps && (SHIFT == 0))  {SHIFT = SH_PLUS;}
+    if( Ps3.event.button_down.l1 && (SHIFT == 0))  {SHIFT = SH_L1;}
+    if( Ps3.event.button_down.l2 && (SHIFT == 0))  {SHIFT = SH_L2;}
+  
     
-    if( Ps3.data.button.l2 && Ps3.event.button_down.l3 )
+    ///No Shift
+    if (mode != 3){
+    if( Ps3.event.button_down.down && (SHIFT == 0))  {output += "Quite Mode"; parseCommand(":SE10");}
+    if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE14");}
+    if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");}    
+    if( Ps3.event.button_down.right && (SHIFT == 0)) {output += "Full Awake + next Sound"; parseCommand(":SE14");}
+    } else {
+      /*****************##########           ARM Steering       ########### ********/
+      if( Ps3.event.button_down.up && (SHIFT == 0))    {
+           if(Apos <=180) { Apos = Apos+10;}
+            output += "Arm Hoch";
+            //output += Apos;
+            GrippLift.write(Apos);
+            } 
+      if( Ps3.event.button_up.up && (SHIFT == 0))    {output += "Arm Hoch stop";}   
+       
+      if( Ps3.event.button_down.down && (SHIFT == 0))  {
+            if (Apos >=0) {Apos = Apos-10;}
+            output += "Arm Down"; 
+            //output += Apos;
+            GrippLift.write(Apos);
+            }
+      if( Ps3.event.button_up.down && (SHIFT == 0))  {output += "Arm Down stop"; }
+      
+      if( Ps3.event.button_down.left && (SHIFT == 0))  {
+        output += "Arm Raus start";
+        digitalWrite(GRIP_MOTB1, LOW );
+          digitalWrite(GRIP_MOTB2, HIGH );     
+        }
+      if( Ps3.event.button_up.left && (SHIFT == 0))  {
+        output += "Arm Raus stop";
+          digitalWrite(GRIP_MOTB1,LOW);
+          digitalWrite(GRIP_MOTB2,LOW);  
+        }    
+      if( Ps3.event.button_down.right && (SHIFT == 0))  {
+          output += "Arm rein start";
+          digitalWrite( GRIP_MOTB1, HIGH ); // direction = forward
+        digitalWrite( GRIP_MOTB2, LOW ); // PWM speed = fast  
+                
+          }
+      if( Ps3.event.button_up.right && (SHIFT == 0))  {
+          output += "Arm rein stop";
+          digitalWrite(GRIP_MOTB1,LOW);
+          digitalWrite(GRIP_MOTB2,LOW); 
+          } 
+//// Grippter Mode 2 plus L2
+
+      if( Ps3.event.button_down.up && (SHIFT == SH_L2)){
+          output += "Grip Auf";
+          digitalWrite( GRIP_MOTA1, HIGH ); // direction = forward
+          digitalWrite( GRIP_MOTA2, LOW ); // PWM speed = fast
+          } 
+      if( Ps3.event.button_up.up && (SHIFT == SH_L2)){
+          output += "Grip Auf stop";
+          digitalWrite(GRIP_MOTA1,LOW);
+          digitalWrite(GRIP_MOTA2,LOW);           
+          } 
+      
+      if( Ps3.event.button_down.down && (SHIFT == SH_L2))  {
+          output += "Grip zu"; 
+          digitalWrite( GRIP_MOTA1, LOW );  
+          digitalWrite( GRIP_MOTA2, HIGH );
+          
+          }
+      if( Ps3.event.button_up.down && (SHIFT == SH_L2))  {
+          output += "Grip zu stop"; 
+          digitalWrite(GRIP_MOTA1,LOW);
+          digitalWrite(GRIP_MOTA2,LOW);       
+          }
+
+      if( Ps3.event.button_down.left && (SHIFT == SH_L2))  {
+          if (Gpos <= 180) {Gpos=Gpos+15;}
+            output += "Dreh links start";
+            //output += Gpos;
+            GrippRoll.write(Gpos); 
+            
+          }
+      if( Ps3.event.button_down.left && (SHIFT == SH_L1))  {output += "Dreh links max";GrippRoll.write(0);SHIFT = 0;}  
+          
+      if( Ps3.event.button_down.right && (SHIFT == SH_L2))  {  
+          if(Gpos >=0){Gpos=Gpos-15;}
+            output += "Dreh rechts start";
+            //output += Gpos;
+            GrippRoll.write(Gpos);
+            
+        }
+      if( Ps3.event.button_down.right && (SHIFT == SH_L1))  {output += "Dreh rechts max";GrippRoll.write(180);SHIFT = 0;} 
+      
+
+      
+      
+      /*
+    if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE14");}
+    if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");}    
+    if( Ps3.event.button_down.right && (SHIFT == 0)) {output += "Full Awake + next Sound"; parseCommand(":SE14");}
+    */
+    }
+
+    ///Circle shift --> ab hier noch die MD Codes einfügen
+    if( Ps3.event.button_down.down && (SHIFT == SH_CIRCLE))  {output += "Dicso Manama"; parseCommand(":SE10"); SHIFT = 0;}
+    if( Ps3.event.button_down.left && (SHIFT == SH_CIRCLE))  {output += "Fast Smirk"; parseCommand(":SE14");SHIFT = 0;}
+    if( Ps3.event.button_down.up && (SHIFT == SH_CIRCLE))    {output += "Scream"; parseCommand(":SE11"); SHIFT = 0;}   
+    if( Ps3.event.button_down.right && (SHIFT == SH_CIRCLE)) {output += "Short Circuit"; parseCommand(":SE14");SHIFT = 0;}   
+
+    //Cross Shift   
+    if( Ps3.event.button_down.down && (SHIFT == SH_CROSS))  {output += "Volume Up"; parseCommand(":SE10"); SHIFT = 0;}
+    if( Ps3.event.button_down.up && (SHIFT == SH_CROSS))    {output += "Volume Down"; parseCommand(":SE11"); SHIFT = 0;}  
+    if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {output += "Holos Off"; parseCommand(":SE14");SHIFT = 0;}
+    if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {output += "Holos On"; parseCommand(":SE14");SHIFT = 0;}
+  
+    //PS Shift
+    if( Ps3.event.button_down.cross && (SHIFT == SH_PLUS)) {output += "Stick Dissable";parseCommand("find");SHIFT = 0;}
+    if( Ps3.event.button_down.circle && (SHIFT == SH_PLUS)) {output += "Stick Enable";SHIFT = 0;}
+    
+
+    //L1 Shift
+    if( Ps3.event.button_down.down && (SHIFT == SH_L1))  {output += "Leia Message"; parseCommand(":SE10"); SHIFT = 0;}
+    if( Ps3.event.button_down.left && (SHIFT == SH_L1))  {output += "Wave"; parseCommand(":SE14");SHIFT = 0;}
+    if( Ps3.event.button_down.up && (SHIFT == SH_L1))    {output += "Cantina Dance"; parseCommand(":SE11"); SHIFT = 0;}  
+    if( Ps3.event.button_down.right && (SHIFT == SH_L1)) {output += "Wave 2"; parseCommand(":SE14");SHIFT = 0;}
+    
+    if( Ps3.event.button_down.l3 && (SHIFT == SH_L1)) {output += "Toggle Speed"; parseCommand(":SE14");SHIFT = 0;}
+
+    //L2 Shift
+     //// CHANGE MODE ///
+    if( Ps3.event.button_down.l3 && (SHIFT == SH_L2))
     {
       mode++;
       if (mode >= 4) mode=0;
-      Serial.print("Mode: ");
-      Serial.println (mode);  
-
+      Serial.print("Mode = ");
+      Serial.println(mode);
+       
       Serial2.print("mode");
       Serial2.print(mode);
       Serial2.print("\r");
-
       switch (mode){
       case 0:
       Serial2.print("$12\r");     ///DOME MD
@@ -30,235 +161,54 @@ void notify()
       break;      
       default:
       Serial2.print("$226\r");
-      break;
-      
-      }
-     
-    }
+      break;  
+      }    
+      SHIFT = 0;
+    } 
     
-    if( Ps3.event.button_down.up )
-    { 
-      Serial.println("Full Awake");   
-       parseCommand(":SE11");
-    }
-    
-    if( Ps3.event.button_down.down )
-    { 
-      Serial.println("Quite Mode");
-      parseCommand(":SE10");
-      
-    }
-    if( Ps3.event.button_down.right ){
-      Serial.println("Awake + next Sound");
-      parseCommand(":SE14");
-    }
-    
-    
-  
-    /*  ##############################################  */
-
-
-
-
-
-    
-    
-    if( Ps3.data.button.cross && Ps3.data.button.down )
-        Serial.println("Pressing both the down and cross buttons");
-    if( Ps3.data.button.square && Ps3.data.button.left )
-        Serial.println("Pressing both the square and left buttons");
-    if( Ps3.data.button.triangle && Ps3.data.button.up )
-        Serial.println("Pressing both the triangle and up buttons");
-    if( Ps3.data.button.circle && Ps3.data.button.right )
-        Serial.println("Pressing both the circle and right buttons");
-  
-    //--- Digital cross/square/triangle/circle button events ---
-    if( Ps3.event.button_down.cross ){ Serial.println("Started pressing the cross button"); }    
-    
-    
-    if( Ps3.event.button_up.cross )
-        Serial.println("Released the cross button");
-
-    if( Ps3.event.button_down.square )
-        Serial.println("Started pressing the square button");
-    if( Ps3.event.button_up.square )
-        Serial.println("Released the square button");
-
-    if( Ps3.event.button_down.triangle )
-        Serial.println("Started pressing the triangle button");
-    if( Ps3.event.button_up.triangle )
-        Serial.println("Released the triangle button");
-
-    if( Ps3.event.button_down.circle )
-        Serial.println("Started pressing the circle button");
-    if( Ps3.event.button_up.circle )
-        Serial.println("Released the circle button");
-
-    //--------------- Digital D-pad button events --------------
-    
-    
-    //if( Ps3.event.button_up.up )
-    //    Serial.println("Released the up button");
-
-    if( //Ps3.event.button_down.right )
-    //    Serial.println("Started pressing the right button");
-    //if( Ps3.event.button_up.right )
-    //    Serial.println("Released the right button");
-
-    //if( Ps3.event.button_down.down )
-    //    Serial.println("Started pressing the down button");
-    //if( Ps3.event.button_up.down )
-    //    Serial.println("Released the down button");
-
-    if( Ps3.event.button_down.left )
-        Serial.println("Started pressing the left button");
-    if( Ps3.event.button_up.left )
-        Serial.println("Released the left button");
-
-    //------------- Digital shoulder button events -------------
-    if( Ps3.event.button_down.l1 )
-        Serial.println("Started pressing the left shoulder button");
-    if( Ps3.event.button_up.l1 )
-        Serial.println("Released the left shoulder button");
-
-    if( Ps3.event.button_down.r1 )
-        Serial.println("Started pressing the right shoulder button");
-    if( Ps3.event.button_up.r1 )
-        Serial.println("Released the right shoulder button");
-
-    /*/-------------- Digital trigger button events -------------
-    if( Ps3.event.button_down.l2 )
-        Serial.println("Started pressing the left trigger button");
-    if( Ps3.event.button_up.l2 )
-        Serial.println("Released the left trigger button");
-
-    if( Ps3.event.button_down.r2 )
-        Serial.println("Started pressing the right trigger button");
-    if( Ps3.event.button_up.r2 )
-        Serial.println("Released the right trigger button");
-
-    //--------------- Digital stick button events --------------
-    */
-    if( Ps3.event.button_down.l3 )
-        Serial.println("Started pressing L3 button");
-    if( Ps3.event.button_up.l3 )
-        Serial.println("Released the L3 button");
-
-    if( Ps3.event.button_down.r3 )
-        Serial.println("Started pressing the right stick button");
-    if( Ps3.event.button_up.r3 )
-        Serial.println("Released the right stick button");
-
-    //---------- Digital select/start/ps button events ---------
-    if( Ps3.event.button_down.select )
-        Serial.println("Started pressing the select button");
-    if( Ps3.event.button_up.select )
-        Serial.println("Released the select button");
-
-    if( Ps3.event.button_down.start )
-        Serial.println("Started pressing the start button");
-    if( Ps3.event.button_up.start )
-        Serial.println("Released the start button");
-
-    if( Ps3.event.button_down.ps )
-        Serial.println("Started pressing the Playstation button");
-    if( Ps3.event.button_up.ps )
-        Serial.println("Released the Playstation button");
-
+    if( Ps3.event.button_up.ps ) SHIFT = 0;
+    if( Ps3.event.button_up.circle )SHIFT = 0;
+    if( Ps3.event.button_up.cross ) SHIFT = 0;
+    if( Ps3.event.button_up.l1 ) SHIFT = 0;
+    if( Ps3.event.button_up.l2 ) SHIFT = 0;
+    if( Ps3.event.button_up.l3 ) SHIFT = 0;
 
     //---------------- Analog stick value events ---------------
+    
    if( abs(Ps3.event.analog_changed.stick.lx) + abs(Ps3.event.analog_changed.stick.ly) > 2 ){
        //Serial.print("Moved the left stick:");
        //Serial.print(" x="); Serial.print(Ps3.data.analog.stick.lx, DEC);
         
-       pos1 = map(Ps3.data.analog.stick.lx, -128, 128, 0, 180);
-       pos2 = map(Ps3.data.analog.stick.ly, -128, 128, 0, 180);
+       posX = map(Ps3.data.analog.stick.lx, -128, 128, 0, 180);
+       posY = map(Ps3.data.analog.stick.ly, -128, 128, 0, 180); //Speed should be manipulated
 
+      if( Ps3.data.button.l2 ) {
+        Serial.print("Dome- ");
+        Serial.print(" posX="); Serial.println(posX);
+        DomeRot.write(posX);
+      } else {
      
         //if (mode = 1)
-       Serial.print(" pos1="); Serial.println(pos1);
-       DriveDir.write(pos1);
+       Serial.print(" posX="); Serial.println(posX);
+       DriveDir.write(posX);
 
-       Serial.print(" pos2="); Serial.println(pos2);
-       DriveSpeed.write(pos2);
+       Serial.print(" posY="); Serial.println(posY);
+       DriveSpeed.write(posY);
+
+       
        
        //Serial.print(" y="); Serial.print(Ps3.data.analog.stick.ly, DEC);
        //Serial.println();
+      }
+
+     Serial.print(" Shift: ");
+     Serial.println(SHIFT);
     }
-
+    /// Hier die ganze sache auf mitte ausrichten
+      //Serial.print(" pos1= res "); Serial.println("90");
+       //DriveDir.write(pos1);
     
-    
-
-   if( abs(Ps3.event.analog_changed.stick.rx) + abs(Ps3.event.analog_changed.stick.ry) > 2 ){
-       Serial.print("Moved the right stick:");
-       Serial.print(" x="); Serial.print(Ps3.data.analog.stick.rx, DEC);
-       Serial.print(" y="); Serial.print(Ps3.data.analog.stick.ry, DEC);
-       Serial.println();
-   }
-
-   //--------------- Analog D-pad button events ----------------
-   //if( abs(Ps3.event.analog_changed.button.up) ){
-   //    Serial.print("Pressing the up button: ");
-   //    Serial.println(Ps3.data.analog.button.up, DEC);
-   //}
-    /*
-   if( abs(Ps3.event.analog_changed.button.right) ){
-       Serial.print("Pressing the right button: ");
-       Serial.println(Ps3.data.analog.button.right, DEC);
-   }
-
-   if( abs(Ps3.event.analog_changed.button.down) ){
-       Serial.print("Pressing the down button: ");
-       Serial.println(Ps3.data.analog.button.down, DEC);
-   }
-
-   if( abs(Ps3.event.analog_changed.button.left) ){
-       Serial.print("Pressing the left button: ");
-       Serial.println(Ps3.data.analog.button.left, DEC);
-   }
-   */
-   //---------- Analog shoulder/trigger button events ----------
-   if( abs(Ps3.event.analog_changed.button.l1)){
-       Serial.print("Pressing the L1 button: ");
-       Serial.println(Ps3.data.analog.button.l1, DEC);
-   }
-
-   if( abs(Ps3.event.analog_changed.button.r1) ){
-       Serial.print("Pressing the right shoulder button: ");
-       Serial.println(Ps3.data.analog.button.r1, DEC);
-   }
-  /*
-   if( abs(Ps3.event.analog_changed.button.l2) ){
-       Serial.print("Pressing the  L2 button: ");
-       Serial.println(Ps3.data.analog.button.l2, DEC);
-   }
-
-   if( abs(Ps3.event.analog_changed.button.r2) ){
-       Serial.print("Pressing the right trigger button: ");
-       Serial.println(Ps3.data.analog.button.r2, DEC);
-   }
-  */
-   //---- Analog cross/square/triangle/circle button events ----
-   if( abs(Ps3.event.analog_changed.button.triangle)){
-       Serial.print("Pressing the triangle button: ");
-       Serial.println(Ps3.data.analog.button.triangle, DEC);
-   }
-
-   if( abs(Ps3.event.analog_changed.button.circle) ){
-       Serial.print("Pressing the circle button: ");
-       Serial.println(Ps3.data.analog.button.circle, DEC);
-   }
-
-   if( abs(Ps3.event.analog_changed.button.cross) ){
-       Serial.print("Pressing the cross button: ");
-       Serial.println(Ps3.data.analog.button.cross, DEC);
-   }
-
-   if( abs(Ps3.event.analog_changed.button.square) ){
-       Serial.print("Pressing the square button: ");
-       Serial.println(Ps3.data.analog.button.square, DEC);
-   }
-
+  
    //---------------------- Battery events ---------------------
     if( battery != Ps3.data.status.battery ){
         battery = Ps3.data.status.battery;
@@ -272,4 +222,5 @@ void notify()
         else Serial.println("UNDEFINED");
     }
 
+    
 }

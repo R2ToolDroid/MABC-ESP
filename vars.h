@@ -10,6 +10,7 @@ unsigned long previousMillis1 = 0;
 byte State;
 int wait = 0;
 int battery = 0;
+byte StickConnect = 0;
 
 // constants won't change :
 const long interval = 5000;           // interval at which to blink (milliseconds)
@@ -18,16 +19,17 @@ const long interval1 = 5000;           // interval at which to blink (millisecon
 int durch = 1;
 
 String cmd; //Consolen Input
-byte debug; //Debug function
+byte debug = 0; //Debug function
+String output;
 String data; //Serial Data
 String inm = "COIN"; //Inputmode String
 String calldata; //String Datarequest
 String calldatabuff;
 
-int mode = 0; // Default Mode  0 = Random
+int mode = 3; // Default Mode  0 = Random
               // RC Mode       1 = RC Control
               // RC Show       2 = Human
-              // RC Show       3 = Service
+              // RC Show       3 = Service Arm Control
 
 int INmode = 0; /// 0 == Input auf Coin und Nextion
                 /// 1 == Input auf  Stick and Nextion
@@ -65,19 +67,44 @@ const int NGREEN = 1120;
 #define FUEL_CELL_B 26 //A0
 #define IR_SENSOR 27 //A3
 
+//Claw
 #define GRIP_MOTA1 32
 #define GRIP_MOTA2 33
 
+//Arm:
 #define GRIP_MOTB1 2 
 #define GRIP_MOTB2 4
 
-#define GRIP_LIFT 15
-#define GRIP_ROLL 5
+#define GRIP_LIFT 5
+#define GRIP_ROLL 15
 
-int pos1 = 90;
-int pos2 = 90;
-int pos3 = 90;
-int pos4 = 90;
+//Define Arm Move
+#define ARM_IN_OUT  1
+#define ARM_UP_DOWN 2
+#define ARM_ROLL    3
+#define ARM_GRIPP   4
+
+#define STOP      1
+#define R_LEFT    2
+#define R_RIGHT   3
+
+
+//SHIFT STICK
+
+#define SH_CROSS 1
+#define SH_CIRCLE 2
+#define SH_L1 3
+#define SH_L2 4
+#define SH_L3 5
+#define SH_PLUS 6
+
+int SHIFT = 0;
+
+int posX = 90;
+int posY = 90;
+
+int Gpos = 90; //Gripper Roll Pos
+int Apos = 90; //Arm Lift Pos
 
 int IRSensor;
 
