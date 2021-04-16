@@ -11,6 +11,7 @@ byte State;
 int wait = 0;
 int battery = 0;
 byte StickConnect = 0;
+byte OverSpeed = 1; //1 High  0 Low
 
 // constants won't change :
 const long interval = 5000;           // interval at which to blink (milliseconds)
@@ -102,6 +103,7 @@ int SHIFT = 0;
 
 int posX = 90;
 int posY = 90;
+int posTemp;
 
 int Gpos = 90; //Gripper Roll Pos
 int Apos = 90; //Arm Lift Pos

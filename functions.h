@@ -6,6 +6,15 @@ void onConnect(){
     Serial.println("Connected.");
 }
 
+void ToggleSpeed(){
+
+   if (OverSpeed == 0){
+    OverSpeed = 1;
+   } else {
+    OverSpeed = 0;
+   }
+}
+
 void resetSequence(){
   
   //servoSequencer.play(SeqBodyPanelAllSoftClose, SizeOfArray(SeqBodyPanelAllSoftClose), (GROUP_DOORS));

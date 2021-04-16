@@ -33,11 +33,12 @@ void parseCommand(String cmd) {
   Serial.println("...fuer DebugMode debug eingeben...");
   Serial.println("...ende DebugMode debug off eingeben...");
   Serial.println("...SERIAL is DEBUG 115200 - 9600 BAUD !!");
-  Serial.println("...MODE = ");
+  Serial.print("...MODE = ");
   Serial.println(mode);
-  Serial.println("...PAGE = ");
+  Serial.print("...PAGE = ");
   Serial.println(PAGE);
-  
+  Serial.print("...Stick Enable = ");
+  Serial.println(StickConnect);
     }
 
     if (cmd == "debug off") {
@@ -49,18 +50,18 @@ void parseCommand(String cmd) {
     }
 #include "NEXT_COM.h" 
 #include "COIN_COM.h"    
-/*
-#include "SHDW_COM.h"
 
-#include "NEXT_COM.h" 
-
-#include "COIN_COM.h" 
-*/
       if (cmd == "find") {
       Serial2.print("find\r");
       Serial.print("disconnect...");
        Ps3.end();
       }
+    if (cmd == "DISDR") {
+      Serial.print("disconnect...");
+       Ps3.end();
+      }
+      
+      
   
     if (cmd == "center") {
     Serial2.print("center");           // hier geht es weiter zum Dome Controller
