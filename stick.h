@@ -120,10 +120,17 @@ void notify()
     if( Ps3.event.button_down.up && (SHIFT == SH_CROSS))    {output += "Volume Up"; parseCommand("$+"); SHIFT = 0;}  
     if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {output += "Holos Off"; parseCommand("*ST00");SHIFT = 0;}
     if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {output += "Holos On"; parseCommand("*RD00");SHIFT = 0;}
+
   
     //PS Shift
     if( Ps3.event.button_down.cross && (SHIFT == SH_PLUS)) {output += "Stick Dissable";parseCommand("DISDR");StickConnect=0;SHIFT = 0;}
     if( Ps3.event.button_down.circle && (SHIFT == SH_PLUS)) {output += "Reset MABC";parseCommand("reset");SHIFT = 0;}
+
+    if( Ps3.event.button_down.down && (SHIFT == SH_PLUS))  {output += "PS Down"; parseCommand("$-"); SHIFT = 0;}
+    if( Ps3.event.button_down.up && (SHIFT == SH_PLUS))    {output += "PS Up"; parseCommand("$+"); SHIFT = 0;}  
+    if( Ps3.event.button_down.right && (SHIFT == SH_PLUS)) {output += "PS Right"; parseCommand("*ST00");SHIFT = 0;}
+    if( Ps3.event.button_down.left && (SHIFT == SH_PLUS))  {output += "PS Left"; parseCommand("*RD00");SHIFT = 0;}
+
     
 
     //L1 Shift
@@ -182,11 +189,14 @@ void notify()
         
        posX = map(Ps3.data.analog.stick.lx, -128, 128, 0, 180);
        if (OverSpeed == 1){
-       posY = map(Ps3.data.analog.stick.ly, -128, 128, 0, 180); //Speed should be manipulated
+       posY = map(Ps3.data.analog.stick.ly, -128, 128, 30, 150); //Speed should be manipulated
        } else {
-        posY = map(Ps3.data.analog.stick.ly, -128, 128, 80, 100); //Speed should be manipulated
+        posY = map(Ps3.data.analog.stick.ly, -128, 128, 70, 110); //Speed should be manipulated
        }
-       posTemp = posY;
+
+       if ((posY >= 85) && (posY <=  95)) { posY = 90;} ///Death Zone Range
+       
+      
 
       if( Ps3.data.button.l2 ) {
         
@@ -195,21 +205,21 @@ void notify()
       } else {
      
         //if (mode = 1)
-       Serial.print(" posX="); Serial.println(posX);
+       //Serial.print(" posX="); Serial.println(posX);
        DriveDir.write(posX);
 
-       Serial.print(" posY="); Serial.println(posY);
-       DriveSpeed.write(posY);
+       
 
       }
 
-     Serial.print(" Shift: ");
+      Serial.print(" posY="); Serial.println(posY);
+       DriveSpeed.write(posY);
+
+     Serial.print("SHIFT: ");
      Serial.println(SHIFT);
     } 
     
-    /// Hier die ganze sache auf mitte ausrichten
-      //Serial.print(" pos1= res "); Serial.println("90");
-       //DriveDir.write(pos1);
+    
     
   
    //---------------------- Battery events ---------------------

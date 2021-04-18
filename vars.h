@@ -11,7 +11,7 @@ byte State;
 int wait = 0;
 int battery = 0;
 byte StickConnect = 0;
-byte OverSpeed = 1; //1 High  0 Low
+byte OverSpeed = 0; //1 High  0 Low
 
 // constants won't change :
 const long interval = 5000;           // interval at which to blink (milliseconds)

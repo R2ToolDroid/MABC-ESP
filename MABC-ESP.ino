@@ -71,6 +71,10 @@ void setup(void) {
   GrippRoll.attach(GRIP_ROLL);
   GrippLift.attach(GRIP_LIFT);
 
+  DomeRot.write(90);
+  DriveSpeed.write(90);
+  DriveDir.write(90);
+
   pinMode(GRIP_MOTA1, OUTPUT);
   pinMode(GRIP_MOTA2, OUTPUT);
 
