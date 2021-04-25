@@ -62,11 +62,13 @@ const int NGREEN = 1120;
 // SERIAL PINS : //
 // Serial     UoTX  UoRX
 // Serial1    19 TX  18 RX
-// Serial2    23 TX  22 RX
+// Serial2    23 TX  22 RX_Test Board   27_PCB!!
+
+//I2C   21 SDA     22 SDC for PCB Board
 
 #define FUEL_CELL_A 25 // A1
 #define FUEL_CELL_B 26 //A0
-#define IR_SENSOR 27 //A3
+#define IR_SENSOR 34 //A3 vorher 27
 
 //Claw
 #define GRIP_MOTA1 32
@@ -78,6 +80,8 @@ const int NGREEN = 1120;
 
 #define GRIP_LIFT 5
 #define GRIP_ROLL 15
+
+
 
 //Define Arm Move
 #define ARM_IN_OUT  1

@@ -4,8 +4,8 @@ void CheckIR(int pause){
 
   IRSensor = analogRead(IR_SENSOR);
   
- // Serial.print("IR = ");
- // Serial.println(IRSensor);
+  Serial.print("IR = ");
+  Serial.println(IRSensor);
   //ActionDelay(6000);
   //F_TRIG = false;
   unsigned long currentMillis1 = millis();
