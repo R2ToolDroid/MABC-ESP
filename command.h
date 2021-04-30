@@ -39,6 +39,17 @@ void parseCommand(String cmd) {
   Serial.println(PAGE);
   Serial.print("...Stick Enable = ");
   Serial.println(StickConnect);
+  Serial.print("####Fuel Data A% = ");
+  Serial.print(FuelA_P);
+  Serial.print(" Fuel A: ");
+  Serial.print(FuelA);
+  Serial.print("####Fuel Data B% = ");
+  Serial.print(FuelB_P);
+  Serial.print(" Fuel B: ");
+  Serial.println(FuelB);
+  Serial.print("- Akku Status Stick : ");
+  Serial.println(STICK_AKKU_STAT);
+  
     }
 
     if (cmd == "debug off") {
@@ -53,12 +64,13 @@ void parseCommand(String cmd) {
 
       if (cmd == "find") {
       Serial2.print("find\r");
-      Serial.print("disconnect...");
-       Ps3.end();
+      
       }
     if (cmd == "DISDR") {
-      Serial.print("disconnect...");
+      Serial.print("disconnect...");    
        Ps3.end();
+       StickConnect = 0;
+       STICK_AKKU_STAT = 6;
       }
       
       
@@ -67,6 +79,23 @@ void parseCommand(String cmd) {
     Serial2.print("center");           // hier geht es weiter zum Dome Controller
     Serial2.print('\r');
     }
+
+    if (cmd == "C") {
+    Serial2.print("C");           // Body Center
+    Serial2.print('\r');
+    }
+
+    if (cmd == "T") {
+    Serial2.print("T");           // Body Center
+    Serial2.print('\r');
+    }
+
+    if (cmd == "D") {
+    Serial2.print("D");           // Body Center
+    Serial2.print('\r');
+    }
+    
+    
     
     if (cmd == "reset") {
     if (debug){
@@ -81,6 +110,8 @@ void parseCommand(String cmd) {
       SendOutput(":SE10");
  
     }
+
+    
 
     if (cmd == "mode1") {
     if (debug){

@@ -93,7 +93,7 @@ void setup(void) {
   Serial1.print("page start");
   NextEnd();
   Serial1.print("t0.txt=\"");
-  Serial1.print("...Connected");
+  Serial1.print("...START !");
   Serial1.print(" _\"");
   NextEnd();  
 
@@ -167,11 +167,11 @@ void loop() {
   //CheckIR(5000);
   
   if(Ps3.isConnected()){
-
     StickConnect = 1;
     
   } else {
     StickConnect = 0;
+    
   }
       
   

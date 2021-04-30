@@ -3,7 +3,8 @@
 
 
 void onConnect(){
-    Serial.println("Connected.");
+    Serial.println("Stick Connected.");
+    
 }
 
 void ToggleSpeed(){
@@ -91,68 +92,103 @@ void NextUpdate(int TT) {
   
   //Serial.println(readFuel(FUEL_CELL_A));
   //Serial.println(ReadFuel(FUEL_CELL_B));
-  int FuelA = readFuel(FUEL_CELL_A);
-  int FuelB = readFuel(FUEL_CELL_B);
+    
+  //FuelA = readFuel(FUEL_CELL_A);
+   
+  //FuelB = readFuel(FUEL_CELL_B);
 
   //Serial1.print("n1.val=");
   //Serial.print(FuelA);
   //NextEnd();
 
-  int FuelA_P =  map(FuelA, 16, 19, 0, 100); ///Map for 100%
+  //int FuelA_P =  map(FuelA, 16, 19, 0, 100); ///Map for 100%
+
+  // FOR STICK BATTERY STATUS
+
   
-  Serial1.print("j1.pco=");
-  Serial1.print("65504"); ///yellow
-  NextEnd(); 
-  
-  if (FuelA <= 16){
-    FuelA_P = 5;
+
+  switch (STICK_AKKU_STAT){
+      case CHARGING:
+      FuelA_P = 100;
+      break;
+      case FULL:
+      FuelA_P = 90;
+      break;
+      case HIGHT:
+      FuelA_P = 80;
+      break;
+      case LOWR:
+      FuelA_P = 70;
+      break;
+      case DYING:
+      FuelA_P = 40;
+      break;
+      case SHUTDOWN:
+      FuelA_P = 30;
+      break;
+
+      case NOT_CONNECT:
+      FuelA_P = 0;
+      break;
+
+      default:
+      FuelA_P = 0;
+      break;
+    
+  }
+   
+   
+  if (FuelA_P < 30){
     Serial1.print("j1.pco=");
     Serial1.print("63488"); ///RED
     NextEnd(); 
-    
-    }
-    
-  if (FuelA_P >= 80) {
-  Serial1.print("j1.pco=");
-  Serial1.print("1120"); ///GREEN
-  NextEnd(); 
-  }
-  
-
-  
-  
+    } else if ( (FuelA_P > 30)&&(FuelA_P < 70) ) {
+     Serial1.print("j1.pco=");
+     Serial1.print("65504"); ///yellow
+     NextEnd(); 
+   } else if (FuelA_P > 70) {
+     Serial1.print("j1.pco=");
+     Serial1.print("1120"); ///GREEN
+     NextEnd(); 
+   }   
   Serial1.print("j1.val=");
   Serial1.print(FuelA_P);
   NextEnd();
+
+  Serial1.print("n1.val=");
+  Serial1.print(FuelA);
+  NextEnd();
+
+/// END FUEL A
+
+
+
+  if ( (FuelB >= 14)&&(FuelB <= 20)){
+  FuelB_P =  map(FuelB, 14, 19, 0, 100); ///Map for 100%
+  }
+
   
+  if (FuelB_P < 30){
+    
+    Serial1.print("j0.pco=");
+    Serial1.print("63488"); ///RED
+    NextEnd(); 
+    } else if ((FuelB_P > 30)&&(FuelB_P < 70)) {
+     Serial1.print("j0.pco=");
+     Serial1.print("65504"); ///yellow
+     NextEnd(); 
+    } else if (FuelB_P > 70) {
+      Serial1.print("j0.pco=");
+      Serial1.print("1120"); ///GREEN
+      NextEnd(); 
+    } 
+
+  Serial1.print("j0.val=");
+  Serial1.print(FuelB_P);
+  NextEnd();
 
   Serial1.print("n0.val=");
   Serial1.print(FuelB);
-  NextEnd();
-
-  int FuelB_P =  map(FuelB, 16, 19, 0, 100); ///Map for 100%
-
-  Serial1.print("j0.pco=");
-  Serial1.print("65504"); ///yellow
-  NextEnd(); 
-  
-  if (FuelB <= 16){
-    FuelB_P = 5;
-    //Serial1.print("j0.pco=");
-    //Serial1.print("63488"); ///RED
-    //NextEnd(); 
-    }
-
-  if (FuelB_P > 80) {
-   Serial1.print("j0.pco=");
-   Serial1.print("1120"); ///GREEN
-   NextEnd(); 
-  } 
-  
-
-  
-  Serial1.print("j0.val=");
-  Serial1.print(FuelB_P);
   NextEnd();
 
 

@@ -20,14 +20,14 @@ const long interval1 = 5000;           // interval at which to blink (millisecon
 int durch = 1;
 
 String cmd; //Consolen Input
-byte debug = 0; //Debug function
+byte debug = 1; //Debug function
 String output;
 String data; //Serial Data
 String inm = "COIN"; //Inputmode String
 String calldata; //String Datarequest
 String calldatabuff;
 
-int mode = 3; // Default Mode  0 = Random
+int mode = 0; // Default Mode  0 = Random
               // RC Mode       1 = RC Control
               // RC Show       2 = Human
               // RC Show       3 = Service Arm Control
@@ -37,7 +37,20 @@ int INmode = 0; /// 0 == Input auf Coin und Nextion
 
 float PowerA = 0;
 float PowerB = 0;              
+int STICK_AKKU_STAT = 6; //Akkustatus Stick
 
+int FuelA = 0;
+int FuelB = 0;
+int FuelA_P = 0;
+int FuelB_P = 0;
+
+#define CHARGING 0
+#define FULL 1
+#define HIGHT 2
+#define LOWR 3
+#define DYING 4
+#define SHUTDOWN 5
+#define NOT_CONNECT 6
 
 //////TELEMETRIE
 

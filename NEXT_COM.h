@@ -69,7 +69,7 @@
           calldatabuff = " 1-REMOTE ";
           break;
           case 2:
-          calldatabuff = " 2-HUMAM  ";
+          calldatabuff = " 2-HUMAN  ";
            break; 
           case 3:
           calldatabuff = " 3-SERVICE";

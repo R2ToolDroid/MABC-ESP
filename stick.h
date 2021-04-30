@@ -126,9 +126,9 @@ void notify()
     if( Ps3.event.button_down.cross && (SHIFT == SH_PLUS)) {output += "Stick Dissable";parseCommand("DISDR");StickConnect=0;SHIFT = 0;}
     if( Ps3.event.button_down.circle && (SHIFT == SH_PLUS)) {output += "Reset MABC";parseCommand("reset");SHIFT = 0;}
 
-    if( Ps3.event.button_down.down && (SHIFT == SH_PLUS))  {output += "PS Down"; parseCommand("$-"); SHIFT = 0;}
-    if( Ps3.event.button_down.up && (SHIFT == SH_PLUS))    {output += "PS Up"; parseCommand("$+"); SHIFT = 0;}  
-    if( Ps3.event.button_down.right && (SHIFT == SH_PLUS)) {output += "PS Right"; parseCommand("*ST00");SHIFT = 0;}
+    if( Ps3.event.button_down.down && (SHIFT == SH_PLUS))  {output += "PS Down"; parseCommand("D"); SHIFT = 0;}
+    if( Ps3.event.button_down.up && (SHIFT == SH_PLUS))    {output += "PS Up"; parseCommand("T"); SHIFT = 0;}  
+    if( Ps3.event.button_down.right && (SHIFT == SH_PLUS)) {output += "PS Right"; parseCommand("C");SHIFT = 0;}
     if( Ps3.event.button_down.left && (SHIFT == SH_PLUS))  {output += "PS Left"; parseCommand("*RD00");SHIFT = 0;}
 
     
@@ -214,7 +214,7 @@ void notify()
 
       Serial.print(" posY="); Serial.println(posY);
        DriveSpeed.write(posY);
-
+ 
      Serial.print("SHIFT: ");
      Serial.println(SHIFT);
     } 
@@ -226,13 +226,42 @@ void notify()
     if( battery != Ps3.data.status.battery ){
         battery = Ps3.data.status.battery;
         Serial.print("The controller battery is ");
-        if( battery == ps3_status_battery_charging )      Serial.println("charging");
-        else if( battery == ps3_status_battery_full )     Serial.println("FULL");
-        else if( battery == ps3_status_battery_high )     Serial.println("HIGH");
-        else if( battery == ps3_status_battery_low)       Serial.println("LOW");
-        else if( battery == ps3_status_battery_dying )    Serial.println("DYING");
-        else if( battery == ps3_status_battery_shutdown ) Serial.println("SHUTDOWN");
+        if( battery == ps3_status_battery_charging )      STICK_AKKU_STAT = CHARGING;
+        else if( battery == ps3_status_battery_full )     STICK_AKKU_STAT = FULL;
+        else if( battery == ps3_status_battery_high )     STICK_AKKU_STAT = HIGHT;
+        else if( battery == ps3_status_battery_low)       STICK_AKKU_STAT = LOWR;
+        else if( battery == ps3_status_battery_dying )    STICK_AKKU_STAT = DYING;
+        else if( battery == ps3_status_battery_shutdown ) STICK_AKKU_STAT = SHUTDOWN;
         else Serial.println("UNDEFINED");
+
+        switch (STICK_AKKU_STAT){
+          case CHARGING:
+          Serial.println("CHARGING");
+          break;
+          case FULL:
+          Serial.println("FULL");
+          break;
+          case HIGHT:
+          Serial.println("HIGHT");
+          break;
+          case LOWR:
+          Serial.println("LOWR");
+          break;
+          case DYING:
+          Serial.println("DYING");
+          break;
+          case SHUTDOWN:
+          Serial.println("SHUTDOWN");
+          break;
+
+          default:
+
+          break;
+
+
+          
+        }
+
     }
 
     
