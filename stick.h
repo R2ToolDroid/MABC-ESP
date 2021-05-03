@@ -124,7 +124,7 @@ void notify()
   
     //PS Shift
     if( Ps3.event.button_down.cross && (SHIFT == SH_PLUS)) {output += "Stick Dissable";parseCommand("DISDR");StickConnect=0;SHIFT = 0;}
-    if( Ps3.event.button_down.circle && (SHIFT == SH_PLUS)) {output += "Reset MABC";parseCommand("reset");SHIFT = 0;}
+    if( Ps3.event.button_down.circle && (SHIFT == SH_PLUS)) {output += "Reset MABC";parseCommand("hreset");SHIFT = 0;}
 
     if( Ps3.event.button_down.down && (SHIFT == SH_PLUS))  {output += "PS Down"; parseCommand("D"); SHIFT = 0;}
     if( Ps3.event.button_down.up && (SHIFT == SH_PLUS))    {output += "PS Up"; parseCommand("T"); SHIFT = 0;}  
@@ -139,7 +139,13 @@ void notify()
     if( Ps3.event.button_down.up && (SHIFT == SH_L1))    {output += "Cantina Dance"; parseCommand(":SE07"); SHIFT = 0;}  
     if( Ps3.event.button_down.right && (SHIFT == SH_L1)) {output += "Wave 2"; parseCommand(":SE04");SHIFT = 0;}
     
-    if( Ps3.event.button_down.l3 && (SHIFT == SH_L1)) {output += "Toggle Speed"; ToggleSpeed(); Serial.println(OverSpeed);SHIFT = 0;}
+    if( Ps3.event.button_down.l3 && (SHIFT == SH_L1)) {
+      output += "Toggle Speed"; 
+      ToggleSpeed(); 
+      Serial.println(OverSpeed);
+      SHIFT = 0;
+      
+      }
 
     //L2 Shift
      //// CHANGE MODE ///
@@ -171,7 +177,9 @@ void notify()
       break;  
       }    
       SHIFT = 0;
-      parseCommand("CALL");
+     // parseCommand("CALL");
+     ShwMode();
+      
     } 
     
     if( Ps3.event.button_up.ps ) SHIFT = 0;

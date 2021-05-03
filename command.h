@@ -102,7 +102,7 @@ void parseCommand(String cmd) {
         Serial.println("######Comando reset ######");
         Serial.println(cmd);
       }
-     ESP.restart();
+     //ESP.restart();
      mode = 3; ///Service
       
       Serial2.print("mode3\r");           // hier geht es weiter zum  SHD_PULSE
@@ -110,6 +110,21 @@ void parseCommand(String cmd) {
       SendOutput(":SE10");
  
     }
+
+    if (cmd == "hreset") {
+    if (debug){
+        Serial.println("######Comando reset ######");
+        Serial.println(cmd);
+      }
+     //ESP.restart();
+     mode = 0; ///Service
+      
+      Serial2.print("mode0\r");           // hier geht es weiter zum  SHD_PULSE
+      delay(100);
+      SendOutput(":SE10");
+      ESP.restart();
+    }  
+    
 
     
 
@@ -120,7 +135,7 @@ void parseCommand(String cmd) {
        }
       Serial2.print("mode1\r");       
       mode=1;
-      
+      ShwMode();
     }
   
     if (cmd == "mode2") {
@@ -130,6 +145,7 @@ void parseCommand(String cmd) {
        }
       Serial2.print("mode2\r");       
       mode=2;
+      ShwMode();
     }
   
     if (cmd == "mode3") {
@@ -139,6 +155,7 @@ void parseCommand(String cmd) {
        }
       Serial2.print("mode3\r");
       mode=3;
+      ShwMode();
     }
   
     if (cmd == "mode0") {
@@ -148,6 +165,7 @@ void parseCommand(String cmd) {
        }
       Serial2.print("mode0\r");
       mode=0;
+      ShwMode();
     }
 
     ///VOICE COMMANDS///

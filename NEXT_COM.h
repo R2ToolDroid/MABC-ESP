@@ -11,6 +11,7 @@
       if (cmd == "start") {
         Serial.println("start erkannt"); 
         PAGE = 0;
+        ShwMode();
         }
       if (cmd == "setup") {
       Serial.println("setup erkannt"); 
@@ -59,33 +60,6 @@
       if (cmd == "CALL") {
       Serial.print("CALL erkannt"); 
       //COR = float(NewCor)/100;
-
-      
-      switch (mode){
-          case 0:
-          calldatabuff = " 0-RANDOM ";
-          break;
-          case 1:
-          calldatabuff = " 1-REMOTE ";
-          break;
-          case 2:
-          calldatabuff = " 2-HUMAN  ";
-           break; 
-          case 3:
-          calldatabuff = " 3-SERVICE";
-          break;
-    
-          default:
-          calldatabuff = " - No ";
-          break;
-       }
-
-      
-      delay (500);   
-      NextCom(calldatabuff);
-
-      
-      return;
       
       } /// End of Call
       

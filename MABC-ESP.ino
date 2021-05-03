@@ -92,10 +92,13 @@ void setup(void) {
   ///Nextion Start
   Serial1.print("page start");
   NextEnd();
+  
   Serial1.print("t0.txt=\"");
   Serial1.print("...START !");
   Serial1.print(" _\"");
   NextEnd();  
+
+  ShwMode();
 
      
 }
@@ -142,7 +145,7 @@ void readWifi(){
 
   if(Serial2.available() > 0)
     {
-        data = Serial2.readStringUntil('\n');
+        data = Serial2.readStringUntil('\r');
 
         if (data != "") {
         if (debug){
@@ -186,7 +189,7 @@ void loop() {
   }
 
   readNextion();
-  //readWifi();
+  readWifi();
   readCom(); 
   printOutput(); 
  

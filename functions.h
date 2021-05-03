@@ -1,19 +1,8 @@
 #include <Arduino.h>   
 
-
-
 void onConnect(){
     Serial.println("Stick Connected.");
     
-}
-
-void ToggleSpeed(){
-
-   if (OverSpeed == 0){
-    OverSpeed = 1;
-   } else {
-    OverSpeed = 0;
-   }
 }
 
 void resetSequence(){
@@ -37,6 +26,19 @@ void NextEnd() {
   Serial1.write(0xff);
 
   
+}
+
+void ToggleSpeed(){
+
+   if (OverSpeed == 0){
+    OverSpeed = 1;
+    Serial1.print("r2.val=1");
+      NextEnd();
+   } else {
+    OverSpeed = 0;
+    Serial1.print("r2.val=0");
+      NextEnd();
+   }
 }
 
 float readFuel(unsigned char PIN){
@@ -77,6 +79,38 @@ void NextCom(String data){
  
 }
 
+void ShwMode(){
+
+    switch (mode){
+          case 0:
+          calldatabuff = " 0-RANDOM ";
+          break;
+          case 1:
+          calldatabuff = " 1-REMOTE ";
+          break;
+          case 2:
+          calldatabuff = " 2-HUMAN  ";
+           break; 
+          case 3:
+          calldatabuff = " 3-SERVICE";
+          break;
+    
+          default:
+          calldatabuff = " - No ";
+          break;
+       }
+
+      
+      //delay (500);   
+      //NextCom(calldatabuff);
+
+      Serial1.print("t1.txt=\"");
+      Serial1.print(calldatabuff);
+      Serial1.print(" _\"");
+      NextEnd(); 
+  
+}
+
 
 
 
@@ -89,6 +123,17 @@ void NextUpdate(int TT) {
   if (currentMillis - previousMillis >= interval) {
     // save the last time you blinked the LED
     previousMillis = currentMillis;
+
+  //OverSpeed
+    //Serial.print("t1.txt=\"MODE: \"")
+   if (OverSpeed == 1){
+      Serial1.print("r2.val=1");
+      NextEnd();
+   } else {
+      Serial1.print("r2.val=0");
+      NextEnd();
+   }
+
   
   //Serial.println(readFuel(FUEL_CELL_A));
   //Serial.println(ReadFuel(FUEL_CELL_B));
