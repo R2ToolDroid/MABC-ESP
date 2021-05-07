@@ -79,8 +79,10 @@ const int NGREEN = 1120;
 
 //I2C   21 SDA     22 SDC for PCB Board
 
-#define FUEL_CELL_A 25 // A1
-#define FUEL_CELL_B 26 //A0
+// MP3 DFPlayer RX25  TX26
+
+//#define FUEL_CELL_A 25 // A1
+#define FUEL_CELL_B 35 //A0
 #define IR_SENSOR 34 //A3 vorher 27
 
 //Claw

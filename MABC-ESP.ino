@@ -12,6 +12,12 @@
 
 #include <ESP32_Servo.h>
 #include <Ps3Controller.h>
+#include <SoftwareSerial.h>
+#include "DFRobotDFPlayerMini.h"
+
+DFRobotDFPlayerMini myDFPlayer;
+
+SoftwareSerial mp3; // RX, TX
 
 Servo DomeRot;
 Servo DriveSpeed;
@@ -28,13 +34,56 @@ Servo GrippLift;
 
 void setup(void) {
 
+  mp3.begin(9600, SWSERIAL_8N1, 25, 26, false, 256);  // speed, type, RX, TX
+  
+  if (!myDFPlayer.begin(mp3)) {  //Use softwareSerial to communicate with mp3.
+    
+    Serial.println(myDFPlayer.readType(),HEX);
+    Serial.println(F("Unable to begin:"));
+    Serial.println(F("1.Please recheck the connection!"));
+    Serial.println(F("2.Please insert the SD card!"));
+    while(true);
+  }
+  Serial.println(F("DFPlayer Mini online."));
+
+  myDFPlayer.setTimeOut(500); //Set serial communictaion time out 500ms
+  
+  //----Set volume----
+  myDFPlayer.volume(10);  //Set volume value (0~30).
+  myDFPlayer.volumeUp(); //Volume Up
+  myDFPlayer.volumeDown(); //Volume Down
+  myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
+  myDFPlayer.outputDevice(DFPLAYER_DEVICE_SD);
+  int delayms=100;
+  //----Mp3 play----
+  //----Read imformation----
+  Serial.println(F("readState--------------------"));
+  Serial.println(myDFPlayer.readState()); //read mp3 state
+  Serial.println(F("readVolume--------------------"));
+  Serial.println(myDFPlayer.readVolume()); //read current volume
+  //Serial.println(F("readEQ--------------------"));
+  //Serial.println(myDFPlayer.readEQ()); //read EQ setting
+  Serial.println(F("readFileCounts--------------------"));
+  Serial.println(myDFPlayer.readFileCounts()); //read all file counts in SD card
+  Serial.println(F("readCurrentFileNumber--------------------"));
+  Serial.println(myDFPlayer.readCurrentFileNumber()); //read current play file number
+  Serial.println(F("readFileCountsInFolder--------------------"));
+  Serial.println(myDFPlayer.readFileCountsInFolder(3)); //read fill counts in folder SD:/03
+  Serial.println(F("--------------------"));
+
+  Serial.println(F("myDFPlayer.play(1)"));
+  
+  myDFPlayer.play(1);  //Play the first mp3
+
+
+
   Ps3.attach(notify);
   Ps3.attachOnConnect(onConnect);
     //Ps3.begin("01:02:03:04:05:06");
   Ps3.begin("01:1a:7d:da:71:12"); ///#645
   
 
-  pinMode(FUEL_CELL_A, INPUT_PULLUP);
+  //pinMode(FUEL_CELL_A, INPUT_PULLUP);
   pinMode(FUEL_CELL_B, INPUT_PULLUP);
 
   pinMode(IR_SENSOR, INPUT_PULLUP);
