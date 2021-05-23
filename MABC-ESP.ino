@@ -12,12 +12,12 @@
 
 #include <ESP32_Servo.h>
 #include <Ps3Controller.h>
-#include <SoftwareSerial.h>
-#include "DFRobotDFPlayerMini.h"
+//#include <SoftwareSerial.h>
+//#include "DFRobotDFPlayerMini.h"
 
-DFRobotDFPlayerMini myDFPlayer;
+//DFRobotDFPlayerMini myDFPlayer;
 
-SoftwareSerial mp3; // RX, TX
+//SoftwareSerial mp3; // RX, TX
 
 Servo DomeRot;
 Servo DriveSpeed;
@@ -33,7 +33,7 @@ Servo GrippLift;
 //#include "IRinput.h"
 
 void setup(void) {
-
+/*
   mp3.begin(9600, SWSERIAL_8N1, 25, 26, false, 256);  // speed, type, RX, TX
   
   if (!myDFPlayer.begin(mp3)) {  //Use softwareSerial to communicate with mp3.
@@ -75,7 +75,7 @@ void setup(void) {
   
   myDFPlayer.play(1);  //Play the first mp3
 
-
+*/
 
   Ps3.attach(notify);
   Ps3.attachOnConnect(onConnect);

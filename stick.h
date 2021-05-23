@@ -13,10 +13,10 @@ void notify()
     
     ///No Shift and Mode 3 activ
     if (mode != 3){
-    if( Ps3.event.button_down.down && (SHIFT == 0))  {output += "Quite Mode"; parseCommand(":SE10");myDFPlayer.play(1); } //Play the first mp3 }
-    if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE13");myDFPlayer.play(10);}
-    if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");myDFPlayer.play(8);}    
-    if( Ps3.event.button_down.right && (SHIFT == 0)) {output += "Full Awake + next Sound"; parseCommand(":SE14");myDFPlayer.next();}
+ //   if( Ps3.event.button_down.down && (SHIFT == 0))  {output += "Quite Mode"; parseCommand(":SE10");myDFPlayer.play(1); } //Play the first mp3 }
+ //   if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE13");myDFPlayer.play(10);}
+ //   if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");myDFPlayer.play(8);}    
+//    if( Ps3.event.button_down.right && (SHIFT == 0)) {output += "Full Awake + next Sound"; parseCommand(":SE14");myDFPlayer.next();}
     } else {
       /*****************##########           ARM Steering       ########### ********/
       if( Ps3.event.button_down.up && (SHIFT == 0))    {
