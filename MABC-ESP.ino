@@ -21,6 +21,7 @@
 
 #include <ESP32_Servo.h>
 #include <Ps3Controller.h>
+<<<<<<< HEAD
 #include <SoftwareSerial.h>
 
 #include <Wire.h> 
@@ -47,8 +48,14 @@ WebServer server(80);
 #include "login_page.h"
 
 DFRobotDFPlayerMini myDFPlayer;
+=======
+//#include <SoftwareSerial.h>
+//#include "DFRobotDFPlayerMini.h"
 
-SoftwareSerial mp3; // RX, TX
+//DFRobotDFPlayerMini myDFPlayer;
+>>>>>>> 8cfaeac65b4ea224e7e17b842acb971360749c42
+
+//SoftwareSerial mp3; // RX, TX
 
 Servo DomeRot;
 Servo DriveSpeed;
@@ -130,6 +137,7 @@ void initWIFI() {
 
 
 void setup(void) {
+<<<<<<< HEAD
 
   Serial.begin(115200); 
    
@@ -202,6 +210,10 @@ void setup(void) {
  mp3.begin(9600, SWSERIAL_8N1, 25, 26, false, 256);  // speed, type, RX, TX
 
 
+=======
+/*
+  mp3.begin(9600, SWSERIAL_8N1, 25, 26, false, 256);  // speed, type, RX, TX
+>>>>>>> 8cfaeac65b4ea224e7e17b842acb971360749c42
   
   if (!myDFPlayer.begin(mp3)) {  //Use softwareSerial to communicate with mp3.
     
@@ -242,7 +254,7 @@ void setup(void) {
   
   myDFPlayer.play(1);  //Play the first mp3
 
-
+*/
 
   Ps3.attach(notify);
   Ps3.attachOnConnect(onConnect);
