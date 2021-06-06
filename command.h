@@ -64,7 +64,7 @@ void parseCommand(String cmd) {
 
       if (cmd == "find") {
       Serial2.print("find\r");
-      initWIFI();
+      
       }
       
     if (cmd == "DISDR") {
