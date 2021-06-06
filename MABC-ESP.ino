@@ -18,13 +18,12 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 #include <Update.h>
-
 #include <ESP32_Servo.h>
 #include <Ps3Controller.h>
 #include <SoftwareSerial.h>
-
 #include <Wire.h> 
 #include "DFRobotDFPlayerMini.h"
+#include <TelnetStream.h>
 
 #include "Grove_Human_Presence_Sensor.h" // der SoftwareSerial Bibliothek nutzen.
 
@@ -61,6 +60,7 @@ Servo GrippLift;
 #include "command.h"
 #include "stick.h"
 #include "human.h"
+#include "telnet.h"
 
 
 void setup(void) {
@@ -242,6 +242,7 @@ void setup(void) {
         delay(3000);
     }
 
+  TelnetStream.begin();
   Serial.println("R2...Ready");
   
 
@@ -324,6 +325,7 @@ void readWifi(){
 
 
 void loop() {
+  telnet();
   server.handleClient();
   //CheckIR(5000);
   if (mode == 2){
