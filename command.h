@@ -64,8 +64,9 @@ void parseCommand(String cmd) {
 
       if (cmd == "find") {
       Serial2.print("find\r");
-      
+      initWIFI();
       }
+      
     if (cmd == "DISDR") {
       Serial.print("disconnect...");    
        Ps3.end();
@@ -297,8 +298,15 @@ void parseCommand(String cmd) {
         Serial.println("######Comando Pefix : DOME ######");
         Serial.println(cmd);
       }
+
+      if (cmd == ":SE00"){
+        myDFPlayer.play(8);
+      }
      
       SendOutput(cmd);
+
+
+      
     }
 
     if (cmd.startsWith("#")) {

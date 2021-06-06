@@ -143,3 +143,11 @@ const float vCC = 4.85;  ///Systemspannung
 // 0 = full volume, 255 off
 byte vol = 20;
 boolean firstLoadOnConnect = false;
+
+
+//Move Sensor
+byte NachL = false;
+byte NachR = false;
+byte Mitte = false;
+byte Ping = false;
+int Sdiff = 0;

@@ -10,10 +10,41 @@
   
 */
 
+/*  WEBSERVER CONFIG */
+
+
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
+#include <Update.h>
+
 #include <ESP32_Servo.h>
 #include <Ps3Controller.h>
 #include <SoftwareSerial.h>
+
+#include <Wire.h> 
 #include "DFRobotDFPlayerMini.h"
+
+#include "Grove_Human_Presence_Sensor.h" // der SoftwareSerial Bibliothek nutzen.
+
+AK9753 movementSensor;
+
+int ir1, ir2, ir3, ir4;
+float temp = 24;
+
+const char* host = "R2-esp32";
+
+//const char* ssid = "Webmex-Safe-02";
+//const char* password = "tronic307";
+
+const char* ssid = "R2_Router";
+const char* password = "tronic307";
+
+WebServer server(80);
+
+#include "index_page.h"
+#include "login_page.h"
 
 DFRobotDFPlayerMini myDFPlayer;
 
@@ -26,15 +57,151 @@ Servo GrippRoll;
 Servo GrippLift;
 
 
+
+
+void initWIFI() {
+
+/*** WEBSERVER START ****/
+  // Connect to WiFi network
+  WiFi.begin(ssid, password);
+  Serial.println("");
+
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to ");
+  Serial.println(ssid);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  /*use mdns for host name resolution*/
+  if (!MDNS.begin(host)) { //http://R2-esp32.local
+    Serial.println("Error setting up MDNS responder!");
+    while (1) {
+      delay(1000);
+    }
+  }
+  Serial.println("mDNS responder started");
+  server.on("/", HTTP_GET, []() {
+    server.sendHeader("Connection", "close");
+    server.send(200, "text/html", loginIndex);
+  });
+  server.on("/serverIndex", HTTP_GET, []() {
+    server.sendHeader("Connection", "close");
+    server.send(200, "text/html", serverIndex);
+  });
+  /*handling uploading firmware file */
+  server.on("/update", HTTP_POST, []() {
+    server.sendHeader("Connection", "close");
+    server.send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
+    ESP.restart();
+  }, []() {
+    HTTPUpload& upload = server.upload();
+    if (upload.status == UPLOAD_FILE_START) {
+      Serial.printf("Update: %s\n", upload.filename.c_str());
+      if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
+        Update.printError(Serial);
+      }
+    } else if (upload.status == UPLOAD_FILE_WRITE) {
+      /* flashing firmware to ESP*/
+      if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
+        Update.printError(Serial);
+      }
+    } else if (upload.status == UPLOAD_FILE_END) {
+      if (Update.end(true)) { //true to set the size to the current progress
+        Serial.printf("Update Success: %u\nRebooting...\n", upload.totalSize);
+       
+      } else {
+        Update.printError(Serial);
+      }
+    }
+  });
+  server.begin();
+}
+
 #include "vars.h"
 #include "functions.h"
 #include "command.h"
 #include "stick.h"
-//#include "IRinput.h"
+#include "human.h"
+
 
 void setup(void) {
 
-  mp3.begin(9600, SWSERIAL_8N1, 25, 26, false, 256);  // speed, type, RX, TX
+  Serial.begin(115200); 
+   
+  /*** WEBSERVER START ***/
+  // Connect to WiFi network
+  WiFi.begin(ssid, password);
+  Serial.println("");
+
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to ");
+  Serial.println(ssid);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  /*use mdns for host name resolution*/
+  if (!MDNS.begin(host)) { //http://R2-esp32.local
+    Serial.println("Error setting up MDNS responder!");
+    while (1) {
+      delay(1000);
+    }
+  }
+  Serial.println("mDNS responder started");
+  
+  /*return index page which is stored in serverIndex*/
+  server.on("/", HTTP_GET, []() {
+    server.sendHeader("Connection", "close");
+    server.send(200, "text/html", loginIndex);
+  });
+  server.on("/serverIndex", HTTP_GET, []() {
+    server.sendHeader("Connection", "close");
+    server.send(200, "text/html", serverIndex);
+  });
+  /*handling uploading firmware file */
+  server.on("/update", HTTP_POST, []() {
+    server.sendHeader("Connection", "close");
+    server.send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
+    ESP.restart();
+  }, []() {
+    HTTPUpload& upload = server.upload();
+    if (upload.status == UPLOAD_FILE_START) {
+      Serial.printf("Update: %s\n", upload.filename.c_str());
+      if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
+        Update.printError(Serial);
+      }
+    } else if (upload.status == UPLOAD_FILE_WRITE) {
+      /* flashing firmware to ESP */
+      if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
+        Update.printError(Serial);
+      }
+    } else if (upload.status == UPLOAD_FILE_END) {
+      if (Update.end(true)) { //true to set the size to the current progress
+        Serial.printf("Update Success: %u\nRebooting...\n", upload.totalSize);
+       
+      } else {
+        Update.printError(Serial);
+      }
+    }
+  });
+  server.begin();
+ 
+  /*** WEBSERVER END ***/
+ Serial1.begin(9600,SERIAL_8N1,18,19); // Serial 19 RX  18 TX NEXTION (COM1)  TESTBOARD 19,18
+ Serial2.begin(9600,SERIAL_8N1,22,23); // Serial 22 RX  23 TX Outpull All Input Command
+
+ mp3.begin(9600, SWSERIAL_8N1, 25, 26, false, 256);  // speed, type, RX, TX
+
+
   
   if (!myDFPlayer.begin(mp3)) {  //Use softwareSerial to communicate with mp3.
     
@@ -108,9 +275,7 @@ void setup(void) {
   SERIAL is DEBUG 115200 BAUD !!
   */
   
-  Serial.begin(115200);
-  Serial1.begin(9600,SERIAL_8N1,19,18); // Serial 19 RX  18 TX NEXTION (COM1)
-  Serial2.begin(9600,SERIAL_8N1,22,23); // Serial 22 RX  23 TX Outpull All Input Command
+ 
   
   /* Setup Servos and Motors */
   //myservo.attach(servoPin);
@@ -134,6 +299,14 @@ void setup(void) {
   digitalWrite(GRIP_MOTA2, LOW); //L298 0 0 is Stop
   digitalWrite(GRIP_MOTB1, LOW); //L298 0 0 is Stop
   digitalWrite(GRIP_MOTB2, LOW); //L298 0 0 is Stop
+
+   Wire.begin();
+  //Turn on sensor
+    if (movementSensor.initialize() == false) {
+        Serial.println("Device not found. Check wiring.");
+        //while (1);
+        delay(3000);
+    }
 
   Serial.println("R2...Ready");
   
@@ -194,9 +367,9 @@ void readWifi(){
 
   if(Serial2.available() > 0)
     {
-        //data = Serial2.readStringUntil('\r');
+        data = Serial2.readStringUntil('\r');
 
-        data = Serial2.readStringUntil('\n');
+        //data = Serial2.readStringUntil('\n');
 
         if (data != "") {
         if (debug){
@@ -217,8 +390,11 @@ void readWifi(){
 
 
 void loop() {
-  
+  server.handleClient();
   //CheckIR(5000);
+  if (mode == 2){
+    human();
+  }
   
   if(Ps3.isConnected()){
     StickConnect = 1;
@@ -240,7 +416,7 @@ void loop() {
   }
 
   readNextion();
-  readWifi();
+  //readWifi();
   readCom(); 
   printOutput(); 
  

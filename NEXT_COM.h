@@ -7,6 +7,7 @@
       if (cmd == "com") {
         Serial.println("com erkannt");
         PAGE = 1;
+       myDFPlayer.next();
       }
       if (cmd == "start") {
         Serial.println("start erkannt"); 
@@ -16,22 +17,27 @@
       if (cmd == "setup") {
       Serial.println("setup erkannt"); 
         PAGE = 2;
+        myDFPlayer.next();
         }
       if (cmd == "move") {
       Serial.println("move erkannt"); 
       PAGE = 3;
+      myDFPlayer.next();
       } 
       if (cmd == "service") {
       Serial.println("service erkannt"); 
       PAGE = 4;
+      myDFPlayer.next();
       } 
       if (cmd == "tools") {
       Serial.print("tools erkannt"); 
       PAGE = 5;
+      myDFPlayer.next();
       } 
       if (cmd == "tools_2") {
       Serial.print("tools_2 erkannt"); 
       PAGE = 6;
+      myDFPlayer.next();
       } 
 
       if (cmd == "human") {
@@ -43,7 +49,14 @@
       SendOutput("*RC01");
       
       } 
-      
+
+      if (cmd == "MOD"){
+
+       mode++;
+      if (mode >= 4) mode=0;
+        ShwMode();
+        
+      }
       
       if (cmd == "STICK") {
       Serial.print("Stick erkannt");   
@@ -60,7 +73,8 @@
       if (cmd == "CALL") {
       Serial.print("CALL erkannt"); 
       //COR = float(NewCor)/100;
-      
+      NextCom(WiFi.localIP().toString());
+      return;
       } /// End of Call
       
       if (cmd == "SEND") {
