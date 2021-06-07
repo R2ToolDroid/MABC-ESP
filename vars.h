@@ -4,8 +4,7 @@
 // Generally, you should use "unsigned long" for variables that hold time
 // The value will quickly become too large for an int to store
 unsigned long previousMillis = 0;      
-
-unsigned long previousMillis1 = 0;    
+//unsigned long previousMillis1 = 0;    
 
 byte State;
 int wait = 0;
@@ -15,9 +14,9 @@ byte OverSpeed = 0; //1 High  0 Low
 
 // constants won't change :
 const long interval = 5000;           // interval at which to blink (milliseconds)
-const long interval1 = 5000;           // interval at which to blink (milliseconds)
+//const long interval1 = 5000;           // interval at which to blink (milliseconds)
 
-int durch = 1;
+//int durch = 1;
 
 String cmd; //Consolen Input
 byte debug = 1; //Debug function
@@ -151,3 +150,15 @@ byte NachR = false;
 byte Mitte = false;
 byte Ping = false;
 int Sdiff = 0;
+
+//AutoDome function
+
+// Dome Automation Variables
+boolean domeAutomation = true;
+int domeTurnDirection = 1;  // 1 = positive turn, -1 negative turn
+float domeTargetPosition = 0; // (0 - 359) - degrees in a circle, 0 = home
+unsigned long domeStopTurnTime = 0;    // millis() when next turn should stop
+unsigned long domeStartTurnTime = 0;  // millis() when next turn should start
+int domeStatus = 0;  // 0 = stopped, 1 = prepare to turn, 2 = turning
+int time360DomeTurn = 2500;  // milliseconds for dome to complete 360 turn at domeAutoSpeed - Valid Values: 2000 - 8000 (2000 = 2 seconds)
+byte domeAutoSpeed = 70;     // Speed used when dome automation is active - Valid Values: 50 - 100

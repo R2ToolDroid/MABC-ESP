@@ -60,6 +60,7 @@ Servo GrippLift;
 #include "command.h"
 #include "stick.h"
 #include "human.h"
+#include "dome.h"
 
 
 
@@ -261,10 +262,6 @@ void setup(void) {
 }
 
 
-
-
-
-
 ////MAIN SERIAL READ
 void readCom(){
   if(Serial.available() > 0)
@@ -330,6 +327,17 @@ void loop() {
   //CheckIR(5000);
   if (mode == 2){
     human();
+  }
+  if (mode == 0){
+    domeAutomation = true;
+  } else {
+    domeAutomation = false;
+  }
+
+
+  
+  if (domeAutomation == true){
+    autoDome();
   }
   
   if(Ps3.isConnected()){
