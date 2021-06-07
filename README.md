@@ -3,7 +3,7 @@
 ![Fuction-Stick](https://github.com/R2ToolDroid/MABC-ESP/blob/main/1200px-SHADOW_MD_Foot_Controller.png)
 ![Board](MABC-ESP.png)
 
-# ----Mp3 player Comandos----
+# ----Mp3 player Comand---
 *  myDFPlayer.next();  //Play next mp3
 *  myDFPlayer.previous();  //Play previous mp3
 *  myDFPlayer.play(1);  //Play the first mp3
