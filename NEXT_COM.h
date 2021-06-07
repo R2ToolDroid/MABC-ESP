@@ -47,6 +47,7 @@
       Serial2.print('\r');
 
       SendOutput("*RC01");
+      mode = 2;
       
       } 
 

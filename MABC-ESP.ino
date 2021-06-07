@@ -60,7 +60,7 @@ Servo GrippLift;
 #include "command.h"
 #include "stick.h"
 #include "human.h"
-#include "telnet.h"
+
 
 
 void setup(void) {
@@ -242,7 +242,7 @@ void setup(void) {
         delay(3000);
     }
 
-  TelnetStream.begin();
+  
   Serial.println("R2...Ready");
   
 
@@ -291,7 +291,7 @@ void readNextion(){
         }
           parseCommand(data);
           data = "";
-         //Serial1.flush();
+         Serial1.flush();
       } // end data
     } // end Serial
 }
@@ -325,7 +325,7 @@ void readWifi(){
 
 
 void loop() {
-  telnet();
+
   server.handleClient();
   //CheckIR(5000);
   if (mode == 2){

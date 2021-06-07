@@ -4,7 +4,7 @@ void SendOutput(String dcmd) {   ///VIA SHD_PULS to MD Dome Board
   
     Serial2.print(dcmd);
     Serial2.print('\r'); 
-    cmd = "OK";
+    cmd = "";
     return;
 }
 
