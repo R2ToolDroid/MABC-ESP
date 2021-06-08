@@ -175,9 +175,7 @@ void setup(void) {
 
   Serial.println(F("myDFPlayer.play(1)"));
   
-  myDFPlayer.play(1);  //Play the first mp3
-
-
+  myDFPlayer.play(1);  //Play the first mp3 
 
   Ps3.attach(notify);
   Ps3.attachOnConnect(onConnect);
@@ -334,7 +332,7 @@ void loop() {
     domeAutomation = false;
   }
 
-
+    
   
   if (domeAutomation == true){
     autoDome();

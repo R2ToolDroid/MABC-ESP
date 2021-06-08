@@ -84,6 +84,16 @@ void parseCommand(String cmd) {
     if (cmd == "C") {
     Serial2.print("C");           // Body Center
     Serial2.print('\r');
+
+    myDFPlayer.playFolder(01,002);  //Play the first mp3
+    delay(2000);
+     myDFPlayer.playFolder(01,003);  //Play the first mp3
+    delay(2000);
+     myDFPlayer.playFolder(02,001);  //Play the first mp3
+    delay(2000);
+    // myDFPlayer.playFolder(03,005);  //Play the first mp3
+    
+    
     }
 
     if (cmd == "T") {
