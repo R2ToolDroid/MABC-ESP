@@ -12,6 +12,29 @@ void parseCommand(String cmd) {
 /*
 ################  MAIN CONTROLLER COMMANDS   ###########
 */
+   ///Sound Sqeuenzes DFPlayer ///
+      if (cmd == ":SE00"){myDFPlayer.playFolder(01,8);}
+      if (cmd == ":SE01"){myDFPlayer.playFolder(04,1);}
+      if (cmd == ":SE02"){myDFPlayer.playFolder(01,14);}
+      if (cmd == ":SE03"){myDFPlayer.playFolder(01,2);}
+      if (cmd == ":SE04"){myDFPlayer.playFolder(01,7);}
+      if (cmd == ":SE05"){myDFPlayer.playFolder(05,3);}
+      if (cmd == ":SE06"){myDFPlayer.playFolder(01,8);}//faint
+      if (cmd == ":SE07"){myDFPlayer.playFolder(05,3);}
+      if (cmd == ":SE08"){myDFPlayer.playFolder(05,1);}
+      if (cmd == ":SE09"){myDFPlayer.playFolder(05,7);}//disco
+      if (cmd == ":SE10"){myDFPlayer.playFolder(02,1);}
+      if (cmd == ":SE11"){myDFPlayer.playFolder(01,14);}
+      if (cmd == ":SE12"){myDFPlayer.playFolder(02,2);}
+      if (cmd == ":SE13"){myDFPlayer.playFolder(02,4);}
+      if (cmd == ":SE14"){myDFPlayer.playFolder(02,5);}
+      if (cmd == ":SE15"){myDFPlayer.playFolder(04,1);}
+
+      if (cmd == "$87"){myDFPlayer.playFolder(05,4);}  ///Musik
+      if (cmd == "$5"){myDFPlayer.playFolder(05,4);}  //Whistle
+      if (cmd == "$3"){myDFPlayer.playFolder(05,4);}  //Happy
+      if (cmd == "$2"){myDFPlayer.next();}  //Talk  
+    
   if (cmd == "debug") {
       if (debug){
           Serial.println("######Comando - debug######");
@@ -85,14 +108,7 @@ void parseCommand(String cmd) {
     Serial2.print("C");           // Body Center
     Serial2.print('\r');
 
-    myDFPlayer.playFolder(01,002);  //Play the first mp3
-    delay(2000);
-     myDFPlayer.playFolder(01,003);  //Play the first mp3
-    delay(2000);
-     myDFPlayer.playFolder(02,001);  //Play the first mp3
-    delay(2000);
-    // myDFPlayer.playFolder(03,005);  //Play the first mp3
-    
+    myDFPlayer.playFolder(02,001);
     
     }
 
@@ -133,6 +149,7 @@ void parseCommand(String cmd) {
       Serial2.print("mode0\r");           // hier geht es weiter zum  SHD_PULSE
       delay(100);
       SendOutput(":SE10");
+      myDFPlayer.playFolder(03,007);
       ESP.restart();
     }  
     
@@ -146,6 +163,7 @@ void parseCommand(String cmd) {
        }
       Serial2.print("mode1\r");       
       mode=1;
+      
       ShwMode();
     }
   
@@ -309,9 +327,7 @@ void parseCommand(String cmd) {
         Serial.println(cmd);
       }
 
-      if (cmd == ":SE00"){
-        myDFPlayer.play(8);
-      }
+     
      
       SendOutput(cmd);
 
@@ -337,12 +353,31 @@ void parseCommand(String cmd) {
       }
 
       if (cmd == "$+") {   
-        vol = vol-10;         
+        vol = vol-10;     
+        
+        myDFPlayer.volumeUp();  
       }
 
       if (cmd == "$-") {
         vol = vol+10;
+        myDFPlayer.volumeDown();
+        
       }
+      if (cmd == "$m") {
+        
+        myDFPlayer.volume(10);
+        
+      }
+      if (cmd == "$f") {
+        
+        myDFPlayer.volume(30);
+        
+      }
+
+
+
+      
+      
      SendOutput(cmd);
     }
 

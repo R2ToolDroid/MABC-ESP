@@ -15,10 +15,10 @@ void notify()
     if( Ps3.event.button_down.down && (SHIFT == 0))  {output += "Quite Mode"; parseCommand(":SE10");findCenter=true;} //Play the first mp3 }
     if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE13");}
     if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");}    
-    if( Ps3.event.button_down.right && (SHIFT == 0)) {output += "Full Awake ";  parseCommand(":SE14");} 
+    if( Ps3.event.button_down.right && (SHIFT == 0)) { PlayNext();} 
     
 ///Circle shift --> ab hier noch die MD Codes einfügen
-    if( Ps3.event.button_down.down && (SHIFT == SH_CIRCLE))  {output += "Dicso Manama"; parseCommand(":SE57");parseCommand("$84");}
+    if( Ps3.event.button_down.down && (SHIFT == SH_CIRCLE))  {output += "Dicso Manama"; parseCommand(":SE09");}
     if( Ps3.event.button_down.left && (SHIFT == SH_CIRCLE))  {output += "Fast Smirk"; parseCommand(":SE03");}
     if( Ps3.event.button_down.up && (SHIFT == SH_CIRCLE))    {output += "Scream"; parseCommand(":SE01");}   
     if( Ps3.event.button_down.right && (SHIFT == SH_CIRCLE)) {output += "Short Circuit"; parseCommand(":SE06");}   

@@ -21,7 +21,7 @@ const long interval = 5000;           // interval at which to blink (millisecond
 //int durch = 1;
 
 String cmd; //Consolen Input
-byte debug = 1; //Debug function
+byte debug = false; //Debug function
 String output;
 String data; //Serial Data
 String inm = "COIN"; //Inputmode String

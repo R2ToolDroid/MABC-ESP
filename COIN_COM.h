@@ -226,10 +226,11 @@
           Serial.println("######Comando - CB7 Manama ######");
          Serial.println(cmd);
        }
-      Serial2.print("$84");
-      Serial2.print("\r");
+       myDFPlayer.playFolder(05,7);
+       
       Serial2.print(":SE57");
       Serial2.print("\r");     
+     
       //servoSequencer.play(SeqBodyPanelDance, SizeOfArray(SeqBodyPanelDance), (GROUP_DOORS));     
     }
 

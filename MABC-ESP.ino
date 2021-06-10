@@ -138,8 +138,6 @@ void setup(void) {
  //I2C   21 SDA     22 SDC for PCB Board
  mp3.begin(9600, SWSERIAL_8N1, 25, 26, false, 256);  // speed, type, RX, TX
 
-
-  
   if (!myDFPlayer.begin(mp3)) {  //Use softwareSerial to communicate with mp3.
     
     Serial.println(myDFPlayer.readType(),HEX);
@@ -151,15 +149,14 @@ void setup(void) {
   }
   Serial.println(F("DFPlayer Mini online."));
 
-  myDFPlayer.setTimeOut(500); //Set serial communictaion time out 500ms
-  
+  myDFPlayer.setTimeOut(500); //Set serial communictaion time out 500ms 
   //----Set volume----
   myDFPlayer.volume(10);  //Set volume value (0~30).
   myDFPlayer.volumeUp(); //Volume Up
   myDFPlayer.volumeDown(); //Volume Down
   myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
   myDFPlayer.outputDevice(DFPLAYER_DEVICE_SD);
-  int delayms=100;
+  int delayms=100;  ///delay OEM 100
   //----Mp3 play----
   //----Read imformation----
   Serial.println(F("readState--------------------"));

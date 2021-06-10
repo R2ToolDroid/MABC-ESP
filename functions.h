@@ -1,19 +1,30 @@
 #include <Arduino.h>   
 
 void onConnect(){
-    Serial.println("Stick Connected.");
-    
+    Serial.println("Stick Connected.");   
 }
+///Play Sounds
+void Play(int folder, int file){
+  //delay(500);
+  myDFPlayer.playFolder(folder, file);
+  
+}
+
+void PlayNext(){
+  
+  myDFPlayer.next();
+  
+}
+
 
 void resetSequence(){
   
-  //servoSequencer.play(SeqBodyPanelAllSoftClose, SizeOfArray(SeqBodyPanelAllSoftClose), (GROUP_DOORS));
+ //servoSequencer.play(SeqBodyPanelAllSoftClose, SizeOfArray(SeqBodyPanelAllSoftClose), (GROUP_DOORS));
   
   //Serial3.print(":CL00");           // hier geht es weiter zum Marcduino Dome Controller
   Serial2.print(":SE00");           // hier geht es weiter zum Marcduino Dome Controller
   Serial2.print('\r');
 
-  
   Serial2.print("center");           // hier geht es weiter zum Dome Controller
   Serial2.print('\r'); 
   
@@ -81,12 +92,16 @@ void NextCom(String data){
 
 void ShwMode(){
 
+    myDFPlayer.playFolder(02,001);
+
     switch (mode){
           case 0:
           calldatabuff = " 0-RANDOM ";
+          
           break;
           case 1:
           calldatabuff = " 1-REMOTE ";
+          myDFPlayer.playFolder(02,001);
           break;
           case 2:
           calldatabuff = " 2-HUMAN  ";
@@ -206,12 +221,9 @@ void NextUpdate(int TT) {
 
 /// END FUEL A
 
-
-
   if ( (FuelB >= 14)&&(FuelB <= 20)){
   FuelB_P =  map(FuelB, 14, 19, 0, 100); ///Map for 100%
   }
-
   
   if (FuelB_P < 30){
     
@@ -236,9 +248,6 @@ void NextUpdate(int TT) {
   Serial1.print(FuelB);
   NextEnd();
 
-
-
-
   Serial1.print("bt0.pic=1");
   NextEnd();
 
@@ -252,7 +261,6 @@ void NextUpdate(int TT) {
 
   Serial1.print("r1.val=1");
   NextEnd();
-  
   
   TT++;
 if (TT > 100) {TT = 0;}
@@ -279,8 +287,5 @@ void CheckCellCon(){
     Serial.println("To activate WIFI OTA diconnect FuelCell_B");
     web = false;
   } 
-  
-
-
-  
+    
 }

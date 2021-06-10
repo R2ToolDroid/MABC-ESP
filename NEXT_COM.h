@@ -8,35 +8,42 @@
         Serial.println("com erkannt");
         PAGE = 1;
       // myDFPlayer.next();
+      
       }
       if (cmd == "start") {
         Serial.println("start erkannt"); 
         PAGE = 0;
         ShwMode();
+        //Play(02,001);
         }
       if (cmd == "setup") {
       Serial.println("setup erkannt"); 
         PAGE = 2;
        // myDFPlayer.next();
+       //Play(02,001);
         }
       if (cmd == "move") {
       Serial.println("move erkannt"); 
       PAGE = 3;
       //myDFPlayer.next();
+      //Play(02,001);
       } 
       if (cmd == "service") {
       Serial.println("service erkannt"); 
       PAGE = 4;
      // myDFPlayer.next();
+      //Play(02,001);
       } 
       if (cmd == "tools") {
       Serial.print("tools erkannt"); 
       PAGE = 5;
-      myDFPlayer.next();
+      //Play(02,001);
+      //myDFPlayer.next();
       } 
       if (cmd == "tools_2") {
       Serial.print("tools_2 erkannt"); 
       PAGE = 6;
+      //Play(02,001);
       //myDFPlayer.next();
       } 
 
