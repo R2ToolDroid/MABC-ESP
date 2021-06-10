@@ -12,42 +12,42 @@ void notify()
     
     ///no Mode 3 activ
     if (mode != 3){   
-    if( Ps3.event.button_down.down && (SHIFT == 0))  {output += "Quite Mode"; parseCommand(":SE10");SHIFT = 0;} //Play the first mp3 }
-    if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE13");SHIFT = 0;}
-    if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");SHIFT = 0;}    
-    if( Ps3.event.button_down.right && (SHIFT == 0)) {output += "Full Awake + next Sound";  parseCommand(":SE14");SHIFT = 0;} 
+    if( Ps3.event.button_down.down && (SHIFT == 0))  {output += "Quite Mode"; parseCommand(":SE10");findCenter=true;} //Play the first mp3 }
+    if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE13");}
+    if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");}    
+    if( Ps3.event.button_down.right && (SHIFT == 0)) {output += "Full Awake ";  parseCommand(":SE14");} 
     
 ///Circle shift --> ab hier noch die MD Codes einfügen
-    if( Ps3.event.button_down.down && (SHIFT == SH_CIRCLE))  {output += "Dicso Manama"; parseCommand(":SE57");parseCommand("$84"); SHIFT = 0;}
-    if( Ps3.event.button_down.left && (SHIFT == SH_CIRCLE))  {output += "Fast Smirk"; parseCommand(":SE03");SHIFT = 0;}
-    if( Ps3.event.button_down.up && (SHIFT == SH_CIRCLE))    {output += "Scream"; parseCommand(":SE01"); SHIFT = 0;}   
-    if( Ps3.event.button_down.right && (SHIFT == SH_CIRCLE)) {output += "Short Circuit"; parseCommand(":SE06");SHIFT = 0;}   
+    if( Ps3.event.button_down.down && (SHIFT == SH_CIRCLE))  {output += "Dicso Manama"; parseCommand(":SE57");parseCommand("$84");}
+    if( Ps3.event.button_down.left && (SHIFT == SH_CIRCLE))  {output += "Fast Smirk"; parseCommand(":SE03");}
+    if( Ps3.event.button_down.up && (SHIFT == SH_CIRCLE))    {output += "Scream"; parseCommand(":SE01");}   
+    if( Ps3.event.button_down.right && (SHIFT == SH_CIRCLE)) {output += "Short Circuit"; parseCommand(":SE06");}   
 
     //Cross Shift   
-    if( Ps3.event.button_down.down && (SHIFT == SH_CROSS))  {output += "Volume Down"; parseCommand("$-"); SHIFT = 0;}
-    if( Ps3.event.button_down.up && (SHIFT == SH_CROSS))    {output += "Volume Up"; parseCommand("$+"); SHIFT = 0;}  
-    if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {output += "Holos Off"; parseCommand("*ST00");SHIFT = 0;}
-    if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {output += "Holos On"; parseCommand("*RD00");SHIFT = 0;}
+    if( Ps3.event.button_down.down && (SHIFT == SH_CROSS))  {output += "Volume Down"; parseCommand("$-");}
+    if( Ps3.event.button_down.up && (SHIFT == SH_CROSS))    {output += "Volume Up"; parseCommand("$+");}  
+    if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {output += "Holos Off"; parseCommand("*ST00");}
+    if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {output += "Holos On"; parseCommand("*RD00");}
 
   
     //PS Shift
-    if( Ps3.event.button_down.cross && (SHIFT == SH_PLUS)) {output += "Stick Dissable";parseCommand("DISDR");StickConnect=0;SHIFT = 0;}
-    if( Ps3.event.button_down.circle && (SHIFT == SH_PLUS)) {output += "Reset MABC";parseCommand("hreset");SHIFT = 0;}
+    if( Ps3.event.button_down.cross && (SHIFT == SH_PLUS)) {output += "Stick Dissable";parseCommand("DISDR");StickConnect=0;}
+    if( Ps3.event.button_down.circle && (SHIFT == SH_PLUS)) {output += "Reset MABC";parseCommand("hreset");}
 
     if( Ps3.event.button_down.down && (SHIFT == SH_PLUS))  {output += "PS Down"; parseCommand("D"); }
     if( Ps3.event.button_down.up && (SHIFT == SH_PLUS))    {output += "PS Up"; parseCommand("T"); }  
     if( Ps3.event.button_down.right && (SHIFT == SH_PLUS)) {output += "PS Right"; parseCommand("C");}
     if( Ps3.event.button_down.left && (SHIFT == SH_PLUS))  {
-      output += "PS Left"; parseCommand("#OP01");//SHIFT = 0;
+      output += "PS Left"; parseCommand("#OP01");
       }
 
     
 
     //L1 Shift
-    if( Ps3.event.button_down.down && (SHIFT == SH_L1))  {output += "Leia Message"; parseCommand(":SE08"); SHIFT = 0;}
-    if( Ps3.event.button_down.left && (SHIFT == SH_L1))  {output += "Wave"; parseCommand(":SE02");SHIFT = 0;}
-    if( Ps3.event.button_down.up && (SHIFT == SH_L1))    {output += "Cantina Dance"; parseCommand(":SE07"); SHIFT = 0;}  
-    if( Ps3.event.button_down.right && (SHIFT == SH_L1)) {output += "Wave 2"; parseCommand(":SE04");SHIFT = 0;}   
+    if( Ps3.event.button_down.down && (SHIFT == SH_L1))  {output += "Leia Message"; parseCommand(":SE08");}
+    if( Ps3.event.button_down.left && (SHIFT == SH_L1))  {output += "Wave"; parseCommand(":SE02");}
+    if( Ps3.event.button_down.up && (SHIFT == SH_L1))    {output += "Cantina Dance"; parseCommand(":SE07");}  
+    if( Ps3.event.button_down.right && (SHIFT == SH_L1)) {output += "Wave 2"; parseCommand(":SE04");}   
 
     } else {
       /*****************##########           ARM Steering       ########### ********/
@@ -130,10 +130,7 @@ void notify()
             
         }
       if( Ps3.event.button_down.right && (SHIFT == SH_L1))  {output += "Dreh rechts max";GrippRoll.write(180);} 
-      
-
-      
-      
+    
       /*
     if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE14");}
     if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");}    
@@ -212,6 +209,7 @@ void notify()
       if( Ps3.data.button.l2 ) {
         
         Serial.print("Dome- posX="); Serial.println(posX);
+        isCenter = false;
         DomeRot.write(posX);
       } else {
      
@@ -229,7 +227,6 @@ void notify()
      Serial.print("SHIFT: ");
      Serial.println(SHIFT);
     } 
-    
     
     
   

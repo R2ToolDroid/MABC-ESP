@@ -23,7 +23,6 @@
 #include <SoftwareSerial.h>
 #include <Wire.h> 
 #include "DFRobotDFPlayerMini.h"
-#include <TelnetStream.h>
 
 #include "Grove_Human_Presence_Sensor.h" // der SoftwareSerial Bibliothek nutzen.
 
@@ -65,9 +64,12 @@ Servo GrippLift;
 
 
 void setup(void) {
-
+  
+  pinMode(FUEL_CELL_B, INPUT_PULLUP);
   Serial.begin(115200); 
-   
+  CheckCellCon(); /// Check if we start with WIFI OTA
+
+  if (web == true){ 
   /*** WEBSERVER START ***/
   // Connect to WiFi network
   WiFi.begin(ssid, password);
@@ -129,11 +131,11 @@ void setup(void) {
     }
   });
   server.begin();
- 
+  } // edif web true
   /*** WEBSERVER END ***/
  Serial1.begin(9600,SERIAL_8N1,18,19); // Serial 19 RX  18 TX NEXTION (COM1)  TESTBOARD 19,18
- Serial2.begin(9600,SERIAL_8N1,22,23); // Serial 22 RX  23 TX Outpull All Input Command
-
+ Serial2.begin(9600,SERIAL_8N1,27,23); // Serial 27 RX  23 TX Outpull All Input Command
+ //I2C   21 SDA     22 SDC for PCB Board
  mp3.begin(9600, SWSERIAL_8N1, 25, 26, false, 256);  // speed, type, RX, TX
 
 
@@ -184,7 +186,7 @@ void setup(void) {
   
 
   //pinMode(FUEL_CELL_A, INPUT_PULLUP);
-  pinMode(FUEL_CELL_B, INPUT_PULLUP);
+  //pinMode(FUEL_CELL_B, INPUT_PULLUP);
 
   pinMode(IR_SENSOR, INPUT_PULLUP);
 
@@ -236,7 +238,7 @@ void setup(void) {
    Wire.begin();
   //Turn on sensor
     if (movementSensor.initialize() == false) {
-        Serial.println("Device not found. Check wiring.");
+        Serial.println("Human Detect not found. Check wiring.");
         //while (1);
         delay(3000);
     }
@@ -321,6 +323,16 @@ void readWifi(){
 
 void loop() {
 
+  
+   domeCenter();
+  
+   //Serial.print("FuelCellB value :");
+   //Serial.println(analogRead(FUEL_CELL_B));
+  
+  //Serial.print(" Sensor= ");
+  //Serial.println(CheckSensor());
+  
+
   server.handleClient();
   //CheckIR(5000);
   if (mode == 2){
@@ -356,7 +368,7 @@ void loop() {
   }
 
   readNextion();
-  //readWifi();
+  readWifi();
   readCom(); 
   printOutput(); 
  

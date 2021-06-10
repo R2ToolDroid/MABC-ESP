@@ -1,10 +1,25 @@
 #include <Arduino.h>
 
+byte CheckSensor(){
+
+    byte sig;
+
+      IRSensor = analogRead(IR_SENSOR);
+      if (IRSensor > 1000){
+        sig = HIGH;
+      } else {
+        sig = LOW;
+      }
+
+    return sig;
+  
+}
 
 void autoDome() {
 
     long rndNum;
     int domeSpeed;
+    isCenter = false;
 
     //output += "\r\n - Dome Status=";
     //output +=    domeStatus      ; 
@@ -132,4 +147,50 @@ void autoDome() {
     output="";
   }
 
+}
+
+
+void domeCenter(){
+
+    byte sens = CheckSensor();
+        
+    if (findCenter == true ) {     
+          
+      if(sens == true && isCenter == false){
+         DomeRot.write(180); ///find Position Center    
+         domePos = false; 
+         domeFindCenterTime = CurDomeFindTime;
+      } else {             
+         
+         findCenter = false;
+         Serial.println("Dome is Center");
+         //DomeRot.write(90);
+         domePos = true;  
+         isCenter = true;
+         
+      }    
+         
+    }    
+
+    if (domePos != false) {
+      DomeRot.write(90);
+      domePos = false;
+      
+    }
+
+    if (debug){
+    
+    //Serial.print("dome FInd = ");
+    //Serial.print(domeFindCenterTime);
+    //Serial.println(isCenter);
+    //Serial.print(" Curr= ");
+    //Serial.print(CurDomeFindTime);
+    //Serial.print(" isCenter ");
+    //Serial.print(isCenter);
+    //Serial.print(" IR = ");
+    //Serial.print(sens);
+    //Serial.print(" domePos=");
+    //Serial.println(domePos);
+    }
+    
 }

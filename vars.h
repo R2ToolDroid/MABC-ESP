@@ -6,6 +6,8 @@
 unsigned long previousMillis = 0;      
 //unsigned long previousMillis1 = 0;    
 
+byte web = true;
+
 byte State;
 int wait = 0;
 int battery = 0;
@@ -26,7 +28,7 @@ String inm = "COIN"; //Inputmode String
 String calldata; //String Datarequest
 String calldatabuff;
 
-int mode = 0; // Default Mode  0 = Random
+int mode = 1; // Default Mode  0 = Random
               // RC Mode       1 = RC Control
               // RC Show       2 = Human
               // RC Show       3 = Service Arm Control
@@ -74,7 +76,7 @@ const int NGREEN = 1120;
 // SERIAL PINS : //
 // Serial     UoTX  UoRX
 // Serial1    19 TX  18 RX
-// Serial2    23 TX  22 RX_Test Board   27_PCB!!
+// Serial2    23 TX  27 RX_Test Board   27_PCB!!
 
 //I2C   21 SDA     22 SDC for PCB Board
 
@@ -162,3 +164,9 @@ unsigned long domeStartTurnTime = 0;  // millis() when next turn should start
 int domeStatus = 0;  // 0 = stopped, 1 = prepare to turn, 2 = turning
 int time360DomeTurn = 2500;  // milliseconds for dome to complete 360 turn at domeAutoSpeed - Valid Values: 2000 - 8000 (2000 = 2 seconds)
 byte domeAutoSpeed = 70;     // Speed used when dome automation is active - Valid Values: 50 - 100
+byte isCenter = false;
+byte findCenter = true;
+byte domePos = false;
+unsigned long domeFindCenterTime = 0;
+unsigned long CurDomeFindTime = 0;
+unsigned long maxFindTime = 3000;

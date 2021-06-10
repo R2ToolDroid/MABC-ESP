@@ -271,3 +271,16 @@ void printOutput()
         output = ""; // Reset output string
     }
 }
+
+void CheckCellCon(){
+
+  if (analogRead(FUEL_CELL_B) > 500){
+    Serial.println("Fuel Cell connected WIFI OFF");
+    Serial.println("To activate WIFI OTA diconnect FuelCell_B");
+    web = false;
+  } 
+  
+
+
+  
+}

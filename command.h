@@ -356,9 +356,6 @@ void parseCommand(String cmd) {
      SendOutput(cmd);
     }
 
-   TelnetStream.print(" Command : ");
-   TelnetStream.print(cmd);
-   TelnetStream.print(" \r\n ");
     NextCom(cmd);
     cmd="";
 }
