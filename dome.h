@@ -164,19 +164,16 @@ void domeCenter(){
          
          findCenter = false;
          Serial.println("Dome is Center");
-         //DomeRot.write(90);
-         domePos = true;  
+         
+         delay(50);
+         DomeRot.write(90);              
          isCenter = true;
          
       }    
          
     }    
 
-    if (domePos != false) {
-      DomeRot.write(90);
-      domePos = false;
-      
-    }
+    
 
     if (debug){
     

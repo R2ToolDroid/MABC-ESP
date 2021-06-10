@@ -7,7 +7,7 @@
       if (cmd == "com") {
         Serial.println("com erkannt");
         PAGE = 1;
-       myDFPlayer.next();
+      // myDFPlayer.next();
       }
       if (cmd == "start") {
         Serial.println("start erkannt"); 
@@ -17,17 +17,17 @@
       if (cmd == "setup") {
       Serial.println("setup erkannt"); 
         PAGE = 2;
-        myDFPlayer.next();
+       // myDFPlayer.next();
         }
       if (cmd == "move") {
       Serial.println("move erkannt"); 
       PAGE = 3;
-      myDFPlayer.next();
+      //myDFPlayer.next();
       } 
       if (cmd == "service") {
       Serial.println("service erkannt"); 
       PAGE = 4;
-      myDFPlayer.next();
+     // myDFPlayer.next();
       } 
       if (cmd == "tools") {
       Serial.print("tools erkannt"); 
@@ -37,7 +37,7 @@
       if (cmd == "tools_2") {
       Serial.print("tools_2 erkannt"); 
       PAGE = 6;
-      myDFPlayer.next();
+      //myDFPlayer.next();
       } 
 
       if (cmd == "human") {
