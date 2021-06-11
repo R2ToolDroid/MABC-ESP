@@ -25,7 +25,14 @@
 #include "DFRobotDFPlayerMini.h"
 
 #include "Grove_Human_Presence_Sensor.h" // der SoftwareSerial Bibliothek nutzen.
+#include <LSM6.h>
 
+///Orientation
+LSM6 imu;
+char report[80];
+// 
+
+///Human
 AK9753 movementSensor;
 
 int ir1, ir2, ir3, ir4;
@@ -56,10 +63,11 @@ Servo GrippLift;
 
 #include "vars.h"
 #include "functions.h"
+#include "dome.h"
 #include "command.h"
 #include "stick.h"
 #include "human.h"
-#include "dome.h"
+//#include "dome.h"
 
 
 
@@ -176,6 +184,7 @@ void setup(void) {
   Serial.println(F("myDFPlayer.play(1)"));
   
   myDFPlayer.play(1);  //Play the first mp3 
+  delay(3000);
 
   Ps3.attach(notify);
   Ps3.attachOnConnect(onConnect);
@@ -234,13 +243,20 @@ void setup(void) {
   digitalWrite(GRIP_MOTB2, LOW); //L298 0 0 is Stop
 
    Wire.begin();
-  //Turn on sensor
+  //Turn on Human sensor
     if (movementSensor.initialize() == false) {
         Serial.println("Human Detect not found. Check wiring.");
         //while (1);
         delay(3000);
     }
-
+   //Turn on IMU sensor
+    if (!imu.init())
+  {
+    Serial.println("Failed to detect and initialize IMU!");
+    //while (1);
+    delay(3000);
+  }
+  imu.enableDefault();
   
   Serial.println("R2...Ready");
   
@@ -320,17 +336,9 @@ void readWifi(){
 
 
 void loop() {
-
   
-   domeCenter();
-  
-   //Serial.print("FuelCellB value :");
-   //Serial.println(analogRead(FUEL_CELL_B));
-  
-  //Serial.print(" Sensor= ");
-  //Serial.println(CheckSensor());
-  
-
+  domeCenter();
+   
   server.handleClient();
   //CheckIR(5000);
   if (mode == 2){
@@ -341,8 +349,9 @@ void loop() {
   } else {
     domeAutomation = false;
   }
-
-    
+  if (mode == 3){  ///Service
+    posit();
+  } 
   
   if (domeAutomation == true){
     autoDome();
@@ -368,6 +377,7 @@ void loop() {
   readNextion();
   readWifi();
   readCom(); 
+  
   printOutput(); 
  
   

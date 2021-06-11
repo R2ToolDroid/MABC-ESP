@@ -191,3 +191,46 @@ void domeCenter(){
     }
     
 }
+
+void posit(){
+  imu.readGyro();
+  /*
+  snprintf(report, sizeof(report), "A: %6d %6d %6d    G: %6d %6d %6d",
+    imu.a.x, imu.a.y, imu.a.z,
+    imu.g.x, imu.g.y, imu.g.z);  
+  Serial.println(report);
+  */
+  int x = imu.g.x;
+  int xGap = 2500;
+  
+  if(CheckSensor()== LOW) {DomeGyroPos = 0;}
+  
+  //sensor empfindlichkeit herabsetzen
+  if (x >= xGap || x <= -xGap) {DomeGyroPos = DomeGyroPos + x;}
+  
+  //if (x <= -1000)  {DomeGyroPos = DomeGyroPos + x;}
+  //Serial.print(imu.g.x /1000 );
+  if (DomeTurnPos == true){
+      if (debug) {
+      Serial.print("Try to reach pos ");
+      Serial.print(TargetPos);
+      }
+      DomeRot.write(180);
+      
+      if (inRange(DomeGyroPos/10000, TargetPos-10, TargetPos+10)){
+      //Serial.print("in Range");
+      delay(50);
+      DomeRot.write(90);
+      DomeTurnPos = false;
+      if(debug){
+      Serial.print("in Range");
+      }
+      }
+      
+    }
+  if (debug){ 
+  Serial.print(" - ");
+  Serial.println(DomeGyroPos/10000);
+  }
+  //delay(100);
+}

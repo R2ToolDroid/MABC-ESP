@@ -104,8 +104,10 @@
       }
 
       
-      Serial2.print("usb");           // hier geht es weiter zum  Dome Controller
-      Serial2.print('\r');
+      mode=3;
+      DomeTurnPos = true;
+      TargetPos = 300; 
+      
       //delay(1000);
       Serial2.print(":OP03");           // hier geht es weiter zum Marcduino Dome Controller
       Serial2.print('\r');
@@ -123,9 +125,12 @@
           Serial.println("######Comando - CB1######");
          Serial.println(cmd);
        }
+      mode=3;
+      DomeTurnPos = true;
+      TargetPos = 400;
       
-      Serial2.print("tool1");
-      Serial2.print("\r");
+      //Serial2.print("tool1");
+      //Serial2.print("\r");
       //delay(2000); 
       Serial2.print(":OP04");
       Serial2.print("\r");
@@ -142,9 +147,10 @@
          Serial.println(cmd);
        }
       
-      Serial2.print("tool2");
-      Serial2.print("\r");
-      //delay(2000);
+      mode=3;
+      DomeTurnPos = true;
+      TargetPos = 500; 
+      
       Serial2.print("$12");
       Serial2.print("\r");
       //delay(500);
@@ -226,7 +232,7 @@
           Serial.println("######Comando - CB7 Manama ######");
          Serial.println(cmd);
        }
-       myDFPlayer.playFolder(05,7);
+      myDFPlayer.playFolder(05,8);
        
       Serial2.print(":SE57");
       Serial2.print("\r");     

@@ -1,5 +1,12 @@
 #include <Arduino.h>   
 
+// Check in Range inRange(x, 0, 200)
+bool inRange(int val, int minimum, int maximum)
+{
+  return ((minimum <= val) && (val <= maximum));
+}
+
+
 void onConnect(){
     Serial.println("Stick Connected.");   
 }

@@ -110,6 +110,8 @@ void parseCommand(String cmd) {
 
     myDFPlayer.playFolder(02,001);
     
+    
+    
     }
 
     if (cmd == "T") {
@@ -206,7 +208,9 @@ void parseCommand(String cmd) {
       ///Action
       Serial2.print("usb\r");
       //mode=0;
-     
+      mode=3;
+      DomeTurnPos = true;
+      TargetPos = 400;
     }
 
     if (cmd == "tool1") {
@@ -215,8 +219,11 @@ void parseCommand(String cmd) {
          Serial.println(cmd);
        }
       ///Action
-      Serial2.print("tool1\r");
+      //Serial2.print("tool1\r");
       //mode=0;
+      mode=3;
+      DomeTurnPos = true;
+      TargetPos = 500;
       
     }
 
@@ -226,8 +233,9 @@ void parseCommand(String cmd) {
          Serial.println(cmd);
        }
       ///Action
-      Serial2.print("tool2\r");
-      //mode=0;
+      mode=3;
+      DomeTurnPos = true;
+      TargetPos = 600;
       
     }
 
@@ -238,7 +246,9 @@ void parseCommand(String cmd) {
        }
       ///Action
      // Serial2.print("tool3\r");
-      //mode=0;
+      mode=3;
+      DomeTurnPos = true;
+      TargetPos = 800;
       
     }
 
