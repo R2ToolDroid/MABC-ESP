@@ -193,6 +193,7 @@ void domeCenter(){
 }
 
 void posit(){
+  
   imu.readGyro();
   /*
   snprintf(report, sizeof(report), "A: %6d %6d %6d    G: %6d %6d %6d",

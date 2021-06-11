@@ -1,11 +1,7 @@
 #include <Arduino.h>                           
 
-//// No Delay option
-// Generally, you should use "unsigned long" for variables that hold time
-// The value will quickly become too large for an int to store
-unsigned long previousMillis = 0;      
-//unsigned long previousMillis1 = 0;    
 
+unsigned long previousMillis = 0;      
 byte web = true;
 
 byte State;

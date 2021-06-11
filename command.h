@@ -31,9 +31,11 @@ void parseCommand(String cmd) {
       if (cmd == ":SE15"){myDFPlayer.playFolder(04,1);}
 
       if (cmd == "$87"){myDFPlayer.playFolder(05,4);}  ///Musik
-      if (cmd == "$5"){myDFPlayer.playFolder(05,4);}  //Whistle
-      if (cmd == "$3"){myDFPlayer.playFolder(05,4);}  //Happy
+      if (cmd == "$5"){myDFPlayer.playFolder(02,3);}  //Whistle
+      if (cmd == "$3"){myDFPlayer.playFolder(02,6);}  //Happy
       if (cmd == "$2"){myDFPlayer.next();}  //Talk  
+      if (cmd == "#OF00"){myDFPlayer.playFolder(01,20);}   
+      
     
   if (cmd == "debug") {
       if (debug){
