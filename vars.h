@@ -83,8 +83,8 @@ const int NGREEN = 1120;
 #define IR_SENSOR 34 //A3 vorher 27
 
 //Claw
-#define GRIP_MOTA1 32
-#define GRIP_MOTA2 33
+#define GRIP_MOTA1 33  //vorher 32
+#define GRIP_MOTA2 32  //vorher 33
 
 //Arm:
 #define GRIP_MOTB1 2 
