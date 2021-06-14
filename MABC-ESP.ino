@@ -7,10 +7,9 @@
   #### Coin Button as Telemetric Input now
   #### A0 Power A
   #### A1 Power B
-  
 */
 
-/*  WEBSERVER CONFIG */
+/*  WEBSERVER CONFIGd */
 
 
 #include <WiFi.h>
