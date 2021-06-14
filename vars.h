@@ -1,8 +1,9 @@
 #include <Arduino.h>                           
 
+#define DEBUG
 
 unsigned long previousMillis = 0;      
-byte web = true;
+byte web = false;
 
 byte State;
 int wait = 0;
@@ -17,7 +18,7 @@ const long interval = 5000;           // interval at which to blink (millisecond
 //int durch = 1;
 
 String cmd; //Consolen Input
-byte debug = false; //Debug function
+byte debug = true; //Debug function
 String output;
 String data; //Serial Data
 String inm = "COIN"; //Inputmode String
@@ -159,7 +160,7 @@ unsigned long domeStopTurnTime = 0;    // millis() when next turn should stop
 unsigned long domeStartTurnTime = 0;  // millis() when next turn should start
 int domeStatus = 0;  // 0 = stopped, 1 = prepare to turn, 2 = turning
 int time360DomeTurn = 2500;  // milliseconds for dome to complete 360 turn at domeAutoSpeed - Valid Values: 2000 - 8000 (2000 = 2 seconds)
-byte domeAutoSpeed = 70;     // Speed used when dome automation is active - Valid Values: 50 - 100
+byte domeAutoSpeed = 50;     // Speed used when dome automation is active - Valid Values: 50 - 100
 
 byte isCenter = false;
 byte findCenter = true;

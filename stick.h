@@ -15,7 +15,7 @@ void notify()
     if( Ps3.event.button_down.down && (SHIFT == 0))  {output += "Quite Mode"; parseCommand(":SE10");findCenter=true;} //Play the first mp3 }
     if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE13");}
     if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");}    
-    if( Ps3.event.button_down.right && (SHIFT == 0)) { PlayNext();parseCommand("$2");} 
+    if( Ps3.event.button_down.right && (SHIFT == 0)) { parseCommand("$2");} 
     
 ///Circle shift --> ab hier noch die MD Codes einfügen
     if( Ps3.event.button_down.down && (SHIFT == SH_CIRCLE))  {output += "Dicso Manama"; parseCommand(":SE09");}
@@ -121,6 +121,10 @@ void notify()
             
           }
       if( Ps3.event.button_down.left && (SHIFT == SH_L1))  {output += "Dreh links max";GrippRoll.write(0);}  
+
+      if( Ps3.event.button_down.up && (SHIFT == SH_L1))  {output += "Grip Vor";parseCommand("O");}  
+
+      if( Ps3.event.button_down.down && (SHIFT == SH_L1))  {output += "Grip zurück";parseCommand("I");}  
           
       if( Ps3.event.button_down.right && (SHIFT == SH_L2))  {  
           if(Gpos >=0){Gpos=Gpos-15;}
@@ -195,7 +199,8 @@ void notify()
        //Serial.print("Moved the left stick:");
        //Serial.print(" x="); Serial.print(Ps3.data.analog.stick.lx, DEC);
         
-       posX = map(Ps3.data.analog.stick.lx, -128, 128, 0, 180);
+      // posX = map(Ps3.data.analog.stick.lx, -128, 128, 0, 180);
+       posX = map(Ps3.data.analog.stick.lx, -128, 128, 30, 150);
        if (OverSpeed == 1){
        posY = map(Ps3.data.analog.stick.ly, -128, 128, 30, 150); //Speed should be manipulated
        } else {

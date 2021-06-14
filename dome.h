@@ -6,9 +6,11 @@ byte CheckSensor(){
 
       IRSensor = analogRead(IR_SENSOR);
       if (IRSensor > 1000){
-        sig = HIGH;
-      } else {
+        //sig = HIGH;
         sig = LOW;
+      } else {
+        //sig = LOW;
+        sig = HIGH;
       }
 
     return sig;
@@ -157,7 +159,7 @@ void domeCenter(){
     if (findCenter == true ) {     
           
       if(sens == true && isCenter == false){
-         DomeRot.write(180); ///find Position Center    
+         DomeRot.write(110); ///find Position Center    
          domePos = false; 
          domeFindCenterTime = CurDomeFindTime;
       } else {             
@@ -177,17 +179,17 @@ void domeCenter(){
 
     if (debug){
     
-    //Serial.print("dome FInd = ");
-    //Serial.print(domeFindCenterTime);
-    //Serial.println(isCenter);
-    //Serial.print(" Curr= ");
-    //Serial.print(CurDomeFindTime);
-    //Serial.print(" isCenter ");
-    //Serial.print(isCenter);
-    //Serial.print(" IR = ");
-    //Serial.print(sens);
-    //Serial.print(" domePos=");
-    //Serial.println(domePos);
+    Serial.print("dome FInd = ");
+    Serial.print(domeFindCenterTime);
+    Serial.println(isCenter);
+    Serial.print(" Curr= ");
+    Serial.print(CurDomeFindTime);
+    Serial.print(" isCenter ");
+    Serial.print(isCenter);
+    Serial.print(" IR = ");
+    Serial.print(sens);
+    Serial.print(" domePos=");
+    Serial.println(domePos);
     }
     
 }
@@ -216,7 +218,7 @@ void posit(){
       Serial.print("Try to reach pos ");
       Serial.print(TargetPos);
       }
-      DomeRot.write(180);
+      DomeRot.write(120);
       
       if (inRange(DomeGyroPos/10000, TargetPos-10, TargetPos+10)){
       //Serial.print("in Range");
