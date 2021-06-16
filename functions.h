@@ -278,14 +278,7 @@ if (TT > 100) {TT = 0;}
   
 }
 
-void printOutput()
-{
-    if (output != "")
-    {
-        if (Serial) Serial.println(output);
-        output = ""; // Reset output string
-    }
-}
+
 
 void CheckCellCon(){
 

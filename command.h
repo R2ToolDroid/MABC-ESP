@@ -88,8 +88,8 @@ void parseCommand(String cmd) {
 #include "COIN_COM.h"    
 
       if (cmd == "find") {
-      Serial2.print("find\r");
-      
+      //Serial2.print("find\r");
+      SendOutput("find");
       }
       
     if (cmd == "DISDR") {
@@ -102,8 +102,9 @@ void parseCommand(String cmd) {
       
   
     if (cmd == "center") {
-    Serial2.print("center");           // hier geht es weiter zum Dome Controller
-    Serial2.print('\r');
+    //Serial2.print("center");           // hier geht es weiter zum Dome Controller
+    //Serial2.print('\r');
+    SendOutput("center");
     }
 
     if (cmd == "C") {

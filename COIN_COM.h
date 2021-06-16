@@ -6,26 +6,15 @@
 
   
     if (cmd == "CBD1") {
-      if (debug){
-        Serial.println("######Comando CBD1######");
-        Serial.println(cmd);
-        
-      }
     
-    //servoSequencer.play(SeqBodyPanelAllSoftClose, SizeOfArray(SeqBodyPanelAllSoftClose), (GROUP_DOORS));
-    //Serial1.print("5");     // to Coin Levelstatus
-    Serial2.print("mode1");           // hier geht es weiter zum Dome Controller
-    Serial2.print('\r');
-  
-    
-    //Serial3.print(":CL00");           // Soft Close
-    Serial2.print(":SE00");
-    Serial2.print('\r');
-    //Sysreset();
-
-    Serial2.print("center");           // hier geht es weiter zum Dome Controller
-    Serial2.print('\r'); 
+    SendOutput("mode1");
+    delay(100);
+    SendOutput(":SE00");
+    delay(100);
+    SendOutput("center");
+    delay(100);
     mode = 1 ;  
+    output += "######Comando CBD1######\n";
     
     }
      
@@ -36,208 +25,118 @@
         }else {
         mode = mode+1;
       }
-    
-    //Serial3.print("$12\r");     ///DOME MD
-    //akustische Rückmeldung welcher mode
-    
+      
     switch (mode){
       case 0:
-      Serial2.print("$12\r");     ///DOME MD
+     // Serial2.print("$12\r");     ///DOME MD
+      SendOutput("mode0");
       break;
       case 1:
-      Serial2.print("$18\r");     ///DOME MD
+     // Serial2.print("$18\r");     ///DOME MD
+     SendOutput("mode1");
       break;
       case 2:
-      Serial2.print("$19\r");     ///DOME MD
+     // Serial2.print("$19\r");     ///DOME MD
+      SendOutput("mode2");
       break;
       case 3:
-      Serial2.print("$110\r");     ///DOME MD
+     // Serial2.print("$110\r");     ///DOME MD
+     SendOutput("mode3");
       break;      
       default:
-      Serial2.print("$226\r");
+     // Serial2.print("$226\r");
       break;
       
-    }
-    
-      
-    Serial2.print("mode");       // DOME DRIVE
-    Serial2.print(mode);
-    Serial2.print('\r');  
-
-    ///NextCom(String(mode));
-      
+     }// End Switch
+ 
+      output += "######Comando CBD2######";
     }
 
     if (cmd == "CBD3" ){
 
-    Serial2.print(":SE10\r");  ///Quite Mode Dome
-    
+    SendOutput(":SE10");
     
     switch (mode){
       case 0:
-      Serial2.print("$12\r");     ///DOME MD
-      break;
-      case 1:
-      Serial2.print("$18\r");     ///DOME MD
+      ///Serial2.print("$18\r");     ///DOME MD
       break;
       case 2:
-      Serial2.print("$19\r");     ///DOME MD
+      //Serial2.print("$19\r");     ///DOME MD
       break;
       case 3:
-      Serial2.print("$110\r");     ///DOME MD
+      //Serial2.print("$110\r");     ///DOME MD
       break;      
       default:
-      Serial2.print("$226\r");
+      //Serial2.print("$226\r");
       break;
       
-    }
-    
- 
-      
+      }  // end switch  
+      output += "######Comando CBD3######";
     }///END CBD3
     
     ////TEST//
-    if (cmd == "CB0") {
-    if (debug){
-        Serial.println("######Comando CB0 ######");
-        Serial.println(cmd);
-      }
-
-      
+    if (cmd == "CB0") {         
       mode=3;
-      DomeTurnPos = true;
-      TargetPos = 300; 
-      
-      //delay(1000);
-      Serial2.print(":OP03");           // hier geht es weiter zum Marcduino Dome Controller
-      Serial2.print('\r');
-      //delay(500);
-      Serial2.print("$12");
-      Serial2.print("\r");
+      SendOutput("usb");     
+      delay(100);
+      SendOutput(":OP03");
+      delay(100);
+      output += ("######Comando CB0 ######");
     }
    
-    
-    
-    
     ///// Komando/////
     if (cmd == "CB1") {
-    if (debug){
-          Serial.println("######Comando - CB1######");
-         Serial.println(cmd);
-       }
       mode=3;
-      DomeTurnPos = true;
-      TargetPos = 400;
-      
-      //Serial2.print("tool1");
-      //Serial2.print("\r");
-      //delay(2000); 
-      Serial2.print(":OP04");
-      Serial2.print("\r");
-      //delay(100);
-      Serial2.print("$118");
-      Serial2.print("\r");
+      SendOutput("tool1");
+      delay(100); 
+      SendOutput(":OP04");
+      delay(100);
+      output += "######Comando - CB1######";
     }
 
     /////Tool Komando/////
 
-    if (cmd == "CB2") {
-    if (debug){
-          Serial.println("######Comando - CB2######");
-         Serial.println(cmd);
-       }
-      
+    if (cmd == "CB2") {       
       mode=3;
-      DomeTurnPos = true;
-      TargetPos = 500; 
-      
-      Serial2.print("$12");
-      Serial2.print("\r");
-      //delay(500);
-      Serial2.print(":OP05");
-      Serial2.print("\r");
-      
-     
+      SendOutput("tool2");
+      delay(100);
+      SendOutput(":OP05");
+      delay(100);
+      output += "######Comando CBD3######";
     }
     ///// Komando/////
 
     if (cmd == "CB3") {
-    if (debug){
-          Serial.println("######Comando - tool3######");
-         Serial.println(cmd);
-       }      
-
+      SendOutput("tool3");
+      delay(100);
+      SendOutput(":OP07");      
+      delay(100);
+      SendOutput(":OP08");
       
-      Serial2.print(":OP07");
-      Serial2.print("\r");
-      //delay(500);
-      Serial2.print(":OP08");
-      Serial2.print("\r");
-      //delay(500);
-      
-      Serial2.print("$12");
-      Serial2.print("\r");
-
+      output += "######Comando tool3######";
       
     }
     
     if (cmd == "CB4") {
-    if (debug){
-          Serial.println("######Comando - CB4######");
-         Serial.println(cmd);
-       }
-          
-     //OpenDoorLeft();     
-    // OpenLowerArm(); 
-    Serial2.print("#GAON");
-    Serial2.print("\r");
-     
+      SendOutput("#GAON");
+      output += "######Comando - CB4######";
     }
 
     if (cmd == "CB5") {
-    if (debug){
-          Serial.println("######Comando - CB5 Bohren######");
-         Serial.println(cmd);
-    }
-    
-    //OpenDoorRight();
-   // OpenUpperArm();
-     // Arm2();
-    Serial2.print("#SAON");
-    Serial2.print("\r");
-
-    
-   
+       SendOutput("#SAON");
+       output += "######Comando - CB5 Bohren######";
     }
 
-     if (cmd == "CB6") {
-    if (debug){
-          Serial.println("######Comando - CB6 Charging######");
-         Serial.println(cmd);
-       }
-     
-      //servoDispatch.moveTo(DOOR_CHARGEBAY , 150, 1300, 2050); 
-     
-      Serial2.print("$116");
-      Serial2.print("\r");
-
-      Serial2.print("#OP03");
-      Serial2.print("\r");
-
-      
+    if (cmd == "CB6") {
+       SendOutput("#OP03");
+       output += "######Comando - CB6 Charging######";
     }
 
     if (cmd == "CB7") {
-    if (debug){
-          Serial.println("######Comando - CB7 Manama ######");
-         Serial.println(cmd);
-       }
-      myDFPlayer.playFolder(05,8);
-       
-      Serial2.print(":SE57");
-      Serial2.print("\r");     
-     
-      //servoSequencer.play(SeqBodyPanelDance, SizeOfArray(SeqBodyPanelDance), (GROUP_DOORS));     
+       myDFPlayer.playFolder(05,8);
+       delay(100);
+       SendOutput(":SE57"); 
+       output += "######Comando - CB7 Manama ######"; 
     }
 
     if (cmd == "CB8") {

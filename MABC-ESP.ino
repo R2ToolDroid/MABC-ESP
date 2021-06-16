@@ -23,19 +23,6 @@
 #include <Wire.h> 
 #include "DFRobotDFPlayerMini.h"
 
-//#include "Grove_Human_Presence_Sensor.h" // der SoftwareSerial Bibliothek nutzen.
-//#include <LSM6.h>
-
-///Orientation
-//LSM6 imu;
-//char report[80];
-// 
-
-///Human
-//AK9753 movementSensor;
-
-//int ir1, ir2, ir3, ir4;
-//float temp = 24;
 
 const char* host = "R2-esp32";
 
@@ -62,12 +49,8 @@ Servo GrippLift;
 
 #include "vars.h"
 #include "functions.h"
-//#include "dome.h"
 #include "command.h"
 #include "stick.h"
-//#include "human.h"
-//#include "dome.h"
-
 
 
 void setup(void) {
@@ -242,21 +225,7 @@ void setup(void) {
   digitalWrite(GRIP_MOTB2, LOW); //L298 0 0 is Stop
 
    Wire.begin();
-  //Turn on Human sensor
-  //  if (movementSensor.initialize() == false) {
-  //      Serial.println("Human Detect not found. Check wiring.");
-   //     //while (1);
-  //      delay(3000);
-  //  }
-   //Turn on IMU sensor
-  //  if (!imu.init())
-  //{
-   // Serial.println("Failed to detect and initialize IMU!");
-    //while (1);
-  //  delay(3000);
- // }
-  //imu.enableDefault();
-  
+    
   Serial.println("R2...Ready");
   
 
@@ -294,11 +263,7 @@ void readNextion(){
     {      
       data = Serial1.readStringUntil('\r');      
       if (data != "") {
-        if (debug){
-           // say what you got:
-          Serial.print("I received from COM1: ");
-          Serial.println(data);
-        }
+         output += "I received from COM1: ";
           parseCommand(data);
           data = "";
          Serial1.flush();
@@ -316,16 +281,11 @@ void readWifi(){
 
         //data = Serial2.readStringUntil('\n');
 
-        if (data != "") {
-        if (debug){
-           // say what you got:
-          Serial.print("I received from COM2 COIN/WIFI: ");
-          Serial.println(data);
-        }
-        //Serial2.print("OK\n");
+        if (data != "") {   
+        output += "I received from COM2 COIN/WIFI: ";   
         parseCommand(data);
         data = "";
-        //Serial2.flush();
+        Serial2.flush();
         }// end data
     } // end serial
      
@@ -336,8 +296,6 @@ void readWifi(){
 
 void loop() {
   
-  //domeCenter();
-   
   server.handleClient();
   //CheckIR(5000);
   
@@ -349,8 +307,6 @@ void loop() {
     
   }
  
- // displayFuel();
-
   if (PAGE == 0) {
     NextUpdate(40);
     }
@@ -362,8 +318,15 @@ void loop() {
   //readWifi();
   readCom(); 
   
-  printOutput(); 
- 
+  
+  #ifdef DEBUG
+  Serial.print(output);
+  output = "";
+  #endif
+  #ifdef DEBUG
+  Serial.print(com_output);
+  com_output = "";
+  #endif
   
 }
 
