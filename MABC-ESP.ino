@@ -23,19 +23,19 @@
 #include <Wire.h> 
 #include "DFRobotDFPlayerMini.h"
 
-#include "Grove_Human_Presence_Sensor.h" // der SoftwareSerial Bibliothek nutzen.
-#include <LSM6.h>
+//#include "Grove_Human_Presence_Sensor.h" // der SoftwareSerial Bibliothek nutzen.
+//#include <LSM6.h>
 
 ///Orientation
-LSM6 imu;
-char report[80];
+//LSM6 imu;
+//char report[80];
 // 
 
 ///Human
-AK9753 movementSensor;
+//AK9753 movementSensor;
 
-int ir1, ir2, ir3, ir4;
-float temp = 24;
+//int ir1, ir2, ir3, ir4;
+//float temp = 24;
 
 const char* host = "R2-esp32";
 
@@ -62,10 +62,10 @@ Servo GrippLift;
 
 #include "vars.h"
 #include "functions.h"
-#include "dome.h"
+//#include "dome.h"
 #include "command.h"
 #include "stick.h"
-#include "human.h"
+//#include "human.h"
 //#include "dome.h"
 
 
@@ -243,19 +243,19 @@ void setup(void) {
 
    Wire.begin();
   //Turn on Human sensor
-    if (movementSensor.initialize() == false) {
-        Serial.println("Human Detect not found. Check wiring.");
-        //while (1);
-        delay(3000);
-    }
+  //  if (movementSensor.initialize() == false) {
+  //      Serial.println("Human Detect not found. Check wiring.");
+   //     //while (1);
+  //      delay(3000);
+  //  }
    //Turn on IMU sensor
-    if (!imu.init())
-  {
-    Serial.println("Failed to detect and initialize IMU!");
+  //  if (!imu.init())
+  //{
+   // Serial.println("Failed to detect and initialize IMU!");
     //while (1);
-    delay(3000);
-  }
-  imu.enableDefault();
+  //  delay(3000);
+ // }
+  //imu.enableDefault();
   
   Serial.println("R2...Ready");
   
@@ -336,25 +336,10 @@ void readWifi(){
 
 void loop() {
   
-  domeCenter();
+  //domeCenter();
    
   server.handleClient();
   //CheckIR(5000);
-  if (mode == 2){
-    human();
-  }
-  if (mode == 0){
-    domeAutomation = true;
-  } else {
-    domeAutomation = false;
-  }
-  if (mode == 3){  ///Service
-    posit();
-  } 
-  
-  if (domeAutomation == true){
-    autoDome();
-  }
   
   if(Ps3.isConnected()){
     StickConnect = 1;
@@ -374,7 +359,7 @@ void loop() {
   }
 
   readNextion();
-  readWifi();
+  //readWifi();
   readCom(); 
   
   printOutput(); 
