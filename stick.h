@@ -34,9 +34,7 @@ void notify()
     if( Ps3.event.button_down.cross && (SHIFT == SH_PLUS)) {output += "Stick Dissable";parseCommand("DISDR");StickConnect=0;}
     if( Ps3.event.button_down.circle && (SHIFT == SH_PLUS)) {output += "Reset MABC";parseCommand("hreset");}
 
-    if( Ps3.event.button_down.down && (SHIFT == SH_PLUS))  {output += "PS Down"; parseCommand("D"); }
-    if( Ps3.event.button_down.up && (SHIFT == SH_PLUS))    {output += "PS Up"; parseCommand("T"); }  
-    if( Ps3.event.button_down.right && (SHIFT == SH_PLUS)) {output += "PS Right"; parseCommand("C");}
+    
     if( Ps3.event.button_down.left && (SHIFT == SH_PLUS))  {
       output += "PS Left"; parseCommand("#OP01");
       }
@@ -134,7 +132,10 @@ void notify()
             
         }
       if( Ps3.event.button_down.right && (SHIFT == SH_L1))  {output += "Dreh rechts max";GrippRoll.write(180);} 
-    
+      
+      if( Ps3.event.button_down.down && (SHIFT == SH_PLUS))  {output += "PS Down"; parseCommand("D"); }
+    if( Ps3.event.button_down.up && (SHIFT == SH_PLUS))    {output += "PS Up"; parseCommand("T"); }  
+    if( Ps3.event.button_down.right && (SHIFT == SH_PLUS)) {output += "PS Right"; parseCommand("C");}
       /*
     if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE14");}
     if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");}    

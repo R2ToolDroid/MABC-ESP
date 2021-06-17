@@ -113,8 +113,6 @@ void parseCommand(String cmd) {
 
     myDFPlayer.playFolder(02,001);
     
-    
-    
     }
 
     if (cmd == "T") {
@@ -126,7 +124,16 @@ void parseCommand(String cmd) {
     Serial2.print("D");           // Body Center
     Serial2.print('\r');
     }
-    
+
+    if (cmd == "O") {
+    Serial2.print("O");           // Body Center
+    Serial2.print('\r');
+    }
+
+    if (cmd == "I") {
+    Serial2.print("I");           // Body Center
+    Serial2.print('\r');
+    }
     
     
     if (cmd == "reset") {
