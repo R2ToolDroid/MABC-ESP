@@ -277,9 +277,9 @@ void readWifi(){
 
   if(Serial2.available() > 0)
     {
-        data = Serial2.readStringUntil('\r');
+        //data = Serial2.readStringUntil('\r');
 
-        //data = Serial2.readStringUntil('\n');
+        data = Serial2.readStringUntil('\n');
 
         if (data != "") {   
         output += "I received from COM2 COIN/WIFI: ";   
@@ -315,7 +315,7 @@ void loop() {
   }
 
   readNextion();
-  //readWifi();
+  readWifi();
   readCom(); 
   
   
