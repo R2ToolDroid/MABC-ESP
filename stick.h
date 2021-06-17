@@ -26,8 +26,8 @@ void notify()
     //Cross Shift   
     if( Ps3.event.button_down.down && (SHIFT == SH_CROSS))  {output += "Volume Down"; parseCommand("$-");}
     if( Ps3.event.button_down.up && (SHIFT == SH_CROSS))    {output += "Volume Up"; parseCommand("$+");}  
-    if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {output += "Holos Off"; parseCommand("*ST00");}
-    if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {output += "Holos On"; parseCommand("*RD00");}
+    if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {myDFPlayer.volume(20); output += "Holos Off"; parseCommand("*ST00");}
+    if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {myDFPlayer.volume(10); output += "Holos On"; parseCommand("*RD00");}
 
   
     //PS Shift
