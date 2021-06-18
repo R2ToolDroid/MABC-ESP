@@ -128,7 +128,7 @@ void setup(void) {
  //I2C   21 SDA     22 SDC for PCB Board
  mp3.begin(9600, SWSERIAL_8N1, 25, 26, false, 256);  // speed, type, RX, TX
 
-  if (!myDFPlayer.begin(mp3)) {  //Use softwareSerial to communicate with mp3.
+  if (!myDFPlayer.begin(mp3, true, false)) {  //Use softwareSerial to communicate with mp3.
     
     Serial.println(myDFPlayer.readType(),HEX);
     Serial.println(F("Unable to begin:"));

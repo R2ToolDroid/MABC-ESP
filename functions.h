@@ -9,8 +9,10 @@ bool inRange(int val, int minimum, int maximum)
 
 void onConnect(){
     Serial.println("Stick Connected.");   
+    delay(200);
+    myDFPlayer.playFolder(01, 2);
 }
-///Play Sounds
+/*//Play Sounds
 void Play(int folder, int file){
   //delay(500);
   myDFPlayer.playFolder(folder, file);
@@ -22,7 +24,7 @@ void PlayNext(){
   myDFPlayer.next();
   
 }
-
+*/
 
 void resetSequence(){
   

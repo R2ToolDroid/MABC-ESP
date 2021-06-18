@@ -27,7 +27,7 @@ String inm = "COIN"; //Inputmode String
 String calldata; //String Datarequest
 String calldatabuff;
 
-int mode = 3; // Default Mode  0 = Random
+int mode = 1; // Default Mode  0 = Random
               // RC Mode       1 = RC Control
               // RC Show       2 = Human
               // RC Show       3 = Service Arm Control
