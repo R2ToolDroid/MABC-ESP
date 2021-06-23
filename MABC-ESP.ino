@@ -263,7 +263,7 @@ void readNextion(){
     {      
       data = Serial1.readStringUntil('\r');      
       if (data != "") {
-         output += "I received from COM1: ";
+         output += "I received from COM1: \n";
           parseCommand(data);
           data = "";
          Serial1.flush();
@@ -282,7 +282,7 @@ void readWifi(){
         data = Serial2.readStringUntil('\n');
 
         if (data != "") {   
-        output += "I received from COM2 COIN/WIFI: ";   
+        output += "I received from COM2 COIN/WIFI: \n";   
         parseCommand(data);
         data = "";
         Serial2.flush();
@@ -320,13 +320,17 @@ void loop() {
   
   
   #ifdef DEBUG
-  delay(200);
+  //delay(200);
+  if(output != ""){
   Serial.print(output);
+  }
   output = "";
   #endif
   #ifdef COM_DEBUG
-  delay(200);
+  //delay(200);
+  if(output != ""){
   Serial.print(com_output);
+  }
   com_output = "";
   #endif
   

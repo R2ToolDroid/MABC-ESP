@@ -136,6 +136,10 @@ void notify()
       if( Ps3.event.button_down.down && (SHIFT == SH_PLUS))  {output += "PS Down"; parseCommand("D"); }
     if( Ps3.event.button_down.up && (SHIFT == SH_PLUS))    {output += "PS Up"; parseCommand("T"); }  
     if( Ps3.event.button_down.right && (SHIFT == SH_PLUS)) {output += "PS Right"; parseCommand("C");}
+    
+    if( Ps3.event.button_down.left && (SHIFT == SH_PLUS))  {
+      output += "PS Left Door"; parseCommand("#OP01");
+      }
       /*
     if( Ps3.event.button_down.left && (SHIFT == 0))  {output += "Mid Awake + Human"; parseCommand(":SE14");}
     if( Ps3.event.button_down.up && (SHIFT == 0))    {output += "Full Awake"; parseCommand(":SE11");}    
