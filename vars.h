@@ -32,7 +32,7 @@ int mode = 1; // Default Mode  0 = Random
               // RC Show       2 = Human
               // RC Show       3 = Service Arm Control
 
-int INmode = 0; /// 0 == Input auf Coin und Nextion
+int INmode = 1; /// 0 == Input auf Coin und Nextion
                 /// 1 == Input auf  Stick and Nextion
 
 float PowerA = 0;

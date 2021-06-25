@@ -230,6 +230,7 @@ void setup(void) {
     
   Serial.println("R2...Ready");
   
+  SendOutput("mode0");
 
   ///Nextion Start
   Serial1.print("page start");
