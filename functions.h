@@ -101,12 +101,12 @@ void NextCom(String data){
 
 void ShwMode(){
 
-    myDFPlayer.playFolder(02,001);
+   // myDFPlayer.playFolder(02,001);
 
     switch (mode){
           case 0:
           calldatabuff = " 0-RANDOM ";
-          
+          myDFPlayer.playFolder(01,023);
           break;
           case 1:
           calldatabuff = " 1-REMOTE ";
@@ -114,9 +114,11 @@ void ShwMode(){
           break;
           case 2:
           calldatabuff = " 2-HUMAN  ";
+          myDFPlayer.playFolder(02,004);
            break; 
           case 3:
           calldatabuff = " 3-SERVICE";
+          myDFPlayer.playFolder(02,005);
           break;
     
           default:
@@ -125,13 +127,14 @@ void ShwMode(){
        }
 
       
-      //delay (500);   
+      delay (500);   
       //NextCom(calldatabuff);
-
+      if (PAGE == 0){
       Serial1.print("t1.txt=\"");
       Serial1.print(calldatabuff);
       Serial1.print(" _\"");
       NextEnd(); 
+      }
   
 }
 

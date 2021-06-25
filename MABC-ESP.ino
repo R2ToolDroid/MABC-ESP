@@ -162,9 +162,11 @@ void setup(void) {
   Serial.println(F("readFileCountsInFolder--------------------"));
   Serial.println(myDFPlayer.readFileCountsInFolder(3)); //read fill counts in folder SD:/03
   Serial.println(F("--------------------"));
+  Serial.println(F("---Wait---"));
+
+  delay(8000);
 
   Serial.println(F("myDFPlayer.play(1)"));
-  
   myDFPlayer.play(1);  //Play the first mp3 
   delay(3000);
 
@@ -326,6 +328,7 @@ void loop() {
   }
   output = "";
   #endif
+  
   #ifdef COM_DEBUG
   //delay(200);
   if(output != ""){

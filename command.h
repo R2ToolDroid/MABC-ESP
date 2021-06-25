@@ -162,6 +162,7 @@ void parseCommand(String cmd) {
       delay(100);
       SendOutput(":SE10");
       myDFPlayer.playFolder(03,007);
+      delay(3000);
       ESP.restart();
     }  
     

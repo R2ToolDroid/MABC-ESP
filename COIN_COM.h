@@ -15,7 +15,7 @@
     delay(100);
     mode = 1 ;  
     output += "######Comando CBD1######\n";
-    
+    ShwMode();
     }
      
     if (cmd == "CBD2" ){
@@ -25,7 +25,7 @@
         }else {
         mode = mode+1;
       }
-      
+      ShwMode();
     switch (mode){
       case 0:
      // Serial2.print("$12\r");     ///DOME MD

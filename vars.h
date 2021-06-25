@@ -1,7 +1,7 @@
 #include <Arduino.h>                           
 
-#define DEBUG       ///print "output" all Debug on Serial
-#define DEBUG_COM   ///print "com_output" Debug
+//#define DEBUG       ///print "output" all Debug on Serial
+//#define DEBUG_COM   ///print "com_output" Debug
 
 unsigned long previousMillis = 0;      
 byte web = false;
@@ -19,7 +19,7 @@ const long interval = 5000;           // interval at which to blink (millisecond
 //int durch = 1;
 
 String cmd; //Consolen Input
-byte debug = true; //Debug function
+byte debug = false; //Debug function
 String output;
 String com_output;
 String data; //Serial Data
