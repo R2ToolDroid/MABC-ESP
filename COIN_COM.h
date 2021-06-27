@@ -16,6 +16,7 @@
     mode = 1 ;  
     output += "######Comando CBD1######\n";
     ShwMode();
+    RNDSound = false;
     }
      
     if (cmd == "CBD2" ){

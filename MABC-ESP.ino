@@ -54,6 +54,8 @@ Servo GrippLift;
 
 
 void setup(void) {
+
+  randomSeed(analogRead(0));  //Random ??
   
   pinMode(FUEL_CELL_B, INPUT_PULLUP);
   Serial.begin(115200); 
@@ -163,6 +165,8 @@ void setup(void) {
   Serial.println(myDFPlayer.readFileCountsInFolder(3)); //read fill counts in folder SD:/03
   Serial.println(F("--------------------"));
   Serial.println(F("---Wait---"));
+
+  maxFilesinFolder = myDFPlayer.readFileCountsInFolder(1);
 
   delay(8000);
 
@@ -301,6 +305,10 @@ void loop() {
   
   server.handleClient();
   //CheckIR(5000);
+  if (RNDSound){
+    randomSound(5000,20000,maxFilesinFolder);
+    //randomSound(int minINT, int maxINT, int maxFiles)
+  }
   
   if(Ps3.isConnected()){
     StickConnect = 1;

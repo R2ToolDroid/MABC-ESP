@@ -7,11 +7,60 @@ bool inRange(int val, int minimum, int maximum)
 }
 
 
+void randomSound(int minINT, int maxINT, int maxFiles){
+
+  // check to see if it's time to blink the LED; that is, if the difference
+  // between the current time and last time you blinked the LED is bigger than
+  // the interval at which you want to blink the LED.
+  unsigned long RNDcurrentMillis = millis();
+
+  //RNDinterval = random(3000, 5000);
+  if (debug_RNDSound){
+  Serial.print(" | interv ");
+  Serial.print(RNDinterval);
+  Serial.print(" | cur ");
+  Serial.print(RNDcurrentMillis);
+  Serial.print(" | prev ");
+  Serial.print(RNDpreviousMillis);
+  Serial.print(" | diff ");
+  Serial.print(RNDcurrentMillis - RNDpreviousMillis);
+  Serial.print(" | State ");
+  }
+  //delay(50);
+
+  if (RNDcurrentMillis - RNDpreviousMillis >= RNDinterval) {
+    // save the last time you blinked the LED
+    RNDinterval = random(minINT, maxINT);
+    
+    RNDpreviousMillis = RNDcurrentMillis;
+
+    file = random(1, maxFiles);
+    if (debug_RNDSound){
+    Serial.print("beeep.. NR:  ");
+    Serial.print(file);
+    }
+
+    myDFPlayer.playFolder(01, file);
+    
+  }
+  
+  if (debug_RNDSound){
+  Serial.println("..");
+    delay(50);
+  }
+
+  
+}
+
 void onConnect(){
     Serial.println("Stick Connected.");   
     delay(200);
     myDFPlayer.playFolder(01, 2);
 }
+
+
+
+
 /*//Play Sounds
 void Play(int folder, int file){
   //delay(500);

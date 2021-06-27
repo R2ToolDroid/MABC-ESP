@@ -23,11 +23,11 @@ void parseCommand(String cmd) {
       if (cmd == ":SE07"){myDFPlayer.playFolder(05,3);}
       if (cmd == ":SE08"){myDFPlayer.playFolder(05,1);}
       if (cmd == ":SE09"){myDFPlayer.playFolder(05,7);}//disco
-      if (cmd == ":SE10"){myDFPlayer.playFolder(02,1);}
-      if (cmd == ":SE11"){myDFPlayer.playFolder(01,14);}
+      if (cmd == ":SE10"){myDFPlayer.playFolder(02,1);RNDSound = false;}
+      if (cmd == ":SE11"){myDFPlayer.playFolder(01,14);RNDSound = true;}
       if (cmd == ":SE12"){myDFPlayer.playFolder(02,2);}
-      if (cmd == ":SE13"){myDFPlayer.playFolder(02,4);}
-      if (cmd == ":SE14"){myDFPlayer.playFolder(02,5);}
+      if (cmd == ":SE13"){myDFPlayer.playFolder(02,4);RNDSound = true;}
+      if (cmd == ":SE14"){myDFPlayer.playFolder(02,5);RNDSound = true;}
       if (cmd == ":SE15"){myDFPlayer.playFolder(04,1);}
 
       if (cmd == "$87"){myDFPlayer.playFolder(05,4);}  ///Musik
@@ -58,6 +58,12 @@ void parseCommand(String cmd) {
   Serial.println("...fuer DebugMode debug eingeben...");
   Serial.println("...ende DebugMode debug off eingeben...");
   Serial.println("...SERIAL is DEBUG 115200 - 9600 BAUD !!");
+  Serial.println("........................................");
+  Serial.println("DF Player Status");
+  Serial.println(F("readState--------------------"));
+  Serial.println(myDFPlayer.readState()); //read mp3 state
+  Serial.println(F("readVolume--------------------"));
+  Serial.println(myDFPlayer.readVolume()); //read current volume
   Serial.print("...MODE = ");
   Serial.println(mode);
   Serial.print("...PAGE = ");

@@ -31,6 +31,15 @@ int mode = 1; // Default Mode  0 = Random
               // RC Mode       1 = RC Control
               // RC Show       2 = Human
               // RC Show       3 = Service Arm Control
+              
+// Random Sound
+unsigned long RNDpreviousMillis = 0;        // will store last time LED was updated
+// constants won't change:
+long RNDinterval = 8000;           // interval at which to blink (milliseconds)
+byte RNDSound = true;   
+int debug_RNDSound = 0;     
+int file = 4;
+int maxFilesinFolder;      
 
 int INmode = 1; /// 0 == Input auf Coin und Nextion
                 /// 1 == Input auf  Stick and Nextion
@@ -151,6 +160,9 @@ byte NachR = false;
 byte Mitte = false;
 byte Ping = false;
 int Sdiff = 0;
+
+
+
 
 //AutoDome function
 
