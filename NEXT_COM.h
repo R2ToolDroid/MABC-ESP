@@ -63,12 +63,13 @@
        mode++;
       if (mode >= 4) mode=0;
         ShwMode();
-
+      
+      delay(100);
       Serial2.print("mode");
       Serial2.print(mode);
       Serial2.print("\r");  
 
-      delay(200);
+      //delay(200);
       
         
       }

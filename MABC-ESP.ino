@@ -148,7 +148,7 @@ void setup(void) {
   myDFPlayer.volumeDown(); //Volume Down
   myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
   myDFPlayer.outputDevice(DFPLAYER_DEVICE_SD);
-  int delayms=200;  ///delay OEM 100
+  int delayms=100;  ///delay OEM 100
   //----Mp3 play----
   //----Read imformation----
   Serial.println(F("readState--------------------"));

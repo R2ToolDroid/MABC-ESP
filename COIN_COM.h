@@ -8,11 +8,11 @@
     if (cmd == "CBD1") {
     
     SendOutput("mode1");
-    delay(100);
+    //delay(100);
     SendOutput(":SE00");
-    delay(100);
+    //delay(100);
     SendOutput("center");
-    delay(100);
+    //delay(100);
     mode = 1 ;  
     output += "######Comando CBD1######\n";
     ShwMode();
@@ -79,9 +79,9 @@
     if (cmd == "CB0") {         
       mode=3;
       SendOutput("usb");     
-      delay(100);
+      //delay(100);
       SendOutput(":OP03");
-      delay(100);
+      //delay(100);
       output += ("######Comando CB0 ######");
     }
    
@@ -89,9 +89,9 @@
     if (cmd == "CB1") {
       mode=3;
       SendOutput("tool1");
-      delay(100); 
+     // delay(100); 
       SendOutput(":OP04");
-      delay(100);
+      //delay(100);
       output += "######Comando - CB1######";
     }
 
@@ -100,18 +100,18 @@
     if (cmd == "CB2") {       
       mode=3;
       SendOutput("tool2");
-      delay(100);
+      //delay(100);
       SendOutput(":OP05");
-      delay(100);
+     // delay(100);
       output += "######Comando CBD3######";
     }
     ///// Komando/////
 
     if (cmd == "CB3") {
       SendOutput("tool3");
-      delay(100);
+      //delay(100);
       SendOutput(":OP07");      
-      delay(100);
+      //delay(100);
       SendOutput(":OP08");
       
       output += "######Comando tool3######";
@@ -135,7 +135,7 @@
 
     if (cmd == "CB7") {
        myDFPlayer.playFolder(05,8);
-       delay(100);
+       //delay(100);
        SendOutput(":SE57"); 
        output += "######Comando - CB7 Manama ######"; 
     }

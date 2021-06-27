@@ -166,12 +166,15 @@ void notify()
       Serial.print("Mode = ");
       Serial.println(mode);
       }
+      
       Serial2.print("mode");
       Serial2.print(mode);
       Serial2.print("\r");
+      //SendOutput ("mode"+mode);
       
       SHIFT = 0;
      // parseCommand("CALL");
+     
      ShwMode();
       
     } 

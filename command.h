@@ -1,7 +1,13 @@
 #include <Arduino.h>    
 
 void SendOutput(String dcmd) {   ///VIA SHD_PULS to MD Dome Board
-  
+
+    //delay(200);
+    
+    if (debug){
+      Serial.println(dcmd);
+    }
+    
     Serial2.print(dcmd);
     Serial2.print('\r'); 
     cmd = "";
@@ -150,8 +156,10 @@ void parseCommand(String cmd) {
      //ESP.restart();
      mode = 3; ///Service
       
-      Serial2.print("mode3\r");           // hier geht es weiter zum  SHD_PULSE
-      delay(100);
+      //Serial2.print("mode3\r");           // hier geht es weiter zum  SHD_PULSE
+      
+      //delay(100);
+      SendOutput("mode3");
       SendOutput(":SE10");
  
     }
@@ -164,8 +172,9 @@ void parseCommand(String cmd) {
      //ESP.restart();
      mode = 0; ///Service
       
-      Serial2.print("mode0\r");           // hier geht es weiter zum  SHD_PULSE
-      delay(100);
+      //Serial2.print("mode0\r");           // hier geht es weiter zum  SHD_PULSE
+      //delay(100);
+      SendOutput("mode0");
       SendOutput(":SE10");
       myDFPlayer.playFolder(03,007);
       delay(3000);
@@ -211,7 +220,8 @@ void parseCommand(String cmd) {
          Serial.println("######Comando - mode0######");
          Serial.println(cmd);
        }
-      Serial2.print("mode0\r");
+      //Serial2.print("mode0\r");
+      SendOutput("mode0");
       mode=0;
       ShwMode();
     }
@@ -224,6 +234,7 @@ void parseCommand(String cmd) {
        }
       ///Action
       Serial2.print("usb\r");
+      SendOutput("usb");
       //mode=0;
       mode=3;
       DomeTurnPos = true;
@@ -239,8 +250,9 @@ void parseCommand(String cmd) {
       //Serial2.print("tool1\r");
       //mode=0;
       mode=3;
-      DomeTurnPos = true;
-      TargetPos = 500;
+      SendOutput("tool1");
+     // DomeTurnPos = true;
+     // TargetPos = 500;
       
     }
 
@@ -250,9 +262,10 @@ void parseCommand(String cmd) {
          Serial.println(cmd);
        }
       ///Action
+      SendOutput("tool2");
       mode=3;
-      DomeTurnPos = true;
-      TargetPos = 600;
+     // DomeTurnPos = true;
+     // TargetPos = 600;
       
     }
 
@@ -263,9 +276,10 @@ void parseCommand(String cmd) {
        }
       ///Action
      // Serial2.print("tool3\r");
+      SendOutput("tool3");
       mode=3;
-      DomeTurnPos = true;
-      TargetPos = 800;
+      //DomeTurnPos = true;
+      //TargetPos = 800;
       
     }
 
@@ -277,7 +291,7 @@ void parseCommand(String cmd) {
       ///Action
       //Serial2.print("tool4\r");
       //mode=0;
-      
+      SendOutput("tool4");
     }
 
     if (cmd == "tool5") {
@@ -288,7 +302,7 @@ void parseCommand(String cmd) {
       ///Action
       //Serial2.print("tool5\r");
       //mode=0;
-      
+      SendOutput("tool5");
     }
 
     if (cmd == "tool6") {
@@ -299,7 +313,7 @@ void parseCommand(String cmd) {
       ///Action
       //Serial2.print("tool6\r");
       //mode=0;
-      
+      //SendOutput("tool7");
     }
 
     if (cmd == "tool7") {
@@ -400,7 +414,18 @@ void parseCommand(String cmd) {
         myDFPlayer.volume(30);
         
       }
+      
+      if (cmd == "$R") {
+        
+        //myDFPlayer.volume(30);
+        RNDSound = true;
+      }
 
+      if (cmd == "$s") {
+        
+        //myDFPlayer.volume(30);
+        RNDSound = false;
+      }
 
 
       
