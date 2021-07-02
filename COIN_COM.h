@@ -31,18 +31,23 @@
       case 0:
      // Serial2.print("$12\r");     ///DOME MD
       SendOutput("mode0");
+      RNDSound = true;
+      
       break;
       case 1:
      // Serial2.print("$18\r");     ///DOME MD
      SendOutput("mode1");
+     RNDSound = false;
       break;
       case 2:
      // Serial2.print("$19\r");     ///DOME MD
       SendOutput("mode2");
+      RNDSound = false;
       break;
       case 3:
      // Serial2.print("$110\r");     ///DOME MD
      SendOutput("mode3");
+     RNDSound = false;
       break;      
       default:
      // Serial2.print("$226\r");
