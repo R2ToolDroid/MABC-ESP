@@ -43,6 +43,7 @@
      // Serial2.print("$19\r");     ///DOME MD
       SendOutput("mode2");
       RNDSound = false;
+      SendOutput("*RC01");
       break;
       case 3:
      // Serial2.print("$110\r");     ///DOME MD
@@ -59,31 +60,15 @@
     }
 
     if (cmd == "CBD3" ){
-
-    SendOutput(":SE10");
-    
-    switch (mode){
-      case 0:
-      ///Serial2.print("$18\r");     ///DOME MD
-      break;
-      case 2:
-      //Serial2.print("$19\r");     ///DOME MD
-      break;
-      case 3:
-      //Serial2.print("$110\r");     ///DOME MD
-      break;      
-      default:
-      //Serial2.print("$226\r");
-      break;
-      
-      }  // end switch  
+      SendOutput(":SE10");
+      ShwMode();
       output += "######Comando CBD3######";
     }///END CBD3
     
     ////TEST//
     if (cmd == "CB0") {         
-      mode=3;
-      SendOutput("usb");     
+      mode=1;
+      SendOutput("tool1");     
       //delay(100);
       SendOutput(":OP03");
       //delay(100);
@@ -92,8 +77,8 @@
    
     ///// Komando/////
     if (cmd == "CB1") {
-      mode=3;
-      SendOutput("tool1");
+      mode=1;
+      SendOutput("tool2");
      // delay(100); 
       SendOutput(":OP04");
       //delay(100);
@@ -103,8 +88,8 @@
     /////Tool Komando/////
 
     if (cmd == "CB2") {       
-      mode=3;
-      SendOutput("tool2");
+      mode=1;
+      SendOutput("tool3");
       //delay(100);
       SendOutput(":OP05");
      // delay(100);
@@ -113,24 +98,26 @@
     ///// Komando/////
 
     if (cmd == "CB3") {
-      SendOutput("tool3");
-      //delay(100);
-      SendOutput(":OP07");      
-      //delay(100);
-      SendOutput(":OP08");
-      
-      output += "######Comando tool3######";
+      SendOutput(":SE09");  
+      SendOutput("mode0");        
+      RNDSound = false;
+      myDFPlayer.playFolder(05,8);//disco
+      output += "######Comando Manama######";
       
     }
     
     if (cmd == "CB4") {
-      SendOutput("#GAON");
-      output += "######Comando - CB4######";
+      RNDSound = false;
+      SendOutput(":SE03");
+      myDFPlayer.playFolder(01,2);
+      output += "######Comando - CB4 Smirk######";
     }
 
     if (cmd == "CB5") {
-       SendOutput("#SAON");
-       output += "######Comando - CB5 Bohren######";
+       SendOutput(":SE06");
+       RNDSound = false;
+       myDFPlayer.playFolder(04,2);
+       output += "######Comando - CB5 Scream######";
     }
 
     if (cmd == "CB6") {
@@ -139,143 +126,66 @@
     }
 
     if (cmd == "CB7") {
-       myDFPlayer.playFolder(05,8);
-       //delay(100);
-       SendOutput(":SE57"); 
-       output += "######Comando - CB7 Manama ######"; 
+      SendOutput("#OP02");
+      
+       output += "######Comando - CB7 Big Door ######"; 
     }
 
     if (cmd == "CB8") {
-    if (debug){
-          Serial.println("######Comando - CB8 Animation Lang Test ######");
-         Serial.println(cmd);
-       }
-
-          
-      //ANIMATION_PLAY_ONCE(player, test);
-
+      SendOutput("#SAON");
+      output +=   "######Comando - CB8 Schrauber ON ######";  
       
     }
 
     if (cmd == "CB9") {
-    if (debug){
-          Serial.println("######Comando - CB9 Drive ######");
-         Serial.println(cmd);
-       }
-          
-      Serial2.print("$211");
-      Serial2.print("\r");
-    // pwm.setPWM(14, 0, pulseWidth(KlappeAuf[4]));//Klappe 4
-      
+      SendOutput("#OP01");
+      output += "######Comando - CB9 Gripper Door ######";
     }
 
     if (cmd == "CB10") {
-    if (debug){
-          Serial.println("######Comando - CB10 Move####");
-         Serial.println(cmd);
-       }
-          
-      Serial2.print("$217");
-      Serial2.print("\r");
-      //pwm.setPWM(12, 0, pulseWidth(KlappeAuf[2]));//Klappe 2
-      
+     SendOutput("#FION");
+      output += "######Comando - CB10 Fire ON ####";
       
     }
 
     if (cmd == "CB11") {
-    if (debug){
-          Serial.println("######Comando - CB11 Wave####");
-         Serial.println(cmd);
-       }
-          
-      Serial2.print(":SE04");
-      Serial2.print("\r");
-
-      //servoSequencer.play(SeqBodyPanelWave2, SizeOfArray(SeqBodyPanelWave2), (GROUP_DOORS));
+    SendOutput("#FIOFF");
+      output += "######Comando - CB11 Fire OFF ####";
       
     }
     
-    if (cmd == "CB12") {
-    if (debug){
-          Serial.println("######Comando - CB12 Smirk####");
-         Serial.println(cmd);
-       }
-          
-      Serial2.print(":SE03");
-      Serial2.print("\r");
-
-      //servoSequencer.play(SeqBodyPanelWaveFast, SizeOfArray(SeqBodyPanelWaveFast), (GROUP_DOORS));
-      
+     if (cmd == "CB12") {
+      SendOutput("#OPD1");
+      output += "######Comando - CB12 Shuba 1####";
     }
 
     if (cmd == "CB13") {
-    if (debug){
-          Serial.println("######Comando - CB13 Disco####");
-         Serial.println(cmd);
-       }
-          
-      Serial2.print(":SE07");
-      Serial2.print("\r");
-      //servoSequencer.play(SeqBodyPanelDance, SizeOfArray(SeqBodyPanelDance), (GROUP_DOORS));
-     // Dance();
+    SendOutput("#OPD2");
+      output += "######Comando - CB13 Shuba 2####";
       
     }
     
     if (cmd == "CB14") {
-    if (debug){
-          Serial.println("######Comando - CB14 Open All####");
-         Serial.println(cmd);
-       }
-          
-      Serial2.print(":OP00");
-      Serial2.print("\r");
-
-     // servoSequencer.play(SeqBodyPanelAllOpen, SizeOfArray(SeqBodyPanelAllOpen), (GROUP_DOORS));
-
-     // OpenAll();
+      SendOutput("#OPD3");
+      output += "######Comando - CB14 Shuba 3####";
       
     }
 
     if (cmd == "CB15") {
-    if (debug){
-          Serial.println("######Comando - CB15 Close All####");
-         Serial.println(cmd);
-       }
-          
-      Serial2.print(":CL00");
-      Serial2.print("\r");
-
-     // servoSequencer.play(SeqBodyPanelAllSoftClose, SizeOfArray(SeqBodyPanelAllSoftClose), (GROUP_DOORS));
-
-     // CloseAll();
+      SendOutput("#OPD4");
+      output += "######Comando - CB15 Shuba 4####";
       
     }
 
     if (cmd == "CB16") {
-    if (debug){
-          Serial.println("######Comando - CB16 Sream####");
-         Serial.println(cmd);
-       }
-          
-      Serial2.print(":SE15");
-      Serial2.print("\r");
-      //servoSequencer.play(SeqBodyPanelAllFlutter, SizeOfArray(SeqBodyPanelAllFlutter), (GROUP_DOORS));
-     //  DelayCall::schedule([] {
-      //  servoSequencer.play(SeqBodyPanelAllSoftClose, SizeOfArray(SeqBodyPanelAllSoftClose), (GROUP_DOORS));
-     //   }, 5000);
-      //OpenAll();
+    SendOutput("#OP00");
+      output += "######Comando - CB16 Open Body All####";
       
     }
 
     if (cmd == "CB17") {
-    if (debug){
-          Serial.println("######Comando - CB17 Faint ####");
-         Serial.println(cmd);
-       }
-      
-      SendOutput(":SE06");
-
-     // Faint();
+    SendOutput("#CL00");
+      output += "######Comando - CB17 Close Body All####";
       
     }
 

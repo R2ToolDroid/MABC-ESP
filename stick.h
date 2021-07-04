@@ -47,6 +47,11 @@ void notify()
     if( Ps3.event.button_down.up && (SHIFT == SH_L1))    {output += "Cantina Dance"; parseCommand(":SE07");}  
     if( Ps3.event.button_down.right && (SHIFT == SH_L1)) {output += "Wave 2"; parseCommand(":SE04");}   
 
+    // L2 Shift
+    if( Ps3.event.button_down.circle && (SHIFT == SH_L2))  {parseCommand(":CL00");}
+    if( Ps3.event.button_down.cross && (SHIFT == SH_L2))  {parseCommand("center");}
+    
+
     } else {
       /*****************##########           ARM Steering       ########### ********/
       if( Ps3.event.button_down.up && (SHIFT == 0))    {

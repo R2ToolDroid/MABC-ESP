@@ -22,6 +22,25 @@
        // myDFPlayer.next();
        //Play(02,001);
         }
+        
+      if (cmd == "resetS") {
+       SendOutput(":SE00");  
+      }
+      
+      if (cmd == "manama") {
+      Serial.println("manama"); 
+      RNDSound = false;
+
+      myDFPlayer.playFolder(05,8);
+       //delay(100);
+       SendOutput(":SE57"); 
+      //PAGE = 3;
+      //myDFPlayer.next();
+      //Play(02,001);
+      } 
+      
+
+        
       if (cmd == "move") {
       Serial.println("move erkannt"); 
       PAGE = 3;
@@ -98,10 +117,7 @@
       flash = true; 
       }
       
-      if (cmd == "CB12") {
-        Serial.print("CB12 erkannt");
-        }
-      
+            
       if (cmd == "M23") {
         Serial.print("M23 erkannt");
        

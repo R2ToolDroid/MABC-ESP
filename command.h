@@ -24,21 +24,23 @@ void parseCommand(String cmd) {
       if (cmd == ":SE02"){myDFPlayer.playFolder(01,14);}
       if (cmd == ":SE03"){myDFPlayer.playFolder(01,2);}
       if (cmd == ":SE04"){myDFPlayer.playFolder(01,7);}
-      if (cmd == ":SE05"){myDFPlayer.playFolder(05,3);}
-      if (cmd == ":SE06"){myDFPlayer.playFolder(01,8);}//faint
-      if (cmd == ":SE07"){myDFPlayer.playFolder(05,3);}
-      if (cmd == ":SE08"){myDFPlayer.playFolder(05,1);}
-      if (cmd == ":SE09"){myDFPlayer.playFolder(05,7);}//disco
+      if (cmd == ":SE05"){RNDSound = false;myDFPlayer.playFolder(05,3);}
+      if (cmd == ":SE06"){RNDSound = false;myDFPlayer.playFolder(04,2);}//faint
+      if (cmd == ":SE07"){RNDSound = false;myDFPlayer.playFolder(05,3);}
+      if (cmd == ":SE08"){RNDSound = false;myDFPlayer.playFolder(05,1);}
+      if (cmd == ":SE09"){RNDSound = false;myDFPlayer.playFolder(05,8);}//disco
       if (cmd == ":SE10"){myDFPlayer.playFolder(02,1);RNDSound = false;}
       if (cmd == ":SE11"){myDFPlayer.playFolder(01,14);RNDSound = true;}
       if (cmd == ":SE12"){myDFPlayer.playFolder(02,2);}
       if (cmd == ":SE13"){myDFPlayer.playFolder(02,4);RNDSound = true;}
       if (cmd == ":SE14"){myDFPlayer.playFolder(02,5);RNDSound = true;}
       if (cmd == ":SE15"){myDFPlayer.playFolder(04,1);}
+      if (cmd == ":SE51"){myDFPlayer.playFolder(04,1);}
 
-      if (cmd == "$87"){myDFPlayer.playFolder(05,4);}  ///Musik
+      if (cmd == "$87"){RNDSound = false;myDFPlayer.playFolder(05,4);}  ///Musik
       if (cmd == "$5"){myDFPlayer.playFolder(02,3);}  //Whistle
       if (cmd == "$3"){myDFPlayer.playFolder(02,6);}  //Happy
+      if (cmd == "NO"){myDFPlayer.playFolder(03,7);}  //NO
       if (cmd == "$2"){myDFPlayer.next();}  //Talk  
       if (cmd == "#OF00"){myDFPlayer.playFolder(01,20);}   
       
@@ -198,7 +200,7 @@ void parseCommand(String cmd) {
     if (cmd == "mode2") {
     if (debug){
          Serial.println("######Comando - mode2######");
-         Serial.println(cmd);
+         //Serial.println(cmd);
        }
       Serial2.print("mode2\r");       
       mode=2;
