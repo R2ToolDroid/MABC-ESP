@@ -23,7 +23,6 @@
 #include <Wire.h> 
 #include "DFRobotDFPlayerMini.h"
 
-
 const char* host = "R2-esp32";
 
 //const char* ssid = "Webmex-Safe-02";
@@ -51,6 +50,7 @@ Servo GrippLift;
 #include "functions.h"
 #include "command.h"
 #include "stick.h"
+#include "IRinput.h"
 
 
 void setup(void) {
@@ -59,6 +59,7 @@ void setup(void) {
   
   pinMode(FUEL_CELL_B, INPUT_PULLUP);
   Serial.begin(115200); 
+  
   CheckCellCon(); /// Check if we start with WIFI OTA
 
   if (web == true){ 
@@ -151,26 +152,39 @@ void setup(void) {
   int delayms=100;  ///delay OEM 100
   //----Mp3 play----
   //----Read imformation----
-  Serial.println(F("readState--------------------"));
-  Serial.println(myDFPlayer.readState()); //read mp3 state
-  Serial.println(F("readVolume--------------------"));
-  Serial.println(myDFPlayer.readVolume()); //read current volume
-  //Serial.println(F("readEQ--------------------"));
-  //Serial.println(myDFPlayer.readEQ()); //read EQ setting
-  Serial.println(F("readFileCounts--------------------"));
-  Serial.println(myDFPlayer.readFileCounts()); //read all file counts in SD card
-  Serial.println(F("readCurrentFileNumber--------------------"));
-  Serial.println(myDFPlayer.readCurrentFileNumber()); //read current play file number
-  Serial.println(F("readFileCountsInFolder--------------------"));
-  Serial.println(myDFPlayer.readFileCountsInFolder(3)); //read fill counts in folder SD:/03
-  Serial.println(F("--------------------"));
-  Serial.println(F("---Wait---"));
-
+  S_DEBUG_OUTPUT = "readState--------------------";
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += myDFPlayer.readState(); //read mp3 state
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += "readVolume--------------------";
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += myDFPlayer.readVolume(); //read current volume
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += "readEQ--------------------";
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += myDFPlayer.readEQ(); //read EQ setting
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += "readFileCounts--------------------";
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += myDFPlayer.readFileCounts(); //read all file counts in SD card
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += "readCurrentFileNumber--------------------";
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += myDFPlayer.readCurrentFileNumber(); //read current play file number
+  S_DEBUG_OUTPUT += "\n";
+  
+  S_DEBUG_OUTPUT += "readFileCountsInFolder--------------------";
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += myDFPlayer.readFileCountsInFolder(3); //read fill counts in folder SD:/03";
+  S_DEBUG_OUTPUT += "\n";
+  S_DEBUG_OUTPUT += "---Wait---";
+  S_DEBUG_OUTPUT += "\n";
+  
   maxFilesinFolder = myDFPlayer.readFileCountsInFolder(1);
 
   delay(8000);
 
-  Serial.println(F("myDFPlayer.play(1)"));
+  //Serial.println(F("myDFPlayer.play(1)"));
   myDFPlayer.play(1);  //Play the first mp3 
   delay(3000);
 
@@ -256,6 +270,11 @@ void readCom(){
   if(Serial.available() > 0)
     {
         data = Serial.readStringUntil('\n');
+        if (DEBUG_INPUT){
+            S_DEBUG_INPUT += "I received from COM Serial: \n";
+            S_DEBUG_INPUT += data;
+            S_DEBUG_INPUT += "\n";
+        }
         parseCommand(data);
         data = "";
         Serial.flush();
@@ -270,7 +289,13 @@ void readNextion(){
     {      
       data = Serial1.readStringUntil('\r');      
       if (data != "") {
-         output += "I received from COM1: \n";
+         
+          if (DEBUG_INPUT){
+              S_DEBUG_INPUT += "I received from COM1 NEXTION: \n";
+              S_DEBUG_INPUT += data;
+              S_DEBUG_INPUT += "\n";
+          }
+         
           parseCommand(data);
           data = "";
          Serial1.flush();
@@ -285,11 +310,13 @@ void readWifi(){
   if(Serial2.available() > 0)
     {
         //data = Serial2.readStringUntil('\r');
-
         data = Serial2.readStringUntil('\n');
-
         if (data != "") {   
-        output += "I received from COM2 COIN/WIFI: \n";   
+           if (DEBUG_INPUT){
+              S_DEBUG_INPUT += "I received from COM2 COIN/WIFI: \n";
+              S_DEBUG_INPUT += data;
+              S_DEBUG_INPUT += "\n";
+          }        
         parseCommand(data);
         data = "";
         Serial2.flush();
@@ -302,6 +329,10 @@ void readWifi(){
 
 
 void loop() {
+
+  if ( mode == 2 ){
+   IRSensor();
+  }
   
   server.handleClient();
   //CheckIR(5000);
@@ -329,22 +360,25 @@ void loop() {
   readWifi();
   readCom(); 
   
-  
-  #ifdef DEBUG
-  //delay(200);
-  if(output != ""){
-  Serial.print(output);
+  if(DEBUG_COM){
+  Serial.print(S_DEBUG_COM);
+  S_DEBUG_COM = "";
   }
-  output = "";
-  #endif
-  
-  #ifdef COM_DEBUG
-  //delay(200);
-  if(output != ""){
-  Serial.print(com_output);
+  if(DEBUG_INPUT){
+  Serial.print(S_DEBUG_INPUT);
+  S_DEBUG_INPUT = "";
   }
-  com_output = "";
-  #endif
+  if(DEBUG_STICK){
+  Serial.print(S_DEBUG_STICK);
+  S_DEBUG_STICK = "";
+  }
+  if(DEBUG_OUTPUT){
+  Serial.print(S_DEBUG_OUTPUT);
+  S_DEBUG_OUTPUT = "";
+  }
+  
+  
+ 
   
 }
 

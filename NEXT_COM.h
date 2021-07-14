@@ -5,19 +5,26 @@
     // 0= start| 1=com | 2=setup | 3= move
     
       if (cmd == "com") {
-        Serial.println("com erkannt");
+        //Serial.println("com erkannt");
+        if (DEBUG_COM){
+        S_DEBUG_COM += "com erkannt\n";
+        }
         PAGE = 1;
       // myDFPlayer.next();
-      
+   
       }
       if (cmd == "start") {
-        Serial.println("start erkannt"); 
+        if (DEBUG_COM){
+        S_DEBUG_COM += "start erkannt\n"; 
+        }
         PAGE = 0;
         ShwMode();
         //Play(02,001);
         }
       if (cmd == "setup") {
-      Serial.println("setup erkannt"); 
+         if (DEBUG_COM){
+         S_DEBUG_COM += "setup erkannt\n"; 
+         }
         PAGE = 2;
        // myDFPlayer.next();
        //Play(02,001);
@@ -28,8 +35,11 @@
       }
       
       if (cmd == "manama") {
-      Serial.println("manama"); 
-      RNDSound = false;
+       if (DEBUG_COM){
+       S_DEBUG_COM += "manama\n"; 
+       }
+       
+       RNDSound = false;
 
       myDFPlayer.playFolder(05,8);
        //delay(100);
@@ -42,33 +52,42 @@
 
         
       if (cmd == "move") {
-      Serial.println("move erkannt"); 
+      if (DEBUG_COM){  
+      S_DEBUG_COM +=  "move erkannt\n";
+      }
       PAGE = 3;
       //myDFPlayer.next();
       //Play(02,001);
       } 
       if (cmd == "service") {
-      Serial.println("service erkannt"); 
+        if (DEBUG_COM){
+        S_DEBUG_COM += "service erkannt\n" ;
+        }
       PAGE = 4;
      // myDFPlayer.next();
       //Play(02,001);
       } 
       if (cmd == "tools") {
-      Serial.print("tools erkannt"); 
+        if (DEBUG_COM){
+        S_DEBUG_COM += "tools erkannt\n"; 
+        }
       PAGE = 5;
       //Play(02,001);
       //myDFPlayer.next();
       } 
       if (cmd == "tools_2") {
-      Serial.print("tools_2 erkannt"); 
+      if (DEBUG_COM){
+        S_DEBUG_COM += "tools_2 erkannt\n"; 
+      }
       PAGE = 6;
       //Play(02,001);
       //myDFPlayer.next();
       } 
 
       if (cmd == "human") {
-      Serial.print("human erkannt"); 
-
+        if (DEBUG_COM){
+        S_DEBUG_COM += "human erkannt\n"; 
+        }
       Serial2.print("mode2");
       Serial2.print('\r');
 
@@ -87,47 +106,38 @@
       Serial2.print("mode");
       Serial2.print(mode);
       Serial2.print("\r");  
-
-      //delay(200);
+  
+      } 
       
-        
-      }
-      
-      if (cmd == "STICK") {
-      Serial.print("Stick erkannt");   
-      INmode = 1; ///Shadow
-      inm = "STICK ";
-      
-      }
-      if (cmd == "COIN") {
-      Serial.print("Coin erkannt");
-      INmode = 0; ///Coin
-      inm = "COIN  ";
-     
-      }
       if (cmd == "CALL") {
-      Serial.print("CALL erkannt"); 
-      //COR = float(NewCor)/100;
+        if (DEBUG_COM){
+          S_DEBUG_COM += "CALL erkannt\n"; 
+        }//COR = float(NewCor)/100;
       NextCom(WiFi.localIP().toString());
       return;
       } /// End of Call
       
       if (cmd == "SEND") {
-      Serial.print("SEND erkannt");
-      flash = true; 
-      }
-      
-            
-      if (cmd == "M23") {
-        Serial.print("M23 erkannt");
-       
+        if (DEBUG_COM){
+        S_DEBUG_COM += "SEND erkannt\n";
         }
+      flash = true; 
+      } 
+           
+      if (cmd == "M23") {
+        if (DEBUG_COM){
+        S_DEBUG_COM += "M23 erkannt\n";
+        }
+      }
       if (cmd == "M32") {
-       Serial.print("M32 erkannt");
-      
+        if (DEBUG_COM){
+          S_DEBUG_COM += "M32 erkannt\n";
+        }
          }
       if (cmd == "LOOK") {
-       Serial.print("LOOK erkannt");
+        if (DEBUG_COM){
+            S_DEBUG_COM += "LOOK erkannt\n";
+        }
          }
 
 ////END Telemetrie Commands////

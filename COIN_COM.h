@@ -14,7 +14,9 @@
     SendOutput("center");
     //delay(100);
     mode = 1 ;  
-    output += "######Comando CBD1######\n";
+    if (DEBUG_COM){
+    S_DEBUG_COM += "######Comando CBD1######\n";
+    }
     ShwMode();
     RNDSound = false;
     }
@@ -55,14 +57,17 @@
       break;
       
      }// End Switch
- 
-      output += "######Comando CBD2######";
+      if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando CBD2######\n";
+      }
     }
 
     if (cmd == "CBD3" ){
       SendOutput(":SE10");
       ShwMode();
-      output += "######Comando CBD3######";
+      if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando CBD3######\n";
+      }
     }///END CBD3
     
     ////TEST//
@@ -72,7 +77,9 @@
       //delay(100);
       SendOutput(":OP03");
       //delay(100);
-      output += ("######Comando CB0 ######");
+      if (DEBUG_COM){
+      S_DEBUG_COM += ("######Comando CB0 ######\n");
+      }
     }
    
     ///// Komando/////
@@ -82,7 +89,9 @@
      // delay(100); 
       SendOutput(":OP04");
       //delay(100);
-      output += "######Comando - CB1######";
+      if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB1######\n";
+      }
     }
 
     /////Tool Komando/////
@@ -93,7 +102,9 @@
       //delay(100);
       SendOutput(":OP05");
      // delay(100);
-      output += "######Comando CBD3######";
+     if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando CBD3######\n";
+     }
     }
     ///// Komando/////
 
@@ -102,90 +113,115 @@
       SendOutput("mode0");        
       RNDSound = false;
       myDFPlayer.playFolder(05,8);//disco
-      output += "######Comando Manama######";
-      
+      if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando Manama######\n";
+      }
     }
     
     if (cmd == "CB4") {
       RNDSound = false;
       SendOutput(":SE03");
       myDFPlayer.playFolder(01,2);
-      output += "######Comando - CB4 Smirk######";
+      if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB4 Smirk######\n";
+      }
     }
 
     if (cmd == "CB5") {
        SendOutput(":SE06");
        RNDSound = false;
        myDFPlayer.playFolder(04,2);
-       output += "######Comando - CB5 Scream######";
+       if (DEBUG_COM){
+       S_DEBUG_COM += "######Comando - CB5 Scream######\n";
+       }
     }
 
     if (cmd == "CB6") {
        SendOutput("#OP03");
-       output += "######Comando - CB6 Charging######";
+       if (DEBUG_COM){
+       S_DEBUG_COM += "######Comando - CB6 Charging######\n";
+       }
     }
 
     if (cmd == "CB7") {
       SendOutput("#OP02");
-      
-       output += "######Comando - CB7 Big Door ######"; 
+      if (DEBUG_COM){
+       S_DEBUG_COM += "######Comando - CB7 Big Door ######\n"; 
+      }
     }
 
     if (cmd == "CB8") {
       SendOutput("#SAON");
-      output +=   "######Comando - CB8 Schrauber ON ######";  
-      
+      if (DEBUG_COM){
+      S_DEBUG_COM +=   "######Comando - CB8 Schrauber ON ######\n";  
+      }
     }
 
     if (cmd == "CB9") {
       SendOutput("#OP01");
-      output += "######Comando - CB9 Gripper Door ######";
+      if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB9 Gripper Door ######\n";
+      }
     }
 
     if (cmd == "CB10") {
      SendOutput("#FION");
-      output += "######Comando - CB10 Fire ON ####";
-      
+     if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB10 Fire ON ####\n";
+     }
     }
 
     if (cmd == "CB11") {
     SendOutput("#FIOFF");
-      output += "######Comando - CB11 Fire OFF ####";
-      
+    if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB11 Fire OFF ####\n";
+    }
     }
     
      if (cmd == "CB12") {
       SendOutput("#OPD1");
-      output += "######Comando - CB12 Shuba 1####";
+      if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB12 Shuba 1####\n";
+      }
     }
 
     if (cmd == "CB13") {
     SendOutput("#OPD2");
-      output += "######Comando - CB13 Shuba 2####";
+    if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB13 Shuba 2####\n";
+    }
       
     }
     
     if (cmd == "CB14") {
       SendOutput("#OPD3");
-      output += "######Comando - CB14 Shuba 3####";
+      if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB14 Shuba 3####\n";
+      }
       
     }
 
     if (cmd == "CB15") {
       SendOutput("#OPD4");
-      output += "######Comando - CB15 Shuba 4####";
+      if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB15 Shuba 4####\n";
+      }
       
     }
 
     if (cmd == "CB16") {
     SendOutput("#OP00");
-      output += "######Comando - CB16 Open Body All####";
+    if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB16 Open Body All####\n";
+    }
       
     }
 
     if (cmd == "CB17") {
     SendOutput("#CL00");
-      output += "######Comando - CB17 Close Body All####";
+    if (DEBUG_COM){
+      S_DEBUG_COM += "######Comando - CB17 Close Body All####\n";
+    }
       
     }
 

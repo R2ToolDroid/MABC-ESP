@@ -4,8 +4,9 @@ void SendOutput(String dcmd) {   ///VIA SHD_PULS to MD Dome Board
 
     //delay(200);
     
-    if (debug){
-      Serial.println(dcmd);
+    if (DEBUG_COM){
+      S_DEBUG_COM += dcmd;
+      S_DEBUG_COM += "\n";
     }
     
     Serial2.print(dcmd);
@@ -46,58 +47,81 @@ void parseCommand(String cmd) {
       
     
   if (cmd == "debug") {
-      if (debug){
-          Serial.println("######Comando - debug######");
-         Serial.println(cmd);
+    DEBUG_COM = true;
+      if (DEBUG_COM){
+          S_DEBUG_COM += "######Comando - debug######\n";
+          S_DEBUG_COM += cmd;
+          S_DEBUG_COM += "\n";
        }
-       debug=1;
+       
   
-  Serial.println(F(__FILE__ " " __DATE__ " " __TIME__));
-  Serial.println("##### Master_Body_Controller ESP32 03.04.2021 #####");
-  Serial.println("Comandos von RC - CoinTaster - Wfif Modul werde verarbeitet");
-  Serial.println("INPUT:");
-  Serial.println("..... Nextion Display .............Serial 1 RX");
-  Serial.println("..... From WIFI....................Serial 2 RX");
-  Serial.println("");
-  Serial.println("OUTPUT:");
-  Serial.println("..... NEXTION Display an ..........Serial 1 TX");
-  Serial.println("..... To Dome Drive................Serial 2 TX");
-  Serial.println("");
-  Serial.println("...fuer DebugMode debug eingeben...");
-  Serial.println("...ende DebugMode debug off eingeben...");
-  Serial.println("...SERIAL is DEBUG 115200 - 9600 BAUD !!");
-  Serial.println("........................................");
-  Serial.println("DF Player Status");
-  Serial.println(F("readState--------------------"));
-  Serial.println(myDFPlayer.readState()); //read mp3 state
-  Serial.println(F("readVolume--------------------"));
-  Serial.println(myDFPlayer.readVolume()); //read current volume
-  Serial.print("...MODE = ");
-  Serial.println(mode);
-  Serial.print("...PAGE = ");
-  Serial.println(PAGE);
-  Serial.print("...Stick Enable = ");
-  Serial.println(StickConnect);
-  Serial.print("####Fuel Data A% = ");
-  Serial.print(FuelA_P);
-  Serial.print(" Fuel A: ");
-  Serial.print(FuelA);
-  Serial.print("####Fuel Data B% = ");
-  Serial.print(FuelB_P);
-  Serial.print(" Fuel B: ");
-  Serial.println(FuelB);
-  Serial.print("- Akku Status Stick : ");
-  Serial.println(STICK_AKKU_STAT);
-  
+  S_DEBUG_COM += __FILE__ " " __DATE__ " " __TIME__;
+  S_DEBUG_COM += "\n##### Master_Body_Controller ESP32  #####";
+  S_DEBUG_COM += "\nComandos von RC - CoinTaster - Wfif Modul werde verarbeitet";
+  S_DEBUG_COM += "\nINPUT:";
+  S_DEBUG_COM += "\n..... Nextion Display .............Serial 1 RX";
+  S_DEBUG_COM += "\n..... From WIFI....................Serial 2 RX";
+  S_DEBUG_COM += "\n";
+  S_DEBUG_COM += "\nOUTPUT:";
+  S_DEBUG_COM += "\n..... NEXTION Display an ..........Serial 1 TX";
+  S_DEBUG_COM += "\n..... To Dome Drive................Serial 2 TX";
+  S_DEBUG_COM += "\n";
+  S_DEBUG_COM += "\n...fuer DebugMode debug eingeben...";
+  S_DEBUG_COM += "\n...ende DebugMode debug off eingeben...";
+  S_DEBUG_COM += "\n...SERIAL is DEBUG 115200 - 9600 BAUD !!";
+  S_DEBUG_COM += "\n........................................";
+  S_DEBUG_COM += "\nDEBUG_COM";
+  S_DEBUG_COM += "\nDEBUG_STICK";
+  S_DEBUG_COM += "\nDEBUG_INPUT";
+  S_DEBUG_COM += "\nDEBUG_OUTPUT";
+  S_DEBUG_COM += "\nDEBUG_SOUND";
+  S_DEBUG_COM += "\n........................................";
+  S_DEBUG_COM += "\nDF Player Status";
+  S_DEBUG_COM += "\nreadState--------------------";
+  S_DEBUG_COM += myDFPlayer.readState(); //read mp3 state
+  S_DEBUG_COM += "\nreadVolume--------------------";
+  S_DEBUG_COM += myDFPlayer.readVolume(); //read current volume
+  S_DEBUG_COM += "\n...MODE = ";
+  S_DEBUG_COM += mode;
+  S_DEBUG_COM += "\n...PAGE = ";
+  S_DEBUG_COM += PAGE;
+  S_DEBUG_COM += "\n...Stick Enable = ";
+  S_DEBUG_COM += StickConnect;
+  S_DEBUG_COM += "\n####Fuel Data A% = ";
+  S_DEBUG_COM += FuelA_P;
+  S_DEBUG_COM += "\n Fuel A: ";
+  S_DEBUG_COM += FuelA;
+  S_DEBUG_COM += "\n####Fuel Data B% = ";
+  S_DEBUG_COM += FuelB_P;
+  S_DEBUG_COM += "\n Fuel B: ";
+  S_DEBUG_COM += FuelB;
+  S_DEBUG_COM += "\n- Akku Status Stick : ";
+  S_DEBUG_COM += STICK_AKKU_STAT;
+  S_DEBUG_COM += "\n";
     }
 
     if (cmd == "debug off") {
-    if (debug){
-         Serial.println("######Comando - debug off######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM +=  "######Comando - debug off######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
-       debug=0;
+      DEBUG_COM = false;
+      DEBUG_OUTPUT = false;
+      DEBUG_INPUT = false;
+      DEBUG_SOUND = false;
+      DEBUG_STICK = false;
     }
+
+    if (cmd == "DEBUG_OUTPUT") { DEBUG_OUTPUT = true;}
+    if (cmd == "DEBUG_INPUT") { DEBUG_INPUT = true;}
+    if (cmd == "DEBUG_SOUND") { DEBUG_SOUND = true;}
+    if (cmd == "DEBUG_STICK") { DEBUG_STICK = true;}
+    
+
+
+
+    
 #include "NEXT_COM.h" 
 #include "COIN_COM.h"    
 
@@ -107,7 +131,10 @@ void parseCommand(String cmd) {
       }
       
     if (cmd == "DISDR") {
-      Serial.print("disconnect...");    
+      if (DEBUG_COM){
+      S_DEBUG_COM += "disconnect..."; 
+      S_DEBUG_COM += "\n";   
+      }
        Ps3.end();
        StickConnect = 0;
        STICK_AKKU_STAT = 6;
@@ -151,9 +178,10 @@ void parseCommand(String cmd) {
     
     
     if (cmd == "reset") {
-    if (debug){
-        Serial.println("######Comando reset ######");
-        Serial.println(cmd);
+    if (DEBUG_COM){
+        S_DEBUG_COM += "###### Comando reset ######";
+        //S_DEBUG_COM += cmd;
+        S_DEBUG_COM += "\n";   
       }
      //ESP.restart();
      mode = 3; ///Service
@@ -167,9 +195,10 @@ void parseCommand(String cmd) {
     }
 
     if (cmd == "hreset") {
-    if (debug){
-        Serial.println("######Comando reset ######");
-        Serial.println(cmd);
+    if (DEBUG_COM){
+        S_DEBUG_COM += "###### Comando hreset ######";
+        //S_DEBUG_COM += cmd;
+        S_DEBUG_COM += "\n"; 
       }
      //ESP.restart();
      mode = 0; ///Service
@@ -187,9 +216,10 @@ void parseCommand(String cmd) {
     
 
     if (cmd == "mode1") {
-    if (debug){
-         Serial.println("######Comando - mode1######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - mode1######";
+        // S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       Serial2.print("mode1\r");       
       mode=1;
@@ -198,9 +228,10 @@ void parseCommand(String cmd) {
     }
   
     if (cmd == "mode2") {
-    if (debug){
-         Serial.println("######Comando - mode2######");
-         //Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - mode2######";
+        // S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       Serial2.print("mode2\r");       
       mode=2;
@@ -208,9 +239,10 @@ void parseCommand(String cmd) {
     }
   
     if (cmd == "mode3") {
-    if (debug){
-         Serial.println("######Comando - mode3######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - mode3######";
+        // S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       Serial2.print("mode3\r");
       mode=3;
@@ -218,9 +250,10 @@ void parseCommand(String cmd) {
     }
   
     if (cmd == "mode0") {
-    if (debug){
-         Serial.println("######Comando - mode0######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - mode0######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       //Serial2.print("mode0\r");
       SendOutput("mode0");
@@ -230,9 +263,10 @@ void parseCommand(String cmd) {
 
     ///VOICE COMMANDS///
     if (cmd == "tool0") {
-    if (debug){
-         Serial.println("######Comando - tool0######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool0######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
       Serial2.print("usb\r");
@@ -244,9 +278,10 @@ void parseCommand(String cmd) {
     }
 
     if (cmd == "tool1") {
-    if (debug){
-         Serial.println("######Comando - tool1######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool1######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
       //Serial2.print("tool1\r");
@@ -259,9 +294,10 @@ void parseCommand(String cmd) {
     }
 
     if (cmd == "tool2") {
-    if (debug){
-         Serial.println("######Comando - tool2######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool2######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
       SendOutput("tool2");
@@ -272,9 +308,10 @@ void parseCommand(String cmd) {
     }
 
     if (cmd == "tool3") {
-    if (debug){
-         Serial.println("######Comando - tool3######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool3######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
      // Serial2.print("tool3\r");
@@ -286,9 +323,10 @@ void parseCommand(String cmd) {
     }
 
     if (cmd == "tool4") {
-    if (debug){
-         Serial.println("######Comando - tool4######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool4######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
       //Serial2.print("tool4\r");
@@ -297,9 +335,10 @@ void parseCommand(String cmd) {
     }
 
     if (cmd == "tool5") {
-    if (debug){
-         Serial.println("######Comando - tool5######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool5######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
       //Serial2.print("tool5\r");
@@ -308,9 +347,10 @@ void parseCommand(String cmd) {
     }
 
     if (cmd == "tool6") {
-    if (debug){
-         Serial.println("######Comando - tool6######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool6######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
       //Serial2.print("tool6\r");
@@ -319,9 +359,10 @@ void parseCommand(String cmd) {
     }
 
     if (cmd == "tool7") {
-    if (debug){
-         Serial.println("######Comando - tool7######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool7######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
       //Serial2.print("tool7\r");
@@ -330,9 +371,10 @@ void parseCommand(String cmd) {
     }
     
     if (cmd == "tool8") {
-    if (debug){
-         Serial.println("######Comando - tool8######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool8######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
       //Serial2.print("tool7\r");
@@ -340,9 +382,10 @@ void parseCommand(String cmd) {
       
     }
     if (cmd == "tool9") {
-    if (debug){
-         Serial.println("######Comando - tool9######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool9######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
       //Serial2.print("tool7\r");
@@ -350,9 +393,10 @@ void parseCommand(String cmd) {
       
     }
     if (cmd == "tool10") {
-    if (debug){
-         Serial.println("######Comando - tool10######");
-         Serial.println(cmd);
+    if (DEBUG_COM){
+         S_DEBUG_COM += "######Comando - tool10######";
+         S_DEBUG_COM += cmd;
+         S_DEBUG_COM += "\n";
        }
       ///Action
       //Serial2.print("tool7\r");
@@ -365,9 +409,10 @@ void parseCommand(String cmd) {
     /// Filtern ob Dome Komando oder nicht ///
     
     if (cmd.startsWith(":")) {
-      if (debug){
-        Serial.println("######Comando Pefix : DOME ######");
-        Serial.println(cmd);
+      if (DEBUG_COM){
+        S_DEBUG_COM += "######Comando Pefix : DOME ######";
+        S_DEBUG_COM += cmd;
+        S_DEBUG_COM += "\n";
       }
 
      
@@ -379,9 +424,10 @@ void parseCommand(String cmd) {
     }
 
     if (cmd.startsWith("#")) {
-      if (debug){
-        Serial.println("######Comando Prefix # BODY ######");
-        Serial.println(cmd);
+      if (DEBUG_COM){
+        S_DEBUG_COM += "######Comando Prefix # BODY ######";
+        S_DEBUG_COM += cmd;
+        S_DEBUG_COM += "\n";
       }
      
       SendOutput(cmd);
@@ -390,9 +436,10 @@ void parseCommand(String cmd) {
 
     if (cmd.startsWith("$")) {
      
-      if (debug){
-        Serial.println("######Comando Prefix $ SOUND######");
-        Serial.println(cmd);
+      if (DEBUG_COM){
+        S_DEBUG_COM += "######Comando Prefix $ SOUND######";
+        S_DEBUG_COM += cmd;
+        S_DEBUG_COM += "\n";
       }
 
       if (cmd == "$+") {   
@@ -438,9 +485,10 @@ void parseCommand(String cmd) {
     
     if (cmd.startsWith("*")) 
     {
-      if (debug){
-        Serial.println("######Comando Prefix * HOLO ######");
-        Serial.println(cmd);
+      if (DEBUG_COM){
+        S_DEBUG_COM += "######Comando Prefix * HOLO ######";
+        S_DEBUG_COM += cmd;
+        S_DEBUG_COM += "\n";
       }
      SendOutput(cmd);
     }

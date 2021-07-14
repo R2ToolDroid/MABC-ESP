@@ -3,6 +3,25 @@
 //#define DEBUG       ///print "output" all Debug on Serial
 //#define DEBUG_COM   ///print "com_output" Debug
 
+byte DEBUG_COM = false;
+String S_DEBUG_COM;
+
+byte DEBUG_INPUT = false;
+String S_DEBUG_INPUT ;
+
+byte DEBUG_STICK = false;
+String S_DEBUG_STICK;
+
+byte DEBUG_OUTPUT = false;
+String S_DEBUG_OUTPUT;
+
+byte DEBUG_SOUND = false;
+
+byte DEBUG_IR = true;
+String S_DEBUG_IR;
+
+
+
 unsigned long previousMillis = 0;      
 byte web = false;
 
@@ -19,9 +38,8 @@ const long interval = 5000;           // interval at which to blink (millisecond
 //int durch = 1;
 
 String cmd; //Consolen Input
-byte debug = false; //Debug function
-String output;
-String com_output;
+//byte debug = false; //Debug function
+
 String data; //Serial Data
 String inm = "COIN"; //Inputmode String
 String calldata; //String Datarequest
@@ -37,12 +55,12 @@ unsigned long RNDpreviousMillis = 0;        // will store last time LED was upda
 // constants won't change:
 long RNDinterval = 8000;           // interval at which to blink (milliseconds)
 byte RNDSound = true;   
-int debug_RNDSound = 0;     
+    
 int file = 4;
 int maxFilesinFolder;      
 
-int INmode = 1; /// 0 == Input auf Coin und Nextion
-                /// 1 == Input auf  Stick and Nextion
+//int INmode = 1; /// 0 == Input auf Coin und Nextion
+//                /// 1 == Input auf  Stick and Nextion
 
 float PowerA = 0;
 float PowerB = 0;              
@@ -94,6 +112,14 @@ const int NGREEN = 1120;
 #define FUEL_CELL_B 35 //A0
 #define IR_SENSOR 34 //A3 vorher 27
 
+
+// Change this to match the Arduino pin connected to the sensor's OUT pin.
+const uint8_t sensorPin = IR_SENSOR;
+unsigned long prevTick = 0;  
+//const long interval = 7000;
+byte in = true;
+int countTrig = 1;
+
 //Claw
 #define GRIP_MOTA1 33  //vorher 32
 #define GRIP_MOTA2 32  //vorher 33
@@ -135,8 +161,6 @@ int posTemp;
 
 int Gpos = 90; //Gripper Roll Pos
 int Apos = 90; //Arm Lift Pos
-
-int IRSensor;
 
 byte F_TRIG = false;
 

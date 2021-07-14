@@ -15,7 +15,7 @@ void randomSound(int minINT, int maxINT, int maxFiles){
   unsigned long RNDcurrentMillis = millis();
 
   //RNDinterval = random(3000, 5000);
-  if (debug_RNDSound){
+  if (DEBUG_SOUND){
   Serial.print(" | interv ");
   Serial.print(RNDinterval);
   Serial.print(" | cur ");
@@ -35,7 +35,7 @@ void randomSound(int minINT, int maxINT, int maxFiles){
     RNDpreviousMillis = RNDcurrentMillis;
 
     file = random(1, maxFiles);
-    if (debug_RNDSound){
+    if (DEBUG_SOUND){
     Serial.print("beeep.. NR:  ");
     Serial.print(file);
     }
@@ -44,7 +44,7 @@ void randomSound(int minINT, int maxINT, int maxFiles){
     
   }
   
-  if (debug_RNDSound){
+  if (DEBUG_SOUND){
   Serial.println("..");
     delay(50);
   }
