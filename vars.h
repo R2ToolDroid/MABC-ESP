@@ -54,7 +54,7 @@ int mode = 1; // Default Mode  0 = Random
 unsigned long RNDpreviousMillis = 0;        // will store last time LED was updated
 // constants won't change:
 long RNDinterval = 8000;           // interval at which to blink (milliseconds)
-byte RNDSound = true;   
+byte RNDSound = false;   
     
 int file = 4;
 int maxFilesinFolder;      

@@ -35,7 +35,7 @@ void IRSensor(){
   
     //Serial.print(d);
     //Serial.println(" mm");
-    if ( (d >= 150) && ( in == true) ){
+    if ( (d >= 100) && ( in == true) ){
       //prevTick = curMillis;
 
       if (in == true){
@@ -49,7 +49,7 @@ void IRSensor(){
         countTrig++;
 
         Serial.print(countTrig);
-        if ( d <= 180 ){
+        if ( d <= 150 ){
           
           myDFPlayer.playFolder(04,1);
           
