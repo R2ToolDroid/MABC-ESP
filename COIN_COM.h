@@ -72,9 +72,9 @@
     
     ////TEST//
     if (cmd == "CB0") {         
-      mode=1;
+      //mode=1;
       SendOutput("tool1");     
-      //delay(100);
+      delay(500);
       SendOutput(":OP03");
       //delay(100);
       if (DEBUG_COM){
@@ -84,9 +84,9 @@
    
     ///// Komando/////
     if (cmd == "CB1") {
-      mode=1;
+      //mode=1;
       SendOutput("tool2");
-     // delay(100); 
+      delay(500); 
       SendOutput(":OP04");
       //delay(100);
       if (DEBUG_COM){
@@ -97,9 +97,9 @@
     /////Tool Komando/////
 
     if (cmd == "CB2") {       
-      mode=1;
-      SendOutput("tool3");
-      //delay(100);
+      //mode=1;
+       SendOutput("tool3");     
+      delay(500);
       SendOutput(":OP05");
      // delay(100);
      if (DEBUG_COM){

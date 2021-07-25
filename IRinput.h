@@ -40,15 +40,15 @@ void IRSensor(){
 
       if (in == true){
         
-        Serial.print(" Ping A ");
-        Serial.print(d);
-        Serial.println(" mm");
-        Serial.println(" Tig Nummer:");
+        //Serial.print(" Ping A ");
+        //Serial.print(d);
+        //Serial.println(" mm");
+        //Serial.println(" Tig Nummer:");
 
         if (countTrig >= 8 ) {countTrig = 2;}
         countTrig++;
 
-        Serial.print(countTrig);
+        //Serial.print(countTrig);
         if ( d <= 150 ){
           
           myDFPlayer.playFolder(04,1);

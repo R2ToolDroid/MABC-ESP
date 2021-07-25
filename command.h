@@ -262,9 +262,9 @@ void parseCommand(String cmd) {
     }
 
     ///VOICE COMMANDS///
-    if (cmd == "tool0") {
+    if (cmd == "usb") {
     if (DEBUG_COM){
-         S_DEBUG_COM += "######Comando - tool0######";
+         S_DEBUG_COM += "######Comando - tool0 (usb)######";
          S_DEBUG_COM += cmd;
          S_DEBUG_COM += "\n";
        }
@@ -272,9 +272,9 @@ void parseCommand(String cmd) {
       Serial2.print("usb\r");
       SendOutput("usb");
       //mode=0;
-      mode=3;
-      DomeTurnPos = true;
-      TargetPos = 400;
+      //mode=3;
+      //DomeTurnPos = true;
+     // TargetPos = 400;
     }
 
     if (cmd == "tool1") {
@@ -283,13 +283,9 @@ void parseCommand(String cmd) {
          S_DEBUG_COM += cmd;
          S_DEBUG_COM += "\n";
        }
-      ///Action
-      //Serial2.print("tool1\r");
-      //mode=0;
-      mode=3;
-      SendOutput("tool1");
-     // DomeTurnPos = true;
-     // TargetPos = 500;
+      SendOutput("tool1");     
+      delay(500);
+      SendOutput(":OP03");
       
     }
 
@@ -301,9 +297,8 @@ void parseCommand(String cmd) {
        }
       ///Action
       SendOutput("tool2");
-      mode=3;
-     // DomeTurnPos = true;
-     // TargetPos = 600;
+      delay(500); 
+      SendOutput(":OP04");
       
     }
 
@@ -313,12 +308,9 @@ void parseCommand(String cmd) {
          S_DEBUG_COM += cmd;
          S_DEBUG_COM += "\n";
        }
-      ///Action
-     // Serial2.print("tool3\r");
-      SendOutput("tool3");
-      mode=3;
-      //DomeTurnPos = true;
-      //TargetPos = 800;
+      SendOutput("tool3");     
+      delay(500);
+      SendOutput(":OP05");
       
     }
 
