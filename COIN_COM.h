@@ -73,7 +73,7 @@
     ////TEST//
     if (cmd == "CB0") {         
       //mode=1;
-      SendOutput("tool1");     
+      SendOutput("usb");     
       delay(500);
       SendOutput(":OP03");
       //delay(100);
@@ -85,7 +85,7 @@
     ///// Komando/////
     if (cmd == "CB1") {
       //mode=1;
-      SendOutput("tool2");
+      SendOutput("tool1");
       delay(500); 
       SendOutput(":OP04");
       //delay(100);
@@ -100,7 +100,7 @@
       //mode=1;
        SendOutput("tool3");     
       delay(500);
-      SendOutput(":OP05");
+      SendOutput(":OP06");
      // delay(100);
      if (DEBUG_COM){
       S_DEBUG_COM += "######Comando CBD3######\n";

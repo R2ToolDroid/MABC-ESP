@@ -269,8 +269,10 @@ void parseCommand(String cmd) {
          S_DEBUG_COM += "\n";
        }
       ///Action
-      Serial2.print("usb\r");
+      
       SendOutput("usb");
+      delay(500);
+      SendOutput(":OP03");
       //mode=0;
       //mode=3;
       //DomeTurnPos = true;
@@ -285,7 +287,7 @@ void parseCommand(String cmd) {
        }
       SendOutput("tool1");     
       delay(500);
-      SendOutput(":OP03");
+      SendOutput(":OP04");
       
     }
 
@@ -298,7 +300,7 @@ void parseCommand(String cmd) {
       ///Action
       SendOutput("tool2");
       delay(500); 
-      SendOutput(":OP04");
+      SendOutput(":OP05");
       
     }
 
@@ -310,7 +312,7 @@ void parseCommand(String cmd) {
        }
       SendOutput("tool3");     
       delay(500);
-      SendOutput(":OP05");
+      SendOutput(":OP06");
       
     }
 
