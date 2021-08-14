@@ -209,12 +209,13 @@ void notify()
 
        if ((posY >= 85) && (posY <=  95)) { posY = 90;} ///Death Zone Range
        
+       if ((posX >= 85) && (posX <=  95)) { posX = 90;} ///Death Zone Range 
       
 
       if( Ps3.data.button.l2 ) {
 
         if (DEBUG_STICK){
-        S_DEBUG_STICK += "\nDome- posX=";
+        S_DEBUG_STICK += "Dome- posX=";
         S_DEBUG_STICK += posX;
         S_DEBUG_STICK += "\n";
         }
@@ -232,13 +233,60 @@ void notify()
 
       }
 
+     ///OLD Mixed Mode
+     ///DriveSpeed.write(posY);
      // Serial.print(" posY="); Serial.println(posY);
-       DriveSpeed.write(posY);
+     
+     // Gerade aus
+     
+
+      
+      Serial.print(" Dir :");
+      Serial.print(posX);
+
+      Serial.print(" correction : ");
+      int corr = map(posX, 30,150,-10,10);
+      Serial.print(corr);
+    
+     
+     if (posX == 90){
+       DriveSpeed.write(posY); //right
+       DriveDir.write(posY);   //left
+       
+       Serial.print("|  left pwm :");
+       Serial.print(posY);
+       Serial.print(" right pwm :");
+       Serial.println(posY);
+
+
+         
+     } else {
+      
+       DriveSpeed.write(posY - corr); //right
+       DriveDir.write(posY + corr);   //left
+       
+       Serial.print("|  left pwm :");
+       Serial.print(posY - corr);
+       Serial.print(" right pwm :");
+       Serial.println(posY + corr);
+      
+     }
+
+
+
+     
+      
+     
+
+     
+
+       
      if (DEBUG_STICK){  
-     S_DEBUG_STICK += "\n posY=";
+     S_DEBUG_STICK += "posY= ";
      S_DEBUG_STICK += posY;
-     S_DEBUG_STICK += "\nSHIFT: ";
-     S_DEBUG_STICK += SHIFT;
+     
+     S_DEBUG_STICK += " posX= ";
+     S_DEBUG_STICK += posX;
      S_DEBUG_STICK += "\n";
      }
     } 
@@ -252,7 +300,7 @@ void notify()
         //Serial.print("The controller battery is ");
         if (DEBUG_STICK){
           S_DEBUG_STICK += "The controller battery is ";
-          S_DEBUG_STICK += "\n";
+          //S_DEBUG_STICK += "\n";
         }
         
         if( battery == ps3_status_battery_charging )      STICK_AKKU_STAT = CHARGING;
