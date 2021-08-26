@@ -45,7 +45,7 @@ void IRSensor(){
         //Serial.println(" mm");
         //Serial.println(" Tig Nummer:");
 
-        if (countTrig >= 8 ) {countTrig = 2;}
+        if (countTrig >= 15 ) {countTrig = 2;}
         countTrig++;
 
         //Serial.print(countTrig);
