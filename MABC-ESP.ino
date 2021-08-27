@@ -9,7 +9,8 @@
   #### A1 Power B
 */
 
-/*  WEBSERVER CONFIGd */
+/*  WEBSERVER CONFIG */
+
 
 
 #include <WiFi.h>
