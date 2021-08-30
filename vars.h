@@ -20,6 +20,12 @@ byte DEBUG_SOUND = false;
 byte DEBUG_IR = true;
 String S_DEBUG_IR;
 
+// Command processing stuff
+// maximum number of characters in a command (63 chars since we need the null termination)
+#define CMD_MAX_LENGTH 64 
+
+// memory for command string processing
+char cmdString[CMD_MAX_LENGTH];
 
 
 unsigned long previousMillis = 0;      

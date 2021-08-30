@@ -21,6 +21,7 @@ String style =
 "<br><br>"
 "<div id='prg'></div>"
 "<br><div id='prgbar'><div id='bar'></div></div><br>"
+"<a href='/ON' >CLICK to ON</a>"
 "</form>"
 "<script>"
 "function sub(obj){"

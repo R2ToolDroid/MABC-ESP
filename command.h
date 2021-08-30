@@ -408,13 +408,18 @@ void parseCommand(String cmd) {
         S_DEBUG_COM += cmd;
         S_DEBUG_COM += "\n";
       }
-
-     
-     
       SendOutput(cmd);
+     
+    }
 
-
-      
+    if (cmd.startsWith("@")) {
+      if (DEBUG_COM){
+        S_DEBUG_COM += "######Comando Pefix : DOME ######";
+        S_DEBUG_COM += cmd;
+        S_DEBUG_COM += "\n";
+      }
+      SendOutput(cmd);
+     
     }
 
     if (cmd.startsWith("#")) {

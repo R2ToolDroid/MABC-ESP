@@ -25,13 +25,22 @@
 
 const char* host = "R2-esp32";
 
-//const char* ssid = "Webmex-Safe-02";
-//const char* password = "tronic307";
-
-const char* ssid = "R2_Router";
+const char* ssid = "Webmex-Safe-02";
 const char* password = "tronic307";
 
+//const char* ssid = "R2_Router";
+//const char* password = "tronic307";
+
+//APP
+const char* ssid2 = "R2-ESP32-MABAC"; //name of the wifi-network created by the ESP32
+const char* pass2 = "tronic307"; //replace with a more secure password!
+
 WebServer server(80);
+
+//APP
+WiFiServer server2(9750);
+bool connected = false;
+WiFiClient client;
 
 #include "index_page.h"
 #include "login_page.h"
@@ -51,6 +60,7 @@ Servo GrippLift;
 #include "command.h"
 #include "stick.h"
 #include "IRinput.h"
+#include "app.h"
 
 
 void setup(void) {
@@ -93,6 +103,15 @@ void setup(void) {
     server.sendHeader("Connection", "close");
     server.send(200, "text/html", loginIndex);
   });
+
+  server.on("/ON", HTTP_GET, []() {
+    server.sendHeader("Connection", "close");
+    server.send(200, "text/html", serverIndex);
+    Serial.println("get a ON from Web");
+    
+  });
+
+  
   server.on("/serverIndex", HTTP_GET, []() {
     server.sendHeader("Connection", "close");
     server.send(200, "text/html", serverIndex);
@@ -124,7 +143,23 @@ void setup(void) {
     }
   });
   server.begin();
-  } // edif web true
+  
+  }  else {          // edif web true
+  
+      //Start App Server
+  /*** APP SERVER **/
+  WiFi.softAP(ssid2, pass2);
+  IPAddress IP = WiFi.softAPIP();
+  Serial.print("APP-Server IP address: ");
+  Serial.println(IP);
+  server2.begin();
+/*APP SERVER END*/
+  
+  
+  }
+
+ 
+  
   /*** WEBSERVER END ***/
  Serial1.begin(9600,SERIAL_8N1,18,19); // Serial 19 RX  18 TX NEXTION (COM1)  TESTBOARD 19,18
  Serial2.begin(9600,SERIAL_8N1,27,23); // Serial 27 RX  23 TX Outpull All Input Command
@@ -185,7 +220,12 @@ void setup(void) {
   delay(8000);
 
   //Serial.println(F("myDFPlayer.play(1)"));
+  if (web == false){
   myDFPlayer.play(1);  //Play the first mp3 
+  } else {
+    myDFPlayer.play(2);  //Play 
+  }
+  
   delay(3000);
 
   Ps3.attach(notify);
@@ -333,8 +373,16 @@ void loop() {
   if ( mode == 2 ){
    IRSensor();
   }
+
+  if (web == false){
+     App();
+  } else {
+    server.handleClient();
+  }
+ 
+   //Serial.println(analogRead(FUEL_CELL_B));
   
-  server.handleClient();
+  
   //CheckIR(5000);
   if (RNDSound){
     randomSound(5000,20000,maxFilesinFolder);
