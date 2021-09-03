@@ -17,7 +17,7 @@ String S_DEBUG_OUTPUT;
 
 byte DEBUG_SOUND = false;
 
-byte DEBUG_IR = true;
+byte DEBUG_IR = false;
 String S_DEBUG_IR;
 
 // Command processing stuff

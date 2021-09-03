@@ -233,20 +233,18 @@ void notify()
      // }
 
      // Serial.print(" posY="); Serial.println(posY);
-<<<<<<< Updated upstream
-       DriveSpeed.write(posY);
-=======
+
      
      // Gerade aus
      
 
       
-      Serial.print(" Dir :");
-      Serial.print(posX);
+      //Serial.print(" Dir :");
+      //Serial.print(posX);
 
-      Serial.print(" correction : ");
+      //Serial.print(" correction : ");
       int corr = map(posX, 30,150,-10,10);
-      Serial.print(corr);
+      //Serial.print(corr);
     
       // mitte 90 finden
 
@@ -257,10 +255,10 @@ void notify()
        DriveSpeed.write(posY); //right
        DriveDir.write(posY);   //left
        
-       Serial.print("|  left pwm :");
-       Serial.print(posY);
-       Serial.print(" right pwm :");
-       Serial.println(posY);
+       //Serial.print("|  left pwm :");
+       //Serial.print(posY);
+       //Serial.print(" right pwm :");
+       //Serial.println(posY);
 
 
          
@@ -269,10 +267,10 @@ void notify()
        DriveSpeed.write(posY - corr); //right
        DriveDir.write(posY + corr);   //left
        
-       Serial.print("|  left pwm :");
-       Serial.print(posY - corr);
-       Serial.print(" right pwm :");
-       Serial.println(posY + corr);
+       //Serial.print("|  left pwm :");
+       //Serial.print(posY - corr);
+       //Serial.print(" right pwm :");
+       //Serial.println(posY + corr);
       
      }
 
@@ -285,7 +283,7 @@ void notify()
      
 
        
->>>>>>> Stashed changes
+
      if (DEBUG_STICK){  
      S_DEBUG_STICK += "\n posY=";
      S_DEBUG_STICK += posY;
