@@ -209,13 +209,12 @@ void notify()
 
        if ((posY >= 85) && (posY <=  95)) { posY = 90;} ///Death Zone Range
        
-       if ((posX >= 85) && (posX <=  95)) { posX = 90;} ///Death Zone Range 
       
 
       if( Ps3.data.button.l2 ) {
 
         if (DEBUG_STICK){
-        S_DEBUG_STICK += "Dome- posX=";
+        S_DEBUG_STICK += "\nDome- posX=";
         S_DEBUG_STICK += posX;
         S_DEBUG_STICK += "\n";
         }
@@ -227,15 +226,16 @@ void notify()
      
         //if (mode = 1)
        //Serial.print(" posX="); Serial.println(posX);
-       DriveDir.write(posX);
+       //DriveDir.write(posX);
 
        
 
-      }
+     // }
 
-     ///OLD Mixed Mode
-     ///DriveSpeed.write(posY);
      // Serial.print(" posY="); Serial.println(posY);
+<<<<<<< Updated upstream
+       DriveSpeed.write(posY);
+=======
      
      // Gerade aus
      
@@ -248,8 +248,12 @@ void notify()
       int corr = map(posX, 30,150,-10,10);
       Serial.print(corr);
     
-     
-     if (posX == 90){
+      // mitte 90 finden
+
+      // 95  links   85 rechts
+      
+     //if (posX == 90){
+     if (inRange(posX, 70, 110)){
        DriveSpeed.write(posY); //right
        DriveDir.write(posY);   //left
        
@@ -274,19 +278,19 @@ void notify()
 
 
 
-     
+      } //End Drive 
       
      
 
      
 
        
+>>>>>>> Stashed changes
      if (DEBUG_STICK){  
-     S_DEBUG_STICK += "posY= ";
+     S_DEBUG_STICK += "\n posY=";
      S_DEBUG_STICK += posY;
-     
-     S_DEBUG_STICK += " posX= ";
-     S_DEBUG_STICK += posX;
+     S_DEBUG_STICK += "\nSHIFT: ";
+     S_DEBUG_STICK += SHIFT;
      S_DEBUG_STICK += "\n";
      }
     } 
@@ -300,7 +304,7 @@ void notify()
         //Serial.print("The controller battery is ");
         if (DEBUG_STICK){
           S_DEBUG_STICK += "The controller battery is ";
-          //S_DEBUG_STICK += "\n";
+          S_DEBUG_STICK += "\n";
         }
         
         if( battery == ps3_status_battery_charging )      STICK_AKKU_STAT = CHARGING;
