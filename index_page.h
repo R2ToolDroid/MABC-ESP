@@ -18,7 +18,7 @@ String style =
 "<input type='file' name='update' id='file' onchange='sub(this)' style=display:none>"
 "<label id='file-input' for='file'>   Choose file...</label>"
 "<input type='submit' class=btn value='Update'>"
-"<br><br>"
+"<br>Doc Snyder<br>"
 "<div id='prg'></div>"
 "<br><div id='prgbar'><div id='bar'></div></div><br>"
 "<a href='/ON' >CLICK to ON</a>"
