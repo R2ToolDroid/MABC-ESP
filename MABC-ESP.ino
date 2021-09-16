@@ -24,6 +24,20 @@
 #include <Wire.h> 
 #include "DFRobotDFPlayerMini.h"
 
+#include "SSD1306Ascii.h"
+#include "SSD1306AsciiWire.h"
+
+// 0X3C+SA0 - 0x3C or 0x3D
+#define I2C_ADDRESS 0x3C
+
+// Define proper RST_PIN if required.
+#define RST_PIN -1
+
+SSD1306AsciiWire oled;
+
+
+
+
 const char* host = "R2-esp32";
 
 const char* ssid = "Webmex-Safe-02";
@@ -57,6 +71,7 @@ Servo GrippRoll;
 Servo GrippLift;
 
 #include "vars.h"
+#include "minidispl.h"
 #include "functions.h"
 #include "command.h"
 #include "stick.h"
@@ -73,6 +88,9 @@ void setup(void) {
   
   CheckCellCon(); /// Check if we start with WIFI OTA
 
+  
+  
+
   if (web == true){ 
   /*** WEBSERVER START ***/
   // Connect to WiFi network
@@ -88,8 +106,11 @@ void setup(void) {
   Serial.print("Connected to ");
   Serial.println(ssid);
   Serial.print("IP address: ");
+  
   Serial.println(WiFi.localIP());
-
+  IPADRESS = WiFi.localIP().toString(); 
+  
+  
   /*use mdns for host name resolution*/
   if (!MDNS.begin(host)) { //http://R2-esp32.local
     Serial.println("Error setting up MDNS responder!");
@@ -153,11 +174,24 @@ void setup(void) {
   IPAddress IP = WiFi.softAPIP();
   Serial.print("APP-Server IP address: ");
   Serial.println(IP);
+  IPADRESS = IP.toString(); 
   server2.begin();
 /*APP SERVER END*/
-  
+ 
   
   }
+
+ Wire.begin();
+   Wire.setClock(400000L);
+   #if RST_PIN >= 0
+  oled.begin(&Adafruit128x32, I2C_ADDRESS, RST_PIN);
+    #else // RST_PIN >= 0
+  oled.begin(&Adafruit128x32, I2C_ADDRESS);
+    #endif // RST_PIN >= 0
+
+  oled.setFont(System5x7);
+  
+  showinfo("Start R2....");
 
  
   
@@ -177,7 +211,7 @@ void setup(void) {
     delay(3000);
   }
   Serial.println(F("DFPlayer Mini online."));
-
+  showinfo("Soundmodul online.");
   myDFPlayer.setTimeOut(500); //Set serial communictaion time out 500ms 
   //----Set volume----
   myDFPlayer.volume(10);  //Set volume value (0~30).
@@ -285,9 +319,27 @@ void setup(void) {
   digitalWrite(GRIP_MOTB1, LOW); //L298 0 0 is Stop
   digitalWrite(GRIP_MOTB2, LOW); //L298 0 0 is Stop
 
-   Wire.begin();
+  
+  
+  
     
   Serial.println("R2...Ready");
+  oled.clear();
+  
+  if (web == true){ 
+    showinfo("OTA Active");
+    showinfo("IP address: ");
+    showinfo(IPADRESS);
+    
+  } else {
+      showinfo("Wifi App enable");
+      showinfo(IPADRESS);
+    
+  }
+
+  
+  showinfo("R2...Ready");
+  
   
   SendOutput("mode0");
 
@@ -371,6 +423,13 @@ void readWifi(){
 
 void loop() {
 
+  #if INCLUDE_SCROLLING == 0
+  #error INCLUDE_SCROLLING must be non-zero.  Edit SSD1306Ascii.h
+  #endif //  INCLUDE_SCROLLING
+  // Set auto scrolling at end of window.
+  oled.setScrollMode(SCROLL_MODE_AUTO);
+
+
   if ( mode == 2 ){
    IRSensor();
   }
@@ -397,6 +456,8 @@ void loop() {
     StickConnect = 0;
     
   }
+
+  
  
   if (PAGE == 0) {
     NextUpdate(40);
@@ -411,6 +472,7 @@ void loop() {
   
   if(DEBUG_COM){
   Serial.print(S_DEBUG_COM);
+  showinfo(S_DEBUG_COM);
   S_DEBUG_COM = "";
   }
   if(DEBUG_INPUT){

@@ -11,7 +11,9 @@ void SendOutput(String dcmd) {   ///VIA SHD_PULS to MD Dome Board
     
     Serial2.print(dcmd);
     Serial2.print('\r'); 
+    
     cmd = "";
+    
     return;
 }
 
@@ -19,6 +21,9 @@ void parseCommand(String cmd) {
 /*
 ################  MAIN CONTROLLER COMMANDS   ###########
 */
+   
+   
+   
    ///Sound Sqeuenzes DFPlayer ///
       if (cmd == ":SE00"){myDFPlayer.playFolder(01,8);}
       if (cmd == ":SE01"){myDFPlayer.playFolder(04,1);}
@@ -45,11 +50,12 @@ void parseCommand(String cmd) {
       if (cmd == "$2"){myDFPlayer.next();}  //Talk  
       if (cmd == "#OF00"){myDFPlayer.playFolder(01,20);}   
       
+    showinfo(cmd);
     
   if (cmd == "debug") {
     DEBUG_COM = true;
       if (DEBUG_COM){
-          S_DEBUG_COM += "######Comando - debug######\n";
+          S_DEBUG_COM += "#Comando - debug#\n";
           S_DEBUG_COM += cmd;
           S_DEBUG_COM += "\n";
        }
@@ -102,7 +108,7 @@ void parseCommand(String cmd) {
 
     if (cmd == "debug off") {
     if (DEBUG_COM){
-         S_DEBUG_COM +=  "######Comando - debug off######";
+         S_DEBUG_COM +=  "#Comando - debug off#";
          S_DEBUG_COM += cmd;
          S_DEBUG_COM += "\n";
        }
@@ -179,7 +185,7 @@ void parseCommand(String cmd) {
     
     if (cmd == "reset") {
     if (DEBUG_COM){
-        S_DEBUG_COM += "###### Comando reset ######";
+        S_DEBUG_COM += "# Comando reset #";
         //S_DEBUG_COM += cmd;
         S_DEBUG_COM += "\n";   
       }
@@ -196,7 +202,7 @@ void parseCommand(String cmd) {
 
     if (cmd == "hreset") {
     if (DEBUG_COM){
-        S_DEBUG_COM += "###### Comando hreset ######";
+        S_DEBUG_COM += "# Comando hreset #";
         //S_DEBUG_COM += cmd;
         S_DEBUG_COM += "\n"; 
       }
@@ -217,7 +223,7 @@ void parseCommand(String cmd) {
 
     if (cmd == "mode1") {
     if (DEBUG_COM){
-         S_DEBUG_COM += "######Comando - mode1######";
+         S_DEBUG_COM += "#Comando - mode1#";
         // S_DEBUG_COM += cmd;
          S_DEBUG_COM += "\n";
        }
@@ -229,7 +235,7 @@ void parseCommand(String cmd) {
   
     if (cmd == "mode2") {
     if (DEBUG_COM){
-         S_DEBUG_COM += "######Comando - mode2######";
+         S_DEBUG_COM += "#Comando - mode2#";
         // S_DEBUG_COM += cmd;
          S_DEBUG_COM += "\n";
        }
@@ -240,7 +246,7 @@ void parseCommand(String cmd) {
   
     if (cmd == "mode3") {
     if (DEBUG_COM){
-         S_DEBUG_COM += "######Comando - mode3######";
+         S_DEBUG_COM += "#Comando - mode3#";
         // S_DEBUG_COM += cmd;
          S_DEBUG_COM += "\n";
        }
@@ -251,7 +257,7 @@ void parseCommand(String cmd) {
   
     if (cmd == "mode0") {
     if (DEBUG_COM){
-         S_DEBUG_COM += "######Comando - mode0######";
+         S_DEBUG_COM += "#Comando - mode0#";
          S_DEBUG_COM += cmd;
          S_DEBUG_COM += "\n";
        }
@@ -264,7 +270,7 @@ void parseCommand(String cmd) {
     ///VOICE COMMANDS///
     if (cmd == "usb") {
     if (DEBUG_COM){
-         S_DEBUG_COM += "######Comando - tool0 (usb)######";
+         S_DEBUG_COM += "#Comando - tool0 (usb)#";
          S_DEBUG_COM += cmd;
          S_DEBUG_COM += "\n";
        }
@@ -281,7 +287,7 @@ void parseCommand(String cmd) {
 
     if (cmd == "tool1") {
     if (DEBUG_COM){
-         S_DEBUG_COM += "######Comando - tool1######";
+         S_DEBUG_COM += "#Comando - tool1#";
          S_DEBUG_COM += cmd;
          S_DEBUG_COM += "\n";
        }

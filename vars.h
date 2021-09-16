@@ -30,6 +30,9 @@ char cmdString[CMD_MAX_LENGTH];
 
 unsigned long previousMillis = 0;      
 byte web = false;
+int line = 0;
+
+String IPADRESS = "00.00.00.00";
 
 byte State;
 int wait = 0;

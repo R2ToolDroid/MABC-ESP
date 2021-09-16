@@ -313,24 +313,32 @@ void notify()
         else if( battery == ps3_status_battery_shutdown ) STICK_AKKU_STAT = SHUTDOWN;
         else S_DEBUG_STICK += "UNDEFINED \n";
 
+        //oled.clear();
+
         switch (STICK_AKKU_STAT){
           case CHARGING:
           S_DEBUG_STICK += "CHARGING \n";
+          //oled.println("Stick CHARGING");
           break;
           case FULL:
           S_DEBUG_STICK += "FULL \n";
+          //oled.println("Stick Full");
           break;
           case HIGHT:
           S_DEBUG_STICK += "HIGHT \n";
+          //oled.println("Stick High\r");
           break;
           case LOWR:
           S_DEBUG_STICK += "LOWR \n";
+          //oled.println("Stick Low");
           break;
           case DYING:
           S_DEBUG_STICK += "DYING \n";
+          //oled.println("Stick DYING");
           break;
           case SHUTDOWN:
           S_DEBUG_STICK += "SHUTDOWN \n";
+          //oled.println("Stick GO DOWN");
           break;
 
           default:

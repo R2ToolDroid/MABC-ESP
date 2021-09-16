@@ -46,7 +46,7 @@ void randomSound(int minINT, int maxINT, int maxFiles){
   
   if (DEBUG_SOUND){
   Serial.println("..");
-    delay(50);
+    //delay(50);
   }
 
   
@@ -54,32 +54,17 @@ void randomSound(int minINT, int maxINT, int maxFiles){
 
 void onConnect(){
     Serial.println("Stick Connected.");   
-    delay(200);
+    //oled.clear();
+    //line = 10;
+    //showinfo("Stick online");
+    //delay(200);
     myDFPlayer.playFolder(01, 2);
 }
 
 
 
-
-/*//Play Sounds
-void Play(int folder, int file){
-  //delay(500);
-  myDFPlayer.playFolder(folder, file);
-  
-}
-
-void PlayNext(){
-  
-  myDFPlayer.next();
-  
-}
-*/
-
 void resetSequence(){
   
- //servoSequencer.play(SeqBodyPanelAllSoftClose, SizeOfArray(SeqBodyPanelAllSoftClose), (GROUP_DOORS));
-  
-  //Serial3.print(":CL00");           // hier geht es weiter zum Marcduino Dome Controller
   Serial2.print(":SE00");           // hier geht es weiter zum Marcduino Dome Controller
   Serial2.print('\r');
 
