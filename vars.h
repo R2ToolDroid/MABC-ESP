@@ -37,8 +37,10 @@ String IPADRESS = "00.00.00.00";
 byte State;
 int wait = 0;
 int battery = 0;
-byte StickConnect = 0;
-byte OverSpeed = 0; //1 High  0 Low
+byte StickConnect = false;
+byte OverSpeed = false; //1 High  0 Low
+byte next = false;
+String STcmd = "";
 
 // constants won't change :
 const long interval = 5000;           // interval at which to blink (milliseconds)
@@ -48,6 +50,7 @@ const long interval = 5000;           // interval at which to blink (millisecond
 
 String cmd; //Consolen Input
 //byte debug = false; //Debug function
+String tmp_cmd;
 
 String data; //Serial Data
 String inm = "COIN"; //Inputmode String

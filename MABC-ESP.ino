@@ -24,16 +24,15 @@
 #include <Wire.h> 
 #include "DFRobotDFPlayerMini.h"
 
-#include "SSD1306Ascii.h"
-#include "SSD1306AsciiWire.h"
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 
-// 0X3C+SA0 - 0x3C or 0x3D
-#define I2C_ADDRESS 0x3C
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 32 // OLED display height, in pixels
 
-// Define proper RST_PIN if required.
-#define RST_PIN -1
-
-SSD1306AsciiWire oled;
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+#define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 
 
@@ -88,6 +87,14 @@ void setup(void) {
   
   CheckCellCon(); /// Check if we start with WIFI OTA
 
+  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3C for 128x32
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;); // Don't proceed, loop forever
+  }
+
+  // Show initial display buffer contents on the screen --
+  // the library initializes this with an Adafruit splash screen.
   
   
 
@@ -182,18 +189,7 @@ void setup(void) {
   }
 
  Wire.begin();
-   Wire.setClock(400000L);
-   #if RST_PIN >= 0
-  oled.begin(&Adafruit128x32, I2C_ADDRESS, RST_PIN);
-    #else // RST_PIN >= 0
-  oled.begin(&Adafruit128x32, I2C_ADDRESS);
-    #endif // RST_PIN >= 0
-
-  oled.setFont(System5x7);
-  
-  showinfo("Start R2....");
-
- 
+   
   
   /*** WEBSERVER END ***/
  Serial1.begin(9600,SERIAL_8N1,18,19); // Serial 19 RX  18 TX NEXTION (COM1)  TESTBOARD 19,18
@@ -211,7 +207,9 @@ void setup(void) {
     delay(3000);
   }
   Serial.println(F("DFPlayer Mini online."));
-  showinfo("Soundmodul online.");
+  //showinfo("Soundmodul online.");
+  
+  
   myDFPlayer.setTimeOut(500); //Set serial communictaion time out 500ms 
   //----Set volume----
   myDFPlayer.volume(10);  //Set volume value (0~30).
@@ -252,7 +250,8 @@ void setup(void) {
   
   maxFilesinFolder = myDFPlayer.readFileCountsInFolder(1);
 
-  delay(8000);
+  //delay(8000);
+  OLED_Start();
 
   //Serial.println(F("myDFPlayer.play(1)"));
   if (web == false){
@@ -324,21 +323,21 @@ void setup(void) {
   
     
   Serial.println("R2...Ready");
-  oled.clear();
+  //oled.clear();
   
   if (web == true){ 
-    showinfo("OTA Active");
-    showinfo("IP address: ");
-    showinfo(IPADRESS);
+    //showinfo("OTA Active");
+    //showinfo("IP address: ");
+    //showinfo(IPADRESS);
     
   } else {
-      showinfo("Wifi App enable");
-      showinfo(IPADRESS);
+      //showinfo("Wifi App enable");
+      //showinfo(IPADRESS);
     
   }
 
   
-  showinfo("R2...Ready");
+  //showinfo("R2...Ready");
   
   
   SendOutput("mode0");
@@ -423,13 +422,7 @@ void readWifi(){
 
 void loop() {
 
-  #if INCLUDE_SCROLLING == 0
-  #error INCLUDE_SCROLLING must be non-zero.  Edit SSD1306Ascii.h
-  #endif //  INCLUDE_SCROLLING
-  // Set auto scrolling at end of window.
-  oled.setScrollMode(SCROLL_MODE_AUTO);
-
-
+  
   if ( mode == 2 ){
    IRSensor();
   }
@@ -450,10 +443,10 @@ void loop() {
   }
   
   if(Ps3.isConnected()){
-    StickConnect = 1;
+    StickConnect = true;
     
   } else {
-    StickConnect = 0;
+    StickConnect = false;
     
   }
 
@@ -472,7 +465,9 @@ void loop() {
   
   if(DEBUG_COM){
   Serial.print(S_DEBUG_COM);
-  showinfo(S_DEBUG_COM);
+  //Serial.print("vol ");
+  //Serial.println(vol);
+  //showinfo(S_DEBUG_COM);
   S_DEBUG_COM = "";
   }
   if(DEBUG_INPUT){
@@ -488,9 +483,17 @@ void loop() {
   S_DEBUG_OUTPUT = "";
   }
   
-  
+  OLED_status(web,IPADRESS,tmp_cmd,mode,StickConnect, STICK_AKKU_STAT, vol);
  
-  
+  if (next){
+     myDFPlayer.next();
+     next=false;
+  }
+
+  if (STcmd != ""){
+    parseCommand(STcmd);
+    STcmd = "";
+  }
 }
 
 

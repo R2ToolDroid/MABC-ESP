@@ -12,44 +12,44 @@ void notify()
     
     ///no Mode 3 activ
     if (mode != 3){   
-    if( Ps3.event.button_down.down && (SHIFT == 0))  { parseCommand(":SE10");} //Play the first mp3 }
-    if( Ps3.event.button_down.left && (SHIFT == 0))  { parseCommand(":SE13");}
-    if( Ps3.event.button_down.up && (SHIFT == 0))    { parseCommand(":SE11");}    
-    if( Ps3.event.button_down.right && (SHIFT == 0)) { myDFPlayer.next();} 
+    if( Ps3.event.button_down.down && (SHIFT == 0))  { STcmd =":SE10";} //Play the first mp3 }
+    if( Ps3.event.button_down.left && (SHIFT == 0))  { STcmd =":SE13";}
+    if( Ps3.event.button_down.up && (SHIFT == 0))    { STcmd =":SE11"; }    
+    if( Ps3.event.button_down.right && (SHIFT == 0)) { next=true;} 
     
 ///Circle shift --> ab hier noch die MD Codes einfügen
-    if( Ps3.event.button_down.down && (SHIFT == SH_CIRCLE))  { parseCommand(":SE09");}
-    if( Ps3.event.button_down.left && (SHIFT == SH_CIRCLE))  {parseCommand(":SE03");}
-    if( Ps3.event.button_down.up && (SHIFT == SH_CIRCLE))    { parseCommand(":SE01");}   
-    if( Ps3.event.button_down.right && (SHIFT == SH_CIRCLE)) { parseCommand(":SE06");}   
+    if( Ps3.event.button_down.down && (SHIFT == SH_CIRCLE))  { STcmd =":SE09";}
+    if( Ps3.event.button_down.left && (SHIFT == SH_CIRCLE))  {STcmd =":SE03";}
+    if( Ps3.event.button_down.up && (SHIFT == SH_CIRCLE))    {STcmd =":SE01";}   
+    if( Ps3.event.button_down.right && (SHIFT == SH_CIRCLE)) { STcmd =":SE06";}   
 
     //Cross Shift   
-    if( Ps3.event.button_down.down && (SHIFT == SH_CROSS))  {parseCommand("$-");}
-    if( Ps3.event.button_down.up && (SHIFT == SH_CROSS))    { parseCommand("$+");}  
-    if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {myDFPlayer.volume(20);  parseCommand("*ST00");}
-    if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {myDFPlayer.volume(10);  parseCommand("*RD00");}
+    if( Ps3.event.button_down.down && (SHIFT == SH_CROSS))  {STcmd ="$-";}
+    if( Ps3.event.button_down.up && (SHIFT == SH_CROSS))    { STcmd ="$+";}  
+    if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {myDFPlayer.volume(20); vol=20; STcmd ="*ST00";}
+    if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {myDFPlayer.volume(10); vol=19; STcmd ="*RD00";}
 
   
     //PS Shift
-    if( Ps3.event.button_down.cross && (SHIFT == SH_PLUS)) {parseCommand("DISDR");StickConnect=0;}
-    if( Ps3.event.button_down.circle && (SHIFT == SH_PLUS)) {parseCommand("hreset");}
+    if( Ps3.event.button_down.cross && (SHIFT == SH_PLUS)) {STcmd ="DISDR";}
+    if( Ps3.event.button_down.circle && (SHIFT == SH_PLUS)) {STcmd ="hreset";}
 
     
     if( Ps3.event.button_down.left && (SHIFT == SH_PLUS))  {
-      parseCommand("#OP01");
+      STcmd ="#OP01";
       }
 
     
 
     //L1 Shift
-    if( Ps3.event.button_down.down && (SHIFT == SH_L1))  { parseCommand(":SE08");}
-    if( Ps3.event.button_down.left && (SHIFT == SH_L1))  { parseCommand(":SE02");}
-    if( Ps3.event.button_down.up && (SHIFT == SH_L1))    { parseCommand(":SE07");}  
-    if( Ps3.event.button_down.right && (SHIFT == SH_L1)) { parseCommand(":SE04");}   
+    if( Ps3.event.button_down.down && (SHIFT == SH_L1))  { STcmd =":SE08";}
+    if( Ps3.event.button_down.left && (SHIFT == SH_L1))  { STcmd =":SE02";}
+    if( Ps3.event.button_down.up && (SHIFT == SH_L1))    { STcmd =":SE07";}  
+    if( Ps3.event.button_down.right && (SHIFT == SH_L1)) { STcmd =":SE04";}   
 
     // L2 Shift
-    if( Ps3.event.button_down.circle && (SHIFT == SH_L2))  {parseCommand(":CL00");}
-    if( Ps3.event.button_down.cross && (SHIFT == SH_L2))  {parseCommand("center");}
+    if( Ps3.event.button_down.circle && (SHIFT == SH_L2))  {STcmd =":CL00";}
+    if( Ps3.event.button_down.cross && (SHIFT == SH_L2))  {STcmd ="center";}
     
 
     } else {
@@ -127,9 +127,9 @@ void notify()
           }
       if( Ps3.event.button_down.left && (SHIFT == SH_L1))  {GrippRoll.write(0);}  
 
-      if( Ps3.event.button_down.up && (SHIFT == SH_L1))  {parseCommand("O");}  
+      if( Ps3.event.button_down.up && (SHIFT == SH_L1))  {STcmd ="O";}  
 
-      if( Ps3.event.button_down.down && (SHIFT == SH_L1))  {parseCommand("I");}  
+      if( Ps3.event.button_down.down && (SHIFT == SH_L1))  {STcmd ="I";}  
           
       if( Ps3.event.button_down.right && (SHIFT == SH_L2))  {  
           if(Gpos >=0){Gpos=Gpos-15;}
@@ -140,12 +140,12 @@ void notify()
         }
       if( Ps3.event.button_down.right && (SHIFT == SH_L1))  {GrippRoll.write(180);} 
       
-      if( Ps3.event.button_down.down && (SHIFT == SH_PLUS))  { parseCommand("D"); }
-    if( Ps3.event.button_down.up && (SHIFT == SH_PLUS))    { parseCommand("T"); }  
-    if( Ps3.event.button_down.right && (SHIFT == SH_PLUS)) { parseCommand("C");}
+      if( Ps3.event.button_down.down && (SHIFT == SH_PLUS))  { STcmd ="D"; }
+    if( Ps3.event.button_down.up && (SHIFT == SH_PLUS))    { STcmd ="T"; }  
+    if( Ps3.event.button_down.right && (SHIFT == SH_PLUS)) { STcmd ="C";}
     
     if( Ps3.event.button_down.left && (SHIFT == SH_PLUS))  {
-       parseCommand("#OP01");
+       STcmd ="#OP01";
       }
       /*
     if( Ps3.event.button_down.left && (SHIFT == 0))  {S_DEBUG_STICK += "Mid Awake + Human"; parseCommand(":SE14");}

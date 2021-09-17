@@ -22,7 +22,7 @@ void parseCommand(String cmd) {
 ################  MAIN CONTROLLER COMMANDS   ###########
 */
    
-   
+   tmp_cmd = cmd;
    
    ///Sound Sqeuenzes DFPlayer ///
       if (cmd == ":SE00"){myDFPlayer.playFolder(01,8);}
@@ -50,8 +50,7 @@ void parseCommand(String cmd) {
       if (cmd == "$2"){myDFPlayer.next();}  //Talk  
       if (cmd == "#OF00"){myDFPlayer.playFolder(01,20);}   
       
-    showinfo(cmd);
-    
+        
   if (cmd == "debug") {
     DEBUG_COM = true;
       if (DEBUG_COM){
@@ -142,7 +141,7 @@ void parseCommand(String cmd) {
       S_DEBUG_COM += "\n";   
       }
        Ps3.end();
-       StickConnect = 0;
+       StickConnect = false;
        STICK_AKKU_STAT = 6;
       }
       
@@ -459,12 +458,13 @@ void parseCommand(String cmd) {
         
       }
       if (cmd == "$m") {
-        
+
+        vol = 10;
         myDFPlayer.volume(10);
         
       }
       if (cmd == "$f") {
-        
+        vol = 30;
         myDFPlayer.volume(30);
         
       }
