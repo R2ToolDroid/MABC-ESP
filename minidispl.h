@@ -39,7 +39,7 @@ void OLED_status(bool web, String IPADRESS, String cmd, int mode, byte stick, in
   String calldatabuff;
   int FuelA;
   int FuelB;
-  int volumen = map(vol,-20,60, 0,32);
+  int volumen = map(vol,-100,150, 0,32);
   display.clearDisplay();
 
   //display.drawCircle(0, 100, 4, WHITE);
@@ -47,7 +47,7 @@ void OLED_status(bool web, String IPADRESS, String cmd, int mode, byte stick, in
   display.drawRect(118, 0, 10, 32, WHITE);
   display.drawRect(106, 0, 10, 32, WHITE);
 
-  display.fillRect(102,volumen,3,32,WHITE); //BattFuel
+  display.fillRect(101,volumen,3,32,WHITE); //BattFuel
 
   display.fillRect(120,15,6,30,WHITE); //BattFuel
 

@@ -26,8 +26,8 @@ void notify()
     //Cross Shift   
     if( Ps3.event.button_down.down && (SHIFT == SH_CROSS))  {STcmd ="$-";}
     if( Ps3.event.button_down.up && (SHIFT == SH_CROSS))    { STcmd ="$+";}  
-    if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {myDFPlayer.volume(20); vol=20; STcmd ="*ST00";}
-    if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {myDFPlayer.volume(10); vol=19; STcmd ="*RD00";}
+    if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {STcmd ="$f";}
+    if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {STcmd ="$m";}
 
   
     //PS Shift

@@ -203,7 +203,7 @@ void NextUpdate(int TT) {
    
   //FuelB = readFuel(FUEL_CELL_B);
 
-  //Serial1.print("n1.val=");
+  //Serial.print("n1.val=");
   //Serial.print(FuelA);
   //NextEnd();
 

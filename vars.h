@@ -186,7 +186,7 @@ const float vCC = 4.85;  ///Systemspannung
 /// MP3 
 // Set some defaults for start up
 // 0 = full volume, 255 off
-byte vol = 20;
+int vol = 20;
 boolean firstLoadOnConnect = false;
 
 

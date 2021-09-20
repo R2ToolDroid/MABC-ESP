@@ -3,7 +3,7 @@
 void SendOutput(String dcmd) {   ///VIA SHD_PULS to MD Dome Board
 
     //delay(200);
-    
+   
     if (DEBUG_COM){
       S_DEBUG_COM += dcmd;
       S_DEBUG_COM += "\n";
@@ -21,6 +21,10 @@ void parseCommand(String cmd) {
 /*
 ################  MAIN CONTROLLER COMMANDS   ###########
 */
+
+    //Serial.print("myvol= ");
+    //Serial.println(vol);
+    
    
    tmp_cmd = cmd;
    
@@ -464,8 +468,8 @@ void parseCommand(String cmd) {
         
       }
       if (cmd == "$f") {
-        vol = 30;
-        myDFPlayer.volume(30);
+        vol = -80;
+        myDFPlayer.volume(20);
         
       }
       
