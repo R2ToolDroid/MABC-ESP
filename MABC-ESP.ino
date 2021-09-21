@@ -424,7 +424,7 @@ void loop() {
 
   
   if ( mode == 2 ){
-   IRSensor();
+   //IRSensor();
   }
 
   if (web == false){

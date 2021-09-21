@@ -502,6 +502,16 @@ void parseCommand(String cmd) {
      SendOutput(cmd);
     }
 
+    if (cmd.startsWith("@")) 
+    {
+      if (DEBUG_COM){
+        S_DEBUG_COM += "######Comando Prefix @ Display ######";
+        S_DEBUG_COM += cmd;
+        S_DEBUG_COM += "\n";
+      }
+     SendOutput(cmd);
+    }
+
     NextCom(cmd);
     cmd="";
 }

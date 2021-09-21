@@ -167,6 +167,9 @@ void notify()
      //// CHANGE MODE ///
     if( Ps3.event.button_down.l3 && (SHIFT == SH_L2))
     {
+      
+      STcmd ="MOD"; 
+      /*
       mode++;
       if (mode >= 4) mode=0;
       if (DEBUG_STICK){
@@ -178,11 +181,11 @@ void notify()
       Serial2.print(mode);
       Serial2.print("\r");
       //SendOutput ("mode"+mode);
-      
+      */
       SHIFT = 0;
      // parseCommand("CALL");
      
-     ShwMode();
+     //ShwMode();
       
     } 
     
