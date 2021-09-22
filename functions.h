@@ -327,7 +327,7 @@ void CheckCellCon(){
   if (analogRead(FUEL_CELL_B) < 500){
     Serial.println("Fuel Cell connected WIFI OTA MODE START");
     //Serial.println("To activate WIFI OTA diconnect FuelCell_B");
-    web = true;
+    web = false;
   } else {
     Serial.println("Fuel Cell not connected WIFI APP MODE START");
   }

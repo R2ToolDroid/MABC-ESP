@@ -29,7 +29,7 @@ char cmdString[CMD_MAX_LENGTH];
 
 
 unsigned long previousMillis = 0;      
-byte web = false;
+byte web = true;
 int line = 0;
 
 String IPADRESS = "00.00.00.00";

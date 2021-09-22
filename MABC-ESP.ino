@@ -39,11 +39,11 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 const char* host = "R2-esp32";
 
-const char* ssid = "Webmex-Safe-02";
-const char* password = "tronic307";
-
-//const char* ssid = "R2_Router";
+//const char* ssid = "Webmex-Safe-02";
 //const char* password = "tronic307";
+
+const char* ssid = "R2_Router";
+const char* password = "tronic307";
 
 //APP
 const char* ssid2 = "R2-ESP32-MABAC"; //name of the wifi-network created by the ESP32
@@ -424,7 +424,7 @@ void loop() {
 
   
   if ( mode == 2 ){
-   //IRSensor();
+   IRSensor();
   }
 
   if (web == false){
