@@ -20,6 +20,41 @@ byte DEBUG_SOUND = false;
 byte DEBUG_IR = false;
 String S_DEBUG_IR;
 
+byte IR = true;
+
+///EEPROM ADRESSES
+
+
+
+//int adr0=103; //WEB -|| OTA-ON =1 | OTA-OFF = 2 :  0: undefined  1: true  2:false
+
+#define RE true
+#define WR false
+
+#define C_WEB 0 // EPROM SPEICHER
+#define OTA_ON 1 //true
+#define OTA_OFF 0 //false
+
+int adr1=105; //IR Sensor 
+#define IR_ON 1
+#define IR_OFF 2
+
+int adr2=107; //Internal Fuel Cell Control  1:true 2:false
+#define FUEL_ON 1  
+#define FUEL_OFF 2
+
+int adr3=109; //SR
+int adr4=111; //CMOTPWR
+int adr5=113; //LMOTPWR
+int adr12=115; //BTIME
+
+int k;
+//// END EEPROM
+
+byte CONFIG = false;
+String S_CONFIG = "";
+
+
 // Command processing stuff
 // maximum number of characters in a command (63 chars since we need the null termination)
 #define CMD_MAX_LENGTH 64 
@@ -29,7 +64,7 @@ char cmdString[CMD_MAX_LENGTH];
 
 
 unsigned long previousMillis = 0;      
-byte web = true;
+byte web = false;
 int line = 0;
 
 String IPADRESS = "00.00.00.00";
@@ -57,7 +92,7 @@ String inm = "COIN"; //Inputmode String
 String calldata; //String Datarequest
 String calldatabuff;
 
-int mode = 1; // Default Mode  0 = Random
+int mode = 3; // Default Mode  0 = Random
               // RC Mode       1 = RC Control
               // RC Show       2 = Human
               // RC Show       3 = Service Arm Control
@@ -97,7 +132,7 @@ int PAGE = 0;  //9 = NotConnect| 0= start| 1=com | 2=setup | 3= move
 float COR =  4.7;
 int TmpCor ;
 int NewCor = COR*100 ;
-int adr0=103; //COR
+//int adr0=103; //COR
 byte flash = false;
 
 const int NRED = 63488;
@@ -143,7 +178,16 @@ int countTrig = 1;
 #define GRIP_LIFT 5
 #define GRIP_ROLL 15
 
+int liftPos = 0;
 
+#define GRIP_LIFT_TOP 1
+#define GRIP_LIFT_DOWN 2
+#define GRIP_LIFT_STOP 3
+
+int GRIP_LIFT_STATUS = GRIP_LIFT_STOP;
+int GRIP_LIFT_STATUS_BEFORE = GRIP_LIFT_STOP;
+
+unsigned long startTime = millis();
 
 //Define Arm Move
 #define ARM_IN_OUT  1

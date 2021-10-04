@@ -27,6 +27,25 @@ void parseCommand(String cmd) {
     
    
    tmp_cmd = cmd;
+    //CONFIG
+    if (cmd == "CONFIG"){     
+        CONFIG = true; 
+        shwConfig(RE);
+    }
+    if (cmd == "OTA-OFF") {
+      EEPROM.write(C_WEB, OTA_OFF);
+      EEPROM.commit();  
+      web = false;
+      shwConfig(WR);
+    }
+    if (cmd == "OTA-ON") {
+       EEPROM.write(C_WEB, OTA_ON);
+       EEPROM.commit(); 
+       web = true;
+       shwConfig(WR);
+    }
+    
+   
    
    ///Sound Sqeuenzes DFPlayer ///
       if (cmd == ":SE00"){myDFPlayer.playFolder(01,8);}

@@ -55,21 +55,33 @@ void notify()
     } else {
       /*****************##########           ARM Steering       ########### ********/
       if( Ps3.event.button_down.up && (SHIFT == 0))    {
-           if(Apos <=180) { Apos = Apos+10;}
+           //if(Apos <=1800) { Apos = Apos+10;}
             //S_DEBUG_STICK += "Arm Hoch\n";
             //output += Apos;
-            GrippLift.write(Apos);
+            //GrippLift.write(Apos);
+           // liftPos = liftPos +100;
+            //myLSS.moveT(1200, 4000);
+            GRIP_LIFT_STATUS = GRIP_LIFT_TOP;
+            
             } 
       if( Ps3.event.button_up.up && (SHIFT == 0))    {//S_DEBUG_STICK += "Arm Hoch stop\n";
+            //myLSS.hold();
+           GRIP_LIFT_STATUS = GRIP_LIFT_STOP;
         }   
+
        
       if( Ps3.event.button_down.down && (SHIFT == 0))  {
-            if (Apos >=0) {Apos = Apos-10;}
+            //if (Apos >=-1800) {Apos = Apos-10;}
             //S_DEBUG_STICK += "Arm Down\n"; 
             //output += Apos;
-            GrippLift.write(Apos);
+            //GrippLift.write(Apos);
+            //myLSS.moveT(-1200, 4000);
+            GRIP_LIFT_STATUS = GRIP_LIFT_DOWN;
+            
             }
       if( Ps3.event.button_up.down && (SHIFT == 0))  {//S_DEBUG_STICK += "Arm Down stop\n"; 
+           GRIP_LIFT_STATUS = GRIP_LIFT_STOP;
+           //myLSS.hold();
       }
       
       if( Ps3.event.button_down.left && (SHIFT == 0))  {

@@ -106,16 +106,16 @@ void OLED_status(bool web, String IPADRESS, String cmd, int mode, byte stick, in
   display.setCursor(0, 16);
   display.print("M");
   display.println(calldatabuff);
-
-
-
-
-  
   
   display.setCursor(0, 25);
   display.print("C ");
   display.println(cmd);
   display.display(); 
 
+  
+}
+
+
+void OLED_config() {
   
 }

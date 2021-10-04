@@ -7,6 +7,8 @@
   #### Coin Button as Telemetric Input now
   #### A0 Power A
   #### A1 Power B
+
+  ####Select ESP32 Wrover Module with minimal SPiFFS
 */
 
 /*  WEBSERVER CONFIG */
@@ -18,10 +20,12 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 #include <Update.h>
+#include <EEPROM.h>  
 #include <ESP32_Servo.h>
 #include <Ps3Controller.h>
 #include <SoftwareSerial.h>
 #include <Wire.h> 
+#include <LSS.h>
 #include "DFRobotDFPlayerMini.h"
 
 #include <Adafruit_GFX.h>
@@ -62,12 +66,19 @@ WiFiClient client;
 DFRobotDFPlayerMini myDFPlayer;
 
 SoftwareSerial mp3; // RX, TX
+SoftwareSerial L_SERIAL; // Port 5
 
 Servo DomeRot;
 Servo DriveSpeed;
 Servo DriveDir;
 Servo GrippRoll;
-Servo GrippLift;
+//Servo GrippLift;
+
+#define LSS_ID (0)
+#define LSS_BAUD (LSS_DefaultBaud)
+#define LSS_SERIAL (L_SERIAL)
+
+LSS myLSS = LSS(0);
 
 #include "vars.h"
 #include "minidispl.h"
@@ -78,14 +89,16 @@ Servo GrippLift;
 #include "app.h"
 
 
+
 void setup(void) {
 
   randomSeed(analogRead(0));  //Random ??
+
+  EEPROM.begin(1);
   
   pinMode(FUEL_CELL_B, INPUT_PULLUP);
-  Serial.begin(115200); 
-  
-  CheckCellCon(); /// Check if we start with WIFI OTA
+  Serial.begin(115200);  
+  //CheckCellCon(); /// Check if we start with WIFI OTA
 
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3C for 128x32
@@ -96,7 +109,7 @@ void setup(void) {
   // Show initial display buffer contents on the screen --
   // the library initializes this with an Adafruit splash screen.
   
-  
+  loadDefault();
 
   if (web == true){ 
   /*** WEBSERVER START ***/
@@ -196,6 +209,11 @@ void setup(void) {
  Serial2.begin(9600,SERIAL_8N1,27,23); // Serial 27 RX  23 TX Outpull All Input Command
  //I2C   21 SDA     22 SDC for PCB Board
  mp3.begin(9600, SWSERIAL_8N1, 25, 26, false, 256);  // speed, type, RX, TX
+ L_SERIAL.begin(9600, SWSERIAL_8N1, 7, 5, false, 256);
+
+ LSS::initBus(LSS_SERIAL, LSS_BAUD);
+
+ 
 
   if (!myDFPlayer.begin(mp3, true, false)) {  //Use softwareSerial to communicate with mp3.
     
@@ -259,8 +277,21 @@ void setup(void) {
   } else {
     myDFPlayer.play(2);  //Play 
   }
-  
+
+  //myLSS.setMaxSpeed(5);
+
+  myLSS.move(liftPos);
+
+  /*
+  delay(1000);
+  myLSS.moveT(600,2000);
   delay(3000);
+  myLSS.moveT(-500,2000);
+  //myLSS.move(1800);
+  */
+  delay(2000);
+
+  //myLSS.move(-1800);
 
   Ps3.attach(notify);
   Ps3.attachOnConnect(onConnect);
@@ -301,7 +332,7 @@ void setup(void) {
   DriveSpeed.attach(DRIVE_SPEED);
   DriveDir.attach(DRIVE_DIR);
   GrippRoll.attach(GRIP_ROLL);
-  GrippLift.attach(GRIP_LIFT);
+  //GrippLift.attach(GRIP_LIFT);
 
   DomeRot.write(90);
   DriveSpeed.write(90);
@@ -353,7 +384,8 @@ void setup(void) {
 
   ShwMode();
 
-     
+  liftPos = 0;   
+  
 }
 
 
@@ -427,6 +459,11 @@ void loop() {
    IRSensor();
   }
 
+  
+  if (mode == 3 ){  
+    ArmMove(GRIP_LIFT_STATUS);  
+  }
+  
   if (web == false){
      App();
   } else {
@@ -482,9 +519,14 @@ void loop() {
   Serial.print(S_DEBUG_OUTPUT);
   S_DEBUG_OUTPUT = "";
   }
-  
+
+  if (CONFIG)
+  {
+    
+  } else {
   OLED_status(web,IPADRESS,tmp_cmd,mode,StickConnect, STICK_AKKU_STAT, vol);
- 
+  }
+  
   if (next){
      myDFPlayer.next();
      next=false;
@@ -494,6 +536,8 @@ void loop() {
     parseCommand(STcmd);
     STcmd = "";
   }
+
+  
 }
 
 
