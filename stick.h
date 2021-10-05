@@ -12,20 +12,20 @@ void notify()
     
     ///no Mode 3 activ
     if (mode != 3){   
-    if( Ps3.event.button_down.down && (SHIFT == 0))  { STcmd =":SE10";} //Play the first mp3 }
-    if( Ps3.event.button_down.left && (SHIFT == 0))  { STcmd =":SE13";}
-    if( Ps3.event.button_down.up && (SHIFT == 0))    { STcmd =":SE11"; }    
-    if( Ps3.event.button_down.right && (SHIFT == 0)) { next=true;} 
+    if( Ps3.event.button_down.down && (SHIFT == 0))  {STcmd =":SE10";} //Play the first mp3 }
+    if( Ps3.event.button_down.left && (SHIFT == 0))  {STcmd =":SE13";}
+    if( Ps3.event.button_down.up && (SHIFT == 0))    {STcmd =":SE11"; }    
+    if( Ps3.event.button_down.right && (SHIFT == 0)) {next=true;} 
     
-///Circle shift --> ab hier noch die MD Codes einfügen
-    if( Ps3.event.button_down.down && (SHIFT == SH_CIRCLE))  { STcmd =":SE09";}
+    ///Circle shift --> ab hier noch die MD Codes einfügen
+    if( Ps3.event.button_down.down && (SHIFT == SH_CIRCLE))  {STcmd =":SE09";}
     if( Ps3.event.button_down.left && (SHIFT == SH_CIRCLE))  {STcmd =":SE03";}
     if( Ps3.event.button_down.up && (SHIFT == SH_CIRCLE))    {STcmd =":SE01";}   
-    if( Ps3.event.button_down.right && (SHIFT == SH_CIRCLE)) { STcmd =":SE06";}   
+    if( Ps3.event.button_down.right && (SHIFT == SH_CIRCLE)) {STcmd =":SE06";}   
 
     //Cross Shift   
     if( Ps3.event.button_down.down && (SHIFT == SH_CROSS))  {STcmd ="$-";}
-    if( Ps3.event.button_down.up && (SHIFT == SH_CROSS))    { STcmd ="$+";}  
+    if( Ps3.event.button_down.up && (SHIFT == SH_CROSS))    {STcmd ="$+";}  
     if( Ps3.event.button_down.right && (SHIFT == SH_CROSS)) {STcmd ="$f";}
     if( Ps3.event.button_down.left && (SHIFT == SH_CROSS))  {STcmd ="$m";}
 
@@ -105,7 +105,7 @@ void notify()
           digitalWrite(GRIP_MOTB1,LOW);
           digitalWrite(GRIP_MOTB2,LOW); 
           } 
-//// Grippter Mode 2 plus L2
+      //// Grippter Mode 2 plus L2
 
       if( Ps3.event.button_down.up && (SHIFT == SH_L2)){
           //S_DEBUG_STICK += "Grip Auf\n";

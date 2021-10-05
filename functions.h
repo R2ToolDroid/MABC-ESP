@@ -290,21 +290,7 @@ void NextUpdate(int TT) {
    }
 
   
-  //Serial.println(readFuel(FUEL_CELL_A));
-  //Serial.println(ReadFuel(FUEL_CELL_B));
-    
-  //FuelA = readFuel(FUEL_CELL_A);
-   
-  //FuelB = readFuel(FUEL_CELL_B);
-
-  //Serial.print("n1.val=");
-  //Serial.print(FuelA);
-  //NextEnd();
-
-  //int FuelA_P =  map(FuelA, 16, 19, 0, 100); ///Map for 100%
-
-  // FOR STICK BATTERY STATUS
-
+ 
   
 
   switch (STICK_AKKU_STAT){
@@ -412,53 +398,26 @@ if (TT > 100) {TT = 0;}
 }
 
 
-/*
-void CheckCellCon(){
-
-  //Serial.println(FUEL_CELL_B);
-
-  
-  if (analogRead(FUEL_CELL_B) < 500){
-    Serial.println("Fuel Cell connected WIFI OTA MODE START");
-    //Serial.println("To activate WIFI OTA diconnect FuelCell_B");
-    web = false;
-  } else {
-    Serial.println("Fuel Cell not connected WIFI APP MODE START");
-  }
-    
-}
-*/
 void ArmMove( int GRIP_LIFT_STATUS ){
 
-
-      //Serial.print(" GRIP STATUS");
-      //Serial.print(GRIP_LIFT_STATUS);
-      //Serial.print(" GRIP STATUS BEFORE");
-      //Serial.println(GRIP_LIFT_STATUS_BEFORE);
-
-      if (GRIP_LIFT_STATUS_BEFORE != GRIP_LIFT_STATUS){
-        //Serial.print(" GRIP STATUS");
-      //Serial.print(GRIP_LIFT_STATUS);
-      //Serial.print(" GRIP STATUS BEFORE");
-      //Serial.println(GRIP_LIFT_STATUS_BEFORE);
-     
-
-     switch (GRIP_LIFT_STATUS){
-      case GRIP_LIFT_TOP:   
-      myLSS.moveT(1200, 3000);
+     if ( GRIP_LIFT_STATUS_BEFORE != GRIP_LIFT_STATUS  ){
+         
+      switch (GRIP_LIFT_STATUS){
+        
+        case GRIP_LIFT_TOP:   
+        myLSS.moveT(1200, 3000);
+        liftPos = liftPos+5;
+        break;
       
-      liftPos = liftPos+5;
-      break;
+        case GRIP_LIFT_DOWN:
+        myLSS.moveT(-1200, 3000);
+        liftPos = liftPos-5;
+        break;
       
-      case GRIP_LIFT_DOWN:
-      myLSS.moveT(-1200, 3000);
-      liftPos = liftPos-5;
-      break;
-      
-      case GRIP_LIFT_STOP:
-      myLSS.hold();
-      liftPos = liftPos;
-      break;
+        case GRIP_LIFT_STOP:
+        myLSS.hold();
+        liftPos = liftPos;
+        break;
       
       default:
       myLSS.hold();

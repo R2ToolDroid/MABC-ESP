@@ -470,10 +470,7 @@ void loop() {
     server.handleClient();
   }
  
-   //Serial.println(analogRead(FUEL_CELL_B));
   
-  
-  //CheckIR(5000);
   if (RNDSound){
     randomSound(5000,20000,maxFilesinFolder);
     //randomSound(int minINT, int maxINT, int maxFiles)
