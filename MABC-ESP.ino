@@ -512,6 +512,14 @@ void loop() {
   Serial.print(S_DEBUG_STICK);
   S_DEBUG_STICK = "";
   }
+
+  if(( DEBUG_IR) && (S_DEBUG_IR != "") ){
+   
+  Serial.print(S_DEBUG_IR);
+  S_DEBUG_IR = "";
+  
+  }
+  
   if(DEBUG_OUTPUT){
   Serial.print(S_DEBUG_OUTPUT);
   S_DEBUG_OUTPUT = "";

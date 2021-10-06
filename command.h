@@ -145,7 +145,7 @@ void parseCommand(String cmd) {
     if (cmd == "DEBUG_INPUT") { DEBUG_INPUT = true;}
     if (cmd == "DEBUG_SOUND") { DEBUG_SOUND = true;}
     if (cmd == "DEBUG_STICK") { DEBUG_STICK = true;}
-    
+    if (cmd == "DEBUG_IR") { DEBUG_IR = true;}
 
 
 
