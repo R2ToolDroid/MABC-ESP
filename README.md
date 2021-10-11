@@ -21,3 +21,7 @@
 *  myDFPlayer.randomAll(); //Random play all the mp3.
 *  myDFPlayer.enableLoop(); //enable loop.
 *  myDFPlayer.disableLoop(); //disable loop.
+
+
+# For Volt Reading
+make a voltage divider with R1 100K  R2 10K  and on R2 a 10K Poti for finetuning
