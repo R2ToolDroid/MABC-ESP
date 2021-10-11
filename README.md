@@ -23,7 +23,7 @@
 *  myDFPlayer.disableLoop(); //disable loop.
 
 
-# For Volt Reading
+# For Volt Reading on Batt sens
 make a voltage divider with R1 100K  R2 10K  and on R2 a 10K Poti for finetuning
 
 ![Voltmeter](voltmeter.png)
