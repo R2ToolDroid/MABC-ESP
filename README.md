@@ -27,3 +27,11 @@
 make a voltage divider with R1 100K  R2 10K  and on R2 a 10K Poti for finetuning
 
 ![Voltmeter](voltmeter.png)
+
+# Config Command for EEPROM
+* OTA-ON / OTA-OFF | Activate OTA Update via Browser and deactivate R2Touch App WLAN
+* IR-ON / IR-OFF | Activate range Sensor
+* DM-0 - DM -3 | Set Default Mode on Start
+* FUEL-ON / FUEL-OFF | Activate Fuelsensor Main Power
+* DISP-ON / DISP-OFF  | Switch small Display
+*  
