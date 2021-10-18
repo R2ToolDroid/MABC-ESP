@@ -1,6 +1,8 @@
 #include <Arduino.h>   
 
-String loginIndex = 
+String loginIndex  = 
+
+//static const char loginIndex[] PROGMEM =
 "<form name=loginForm>"
 "<h1>R2 MABC-ESP32</h1>"
 "<h3>Firmware Upload</h3>"

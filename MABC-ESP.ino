@@ -38,10 +38,7 @@
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-
-
-
-const char* host = "R2-esp32";
+const char* host PROGMEM = "R2-esp32";
 
 //const char* ssid = "Webmex-Safe-02";
 //const char* password = "tronic307";
@@ -88,18 +85,15 @@ LSS myLSS = LSS(0);
 #include "IRinput.h"
 #include "app.h"
 
-
-
 void setup(void) {
 
   randomSeed(analogRead(0));  //Random ??
 
-  EEPROM.begin(1);
+  EEPROM.begin(2048);
   
   pinMode(FUEL_CELL_B, INPUT_PULLUP);
   Serial.begin(115200);  
-  //CheckCellCon(); /// Check if we start with WIFI OTA
-
+  
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3C for 128x32
     Serial.println(F("SSD1306 allocation failed"));
@@ -115,17 +109,17 @@ void setup(void) {
   /*** WEBSERVER START ***/
   // Connect to WiFi network
   WiFi.begin(ssid, password);
-  Serial.println("");
+  Serial.println(F(""));
 
   // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.print(".");
+    Serial.print(F("."));
   }
-  Serial.println("");
-  Serial.print("Connected to ");
+  Serial.println (F(""));
+  Serial.print (F("Connected to "));
   Serial.println(ssid);
-  Serial.print("IP address: ");
+  Serial.print(F("IP address: "));
   
   Serial.println(WiFi.localIP());
   IPADRESS = WiFi.localIP().toString(); 
@@ -133,12 +127,12 @@ void setup(void) {
   
   /*use mdns for host name resolution*/
   if (!MDNS.begin(host)) { //http://R2-esp32.local
-    Serial.println("Error setting up MDNS responder!");
+    Serial.println(F("Error setting up MDNS responder!"));
     while (1) {
       delay(1000);
     }
   }
-  Serial.println("mDNS responder started");
+  Serial.println(F("mDNS responder started"));
   
   /*return index page which is stored in serverIndex*/
   server.on("/", HTTP_GET, []() {
@@ -149,7 +143,7 @@ void setup(void) {
   server.on("/ON", HTTP_GET, []() {
     server.sendHeader("Connection", "close");
     server.send(200, "text/html", serverIndex);
-    Serial.println("get a ON from Web");
+    Serial.println(F("get a ON from Web"));
     
   });
 
@@ -192,7 +186,7 @@ void setup(void) {
   /*** APP SERVER **/
   WiFi.softAP(ssid2, pass2);
   IPAddress IP = WiFi.softAPIP();
-  Serial.print("APP-Server IP address: ");
+  Serial.print(F("APP-Server IP address: "));
   Serial.println(IP);
   IPADRESS = IP.toString(); 
   server2.begin();
@@ -238,47 +232,31 @@ void setup(void) {
   int delayms=100;  ///delay OEM 100
   //----Mp3 play----
   //----Read imformation----
-  S_DEBUG_OUTPUT = "readState--------------------";
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += myDFPlayer.readState(); //read mp3 state
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += "readVolume--------------------";
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += myDFPlayer.readVolume(); //read current volume
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += "readEQ--------------------";
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += myDFPlayer.readEQ(); //read EQ setting
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += "readFileCounts--------------------";
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += myDFPlayer.readFileCounts(); //read all file counts in SD card
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += "readCurrentFileNumber--------------------";
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += myDFPlayer.readCurrentFileNumber(); //read current play file number
-  S_DEBUG_OUTPUT += "\n";
+  if (DEBUG_OUTPUT){
+  Serial.println( F("readState--------------------"));
+  Serial.println( myDFPlayer.readState()); //read mp3 state
+  Serial.println( F("readVolume--------------------"));
+  Serial.println( myDFPlayer.readVolume()); //read current volume
+  Serial.println( F("readEQ--------------------"));
+  Serial.println( myDFPlayer.readEQ()); //read EQ setting
+  Serial.println( F ("readFileCounts--------------------"));
+  Serial.println( myDFPlayer.readFileCounts()); //read all file counts in SD card
+  Serial.println( F("readCurrentFileNumber--------------------"));
+  Serial.println( myDFPlayer.readCurrentFileNumber()); //read current play file number
+  Serial.println( F("readFileCountsInFolder--------------------"));
+  Serial.println( myDFPlayer.readFileCountsInFolder(3)); //read fill counts in folder SD:/03";
+  Serial.println( F("---Wait---"));
   
-  S_DEBUG_OUTPUT += "readFileCountsInFolder--------------------";
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += myDFPlayer.readFileCountsInFolder(3); //read fill counts in folder SD:/03";
-  S_DEBUG_OUTPUT += "\n";
-  S_DEBUG_OUTPUT += "---Wait---";
-  S_DEBUG_OUTPUT += "\n";
-  
+  } // End Debug
   maxFilesinFolder = myDFPlayer.readFileCountsInFolder(1);
 
-  //delay(8000);
   OLED_Start();
-
-  //Serial.println(F("myDFPlayer.play(1)"));
+ 
   if (web == false){
-  myDFPlayer.play(1);  //Play the first mp3 
+    myDFPlayer.play(1);  //Play the first mp3 
   } else {
     myDFPlayer.play(2);  //Play 
   }
-
-  //myLSS.setMaxSpeed(5);
 
   myLSS.move(liftPos);
 
@@ -297,42 +275,16 @@ void setup(void) {
   Ps3.attachOnConnect(onConnect);
     //Ps3.begin("01:02:03:04:05:06");
   Ps3.begin("01:1a:7d:da:71:12"); ///#645
-  
-
-  //pinMode(FUEL_CELL_A, INPUT_PULLUP);
-  //pinMode(FUEL_CELL_B, INPUT_PULLUP);
-
+ 
   pinMode(IR_SENSOR, INPUT_PULLUP);
 
-  /*
-  Serial.println("##### Master_Body_Controller ESP32 03.04.2021 #####");
-  Serial.println("Comandos von RC - CoinTaster - Wfif Modul werde verarbeitet");
-  Serial.println("INPUT:");
-  Serial.println("..... Nextion Display .............Serial 1 RX");
-  Serial.println("..... From WIFI....................Serial 2 RX");
-  Serial.println("");
-  Serial.println("OUTPUT:");
-  Serial.println("..... NEXTION Display an ..........Serial 1 TX");
-  Serial.println("..... To Dome Drive................Serial 2 TX");
-  Serial.println("");
-  Serial.println("...fuer DebugMode debug eingeben...");
-  Serial.println("...ende DebugMode debug off eingeben...");
-  Serial.println("...SERIAL is DEBUG 115200 - 9600 BAUD !!");
-  Serial.println("...MODE = ");
-  Serial.println(mode);
-
-  SERIAL is DEBUG 115200 BAUD !!
-  */
-  
- 
-  
   /* Setup Servos and Motors */
-  //myservo.attach(servoPin);
+  
   DomeRot.attach(DOME_ROT);
   DriveSpeed.attach(DRIVE_SPEED);
   DriveDir.attach(DRIVE_DIR);
   GrippRoll.attach(GRIP_ROLL);
-  //GrippLift.attach(GRIP_LIFT);
+  
 
   DomeRot.write(90);
   DriveSpeed.write(90);
@@ -353,33 +305,17 @@ void setup(void) {
   
   
     
-  Serial.println("R2...Ready");
-  //oled.clear();
-  
-  if (web == true){ 
-    //showinfo("OTA Active");
-    //showinfo("IP address: ");
-    //showinfo(IPADRESS);
-    
-  } else {
-      //showinfo("Wifi App enable");
-      //showinfo(IPADRESS);
-    
-  }
-
-  
-  //showinfo("R2...Ready");
-  
-  
+  Serial.println(F("R2...Ready"));
+   
   SendOutput("mode0");
 
   ///Nextion Start
-  Serial1.print("page start");
+  Serial1.print(F("page start"));
   NextEnd();
   
-  Serial1.print("t0.txt=\"");
-  Serial1.print("...START !");
-  Serial1.print(" _\"");
+  Serial1.print(F("t0.txt=\""));
+  Serial1.print(F("...START !"));
+  Serial1.print(F(" _\""));
   NextEnd();  
 
   ShwMode();
@@ -395,9 +331,9 @@ void readCom(){
     {
         data = Serial.readStringUntil('\n');
         if (DEBUG_INPUT){
-            S_DEBUG_INPUT += "I received from COM Serial: \n";
-            S_DEBUG_INPUT += data;
-            S_DEBUG_INPUT += "\n";
+            Serial.println (F( "I received from COM Serial: "));
+            Serial.print(data);
+           
         }
         parseCommand(data);
         data = "";
@@ -415,9 +351,9 @@ void readNextion(){
       if (data != "") {
          
           if (DEBUG_INPUT){
-              S_DEBUG_INPUT += "I received from COM1 NEXTION: \n";
-              S_DEBUG_INPUT += data;
-              S_DEBUG_INPUT += "\n";
+              Serial.println (F( "I received from COM1 NEXTION: "));
+              Serial.print(data);
+             
           }
          
           parseCommand(data);
@@ -437,9 +373,9 @@ void readWifi(){
         data = Serial2.readStringUntil('\n');
         if (data != "") {   
            if (DEBUG_INPUT){
-              S_DEBUG_INPUT += "I received from COM2 COIN/WIFI: \n";
-              S_DEBUG_INPUT += data;
-              S_DEBUG_INPUT += "\n";
+              Serial.println(F("I received from COM2 COIN/WIFI: "));
+              Serial.print(data);
+              
           }        
         parseCommand(data);
         data = "";

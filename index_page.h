@@ -4,6 +4,9 @@
  */
 
 /* Style */
+//
+
+//static const char style PROGMEM =
 String style =
 "<style>#file-input,input{width:100%;height:44px;border-radius:4px;margin:10px auto;font-size:15px}"
 "input{background:#f1f1f1;border:0;padding:0 15px}body{background:#3498db;font-family:sans-serif;font-size:14px;color:#777}"

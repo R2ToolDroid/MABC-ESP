@@ -6,9 +6,9 @@ void IRSensor(){
   
   unsigned long curMillis = millis();
     if (DEBUG_IR){
-    S_DEBUG_IR = "IR Signal ";
-    S_DEBUG_IR += t;
-    S_DEBUG_IR += "\n\r";
+    Serial.print(F( "IR Signal "));
+    Serial.println(t);
+    
     }
   /// Wartet bis 7000 von Ping verstrichen sind
   

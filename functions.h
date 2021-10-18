@@ -6,77 +6,21 @@ bool inRange(int val, int minimum, int maximum)
   return ((minimum <= val) && (val <= maximum));
 }
 
-/*
-void eepromWriteInt(int adr, int wert) {
-// 2 Byte Integer Zahl im EEPROM ablegen an der Adresse
-// Eingabe: 
-//   adr: Adresse +0 und +1 wird geschrieben
-//   wert: möglicher Wertebereich -32,768 bis 32,767
-// Ausgabe: 
-//   -
-// 2 Byte Platz werden belegt.
-//
-// Matthias Busse 5.2014 V 1.0
 
-byte low, high;
-
-  low=wert&0xFF;
-  high=(wert>>8)&0xFF;
-  EEPROM.write(adr, low); // dauert 3,3ms 
-  EEPROM.write(adr+1, high);
-  EEPROM.commit();
-  Serial.println(F("..write State to EEPROM ready."));
-  
-  return;
-} //eepromWriteInt
-
-int eepromReadInt(int adr) {
-// 2 Byte Integer Zahl aus dem EEPROM lesen an der Adresse
-// Eingabe: 
-//   adr: Adresse +0 und +1 wird gelesen
-// Ausgabe: int Wert
-//
-// Matthias Busse 5.2014 V 1.0
-
-byte low, high;
-
-  low=EEPROM.read(adr);
-  high=EEPROM.read(adr+1);
-  return low + ((high << 8)&0xFF00);
-} //eepromReadInt
-
-*/
 void loadDefault(){
   
     //k = eepromReadInt(adr0);
     web = EEPROM.read(C_WEB);
+    IR =  EEPROM.read(C_IR);
+    FUEL = EEPROM.read(C_FUEL);
+    DISP = EEPROM.read(C_DISPL);
+    mode = EEPROM.read(C_MOD);
     
-    Serial.print(" web ");
-    Serial.println(web);
+    //Serial.print(" web ");
+    //Serial.println(web);
     
     
-       
-    
-    
-    /*
-    SLEGCENT = eepromReadInt(adr1);
-    if (SLEGCENT < 1) {SLEGCENT = 400;}
-
-    SLEGLOOK = eepromReadInt(adr2);
-    if (SLEGLOOK < 1) {SLEGLOOK = 340;}
-
-    SR = eepromReadInt(adr3);
-    if (SR < 1) {SR = 5;}
-
-    CMOTPWR = eepromReadInt(adr4);
-    if (CMOTPWR < 1) {CMOTPWR = 255;}
-
-    LMOTPWR = eepromReadInt(adr5);
-    if (LMOTPWR < 1) {LMOTPWR = 150;}   
-
-    BTIME = eepromReadInt(adr12);
-    if (BTIME < 1) {BTIME = 20;}   
-    */
+     
 }
 
 void shwConfig(byte STATE){
@@ -93,8 +37,15 @@ void shwConfig(byte STATE){
     S_CONFIG += web;
     S_CONFIG += " IR: ";
     S_CONFIG += IR;
+
+    S_CONFIG += " FUEL-Sens: ";
+    S_CONFIG += FUEL;
+    
     S_CONFIG += " Mod: ";
     S_CONFIG += mode;
+
+    S_CONFIG += " Displ: ";
+    S_CONFIG += DISP;
     S_CONFIG += "\n\r";
     Serial.print(S_CONFIG);
 }

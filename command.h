@@ -22,9 +22,7 @@ void parseCommand(String cmd) {
 ################  MAIN CONTROLLER COMMANDS   ###########
 */
 
-    //Serial.print("myvol= ");
-    //Serial.println(vol);
-    
+ 
    
    tmp_cmd = cmd;
     //CONFIG
@@ -44,6 +42,37 @@ void parseCommand(String cmd) {
        web = true;
        shwConfig(WR);
     }
+
+    if (cmd == "IR-ON") {
+       EEPROM.write(C_IR, IR_ON);
+       EEPROM.commit(); 
+       IR = true;
+       shwConfig(WR);
+    } 
+    if (cmd == "IR-OFF") {
+       EEPROM.write(C_IR, IR_OFF);
+       EEPROM.commit(); 
+       IR = false;
+       shwConfig(WR);
+    } 
+
+    if (cmd == "DM-0") {
+       EEPROM.write(C_MOD, 0);
+       EEPROM.commit();    
+       shwConfig(WR);
+    } 
+    if (cmd == "DM-1") {
+       EEPROM.write(C_MOD, 1);
+       EEPROM.commit();    
+       shwConfig(WR);
+    } 
+    if (cmd == "DM-2") {
+       EEPROM.write(C_MOD, 2);
+       EEPROM.commit();    
+       shwConfig(WR);
+    } 
+    
+
     
    
    

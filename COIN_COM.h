@@ -15,7 +15,7 @@
     //delay(100);
     mode = 1 ;  
     if (DEBUG_COM){
-    S_DEBUG_COM += "#Comando CBD1#\n";
+    Serial.println(F("#Comando CBD1#"));
     }
     ShwMode();
     RNDSound = false;
@@ -57,18 +57,20 @@
       break;
       
      }// End Switch
+     
       if (DEBUG_COM){
-      S_DEBUG_COM += "#Comando CBD2#\n";
+      Serial.println(F( "#Comando CBD2#"));
       }
+      
     }
 
     if (cmd == "CBD3" ){
       SendOutput(":SE10");
       ShwMode();
       if (DEBUG_COM){
-      S_DEBUG_COM += "#Comando CBD3#\n";
+      Serial.println(F( "#Comando CBD3#"));
       }
-    }///END CBD3
+    }///END CBD
     
     ////TEST//
     if (cmd == "CB0") {         
@@ -78,7 +80,7 @@
       SendOutput(":OP03");
       //delay(100);
       if (DEBUG_COM){
-      S_DEBUG_COM += ("#Comando CB0 #\n");
+      Serial.println(F( "#Comando CB0#"));
       }
     }
    
@@ -90,7 +92,7 @@
       SendOutput(":OP04");
       //delay(100);
       if (DEBUG_COM){
-      S_DEBUG_COM += "#Comando - CB1#\n";
+      Serial.println(F( "#Comando CB1#"));
       }
     }
 
@@ -103,7 +105,7 @@
       SendOutput(":OP06");
      // delay(100);
      if (DEBUG_COM){
-      S_DEBUG_COM += "#Comando CBD3#\n";
+      Serial.println(F( "#Comando CB2#"));
      }
     }
     ///// Komando/////
@@ -114,7 +116,7 @@
       RNDSound = false;
       myDFPlayer.playFolder(05,8);//disco
       if (DEBUG_COM){
-      S_DEBUG_COM += "#Comando Manama#\n";
+      Serial.println(F( "#Comando CB3#"));
       }
     }
     
@@ -123,7 +125,7 @@
       SendOutput(":SE03");
       myDFPlayer.playFolder(01,2);
       if (DEBUG_COM){
-      S_DEBUG_COM += "#Comando - CB4 Smirk#\n";
+      Serial.println(F( "#Comando CB4#"));
       }
     }
 
@@ -132,28 +134,28 @@
        RNDSound = false;
        myDFPlayer.playFolder(04,2);
        if (DEBUG_COM){
-       S_DEBUG_COM += "#Comando - CB5 Scream#\n";
+       Serial.println(F( "#Comando CB5 Scream#"));
        }
     }
 
     if (cmd == "CB6") {
        SendOutput("#OP03");
        if (DEBUG_COM){
-       S_DEBUG_COM += "#Comando - CB6 Charging#\n";
+       Serial.println(F( "#Comando CB6 Charging#"));
        }
     }
 
     if (cmd == "CB7") {
       SendOutput("#OP02");
       if (DEBUG_COM){
-       S_DEBUG_COM += "#Comando - CB7 Big Door #\n"; 
+       Serial.println(F( "#Comando - CB7 Big Door #"));
       }
     }
 
     if (cmd == "CB8") {
       SendOutput("#SAON");
       if (DEBUG_COM){
-      S_DEBUG_COM +=   "#Comando - CB8 Schrauber ON #\n";  
+       Serial.println(F( "#Comando - CB8 Schrauber ON #"));
       }
     }
 

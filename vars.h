@@ -4,13 +4,13 @@
 //#define DEBUG_COM   ///print "com_output" Debug
 
 byte DEBUG_COM = false;
-String S_DEBUG_COM;
+String S_DEBUG_COM ;
 
 byte DEBUG_INPUT = false;
 String S_DEBUG_INPUT ;
 
 byte DEBUG_STICK = false;
-String S_DEBUG_STICK;
+String S_DEBUG_STICK ;
 
 byte DEBUG_OUTPUT = false;
 String S_DEBUG_OUTPUT;
@@ -21,32 +21,32 @@ byte DEBUG_IR = false;
 String S_DEBUG_IR;
 
 byte IR = true;
+byte FUEL = true;
+byte DISP = true;
 
 ///EEPROM ADRESSES
-
-
-
 //int adr0=103; //WEB -|| OTA-ON =1 | OTA-OFF = 2 :  0: undefined  1: true  2:false
 
 #define RE true
 #define WR false
 
-#define C_WEB 0 // EPROM SPEICHER
+#define C_WEB 1 // EPROM SPEICHER
 #define OTA_ON 1 //true
 #define OTA_OFF 0 //false
 
-int adr1=105; //IR Sensor 
+#define C_IR 2 // EPROM IR Sensor 
 #define IR_ON 1
-#define IR_OFF 2
+#define IR_OFF 0
 
-int adr2=107; //Internal Fuel Cell Control  1:true 2:false
+#define C_FUEL 3 //Internal Fuel Cell Control  1:true 2:false
 #define FUEL_ON 1  
-#define FUEL_OFF 2
+#define FUEL_OFF 0
 
-int adr3=109; //SR
-int adr4=111; //CMOTPWR
-int adr5=113; //LMOTPWR
-int adr12=115; //BTIME
+#define C_DISPL 4
+#define DISPL_ON 1
+#define DISPL_OFF 0
+
+#define C_MOD 5
 
 int k;
 //// END EEPROM
