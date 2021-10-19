@@ -1,24 +1,11 @@
 #include <Arduino.h>                           
 
-//#define DEBUG       ///print "output" all Debug on Serial
-//#define DEBUG_COM   ///print "com_output" Debug
-
-byte DEBUG_COM = false;
-String S_DEBUG_COM ;
-
 byte DEBUG_INPUT = false;
-String S_DEBUG_INPUT ;
-
 byte DEBUG_STICK = false;
-String S_DEBUG_STICK ;
-
 byte DEBUG_OUTPUT = false;
-String S_DEBUG_OUTPUT;
-
 byte DEBUG_SOUND = false;
-
 byte DEBUG_IR = false;
-String S_DEBUG_IR;
+byte DEBUG_FUEL = false;
 
 byte IR = true;
 byte FUEL = true;

@@ -15,39 +15,39 @@ void loadDefault(){
     FUEL = EEPROM.read(C_FUEL);
     DISP = EEPROM.read(C_DISPL);
     mode = EEPROM.read(C_MOD);
-    
-    //Serial.print(" web ");
-    //Serial.println(web);
-    
-    
-     
+
+    if (web = 255) web = 1;
+    if (IR = 255) IR = 1;
+    if (FUEL = 255) FUEL = 1;
+    if (DISP = 255) DISP = 1;
+    if (mode = 255) mode = 0;
+ 
 }
 
 void shwConfig(byte STATE){
 
     
-    S_CONFIG =  "-Config-";
+    Serial.print(F( "-Config- "));
     if (STATE){
-      S_CONFIG += " READ\n\r";
+      Serial.println(F(" READ"));
     } else {
-      S_CONFIG += " WRITE\n\r";
+      Serial.println(F( " WRITE"));
     }
     
-    S_CONFIG += "WEB:";
-    S_CONFIG += web;
-    S_CONFIG += " IR: ";
-    S_CONFIG += IR;
+    Serial.print(F("WEB:"));
+    Serial.print (web);
+     Serial.print(F(" IR: "));
+    Serial.print (IR) ;
 
-    S_CONFIG += " FUEL-Sens: ";
-    S_CONFIG += FUEL;
+    Serial.print(F(" FUEL-Sens: "));
+    Serial.print ( FUEL) ;
     
-    S_CONFIG += " Mod: ";
-    S_CONFIG += mode;
+    Serial.print(F(" Mod: "));
+    Serial.print (mode);
 
-    S_CONFIG += " Displ: ";
-    S_CONFIG += DISP;
-    S_CONFIG += "\n\r";
-    Serial.print(S_CONFIG);
+    Serial.print(F(" Displ: "));
+    Serial.print ( DISP);
+   
 }
 
 
@@ -61,15 +61,15 @@ void randomSound(int minINT, int maxINT, int maxFiles){
 
   //RNDinterval = random(3000, 5000);
   if (DEBUG_SOUND){
-  Serial.print(" | interv ");
+  Serial.print(F(" | interv "));
   Serial.print(RNDinterval);
-  Serial.print(" | cur ");
+  Serial.print(F(" | cur "));
   Serial.print(RNDcurrentMillis);
-  Serial.print(" | prev ");
+  Serial.print(F(" | prev "));
   Serial.print(RNDpreviousMillis);
-  Serial.print(" | diff ");
+  Serial.print(F(" | diff "));
   Serial.print(RNDcurrentMillis - RNDpreviousMillis);
-  Serial.print(" | State ");
+  Serial.print(F(" | State "));
   }
   //delay(50);
 
@@ -81,7 +81,7 @@ void randomSound(int minINT, int maxINT, int maxFiles){
 
     file = random(1, maxFiles);
     if (DEBUG_SOUND){
-    Serial.print("beeep.. NR:  ");
+    Serial.print(F("beeep.. NR:  "));
     Serial.print(file);
     }
 
@@ -90,7 +90,7 @@ void randomSound(int minINT, int maxINT, int maxFiles){
   }
   
   if (DEBUG_SOUND){
-  Serial.println("..");
+  Serial.println(F(".."));
     //delay(50);
   }
 
@@ -98,11 +98,8 @@ void randomSound(int minINT, int maxINT, int maxFiles){
 }
 
 void onConnect(){
-    Serial.println("Stick Connected.");   
-    //oled.clear();
-    //line = 10;
-    //showinfo("Stick online");
-    //delay(200);
+    Serial.println(F("Stick Connected."));   
+    
     myDFPlayer.playFolder(01, 2);
 }
 
@@ -161,6 +158,14 @@ float readFuel(unsigned char PIN){
       if (result <= 16) {result = 16;} 
       if (result >= 17) {result = 17;}
      //Serial.println(result);
+
+     if (DEBUG_FUEL) {
+      Serial.print(F("Read Fuel Data from PIN: "));
+      Serial.print(PIN);
+      Serial.print(F(" Result"));
+      Serial.println(result);
+     }
+     
       
      return result;  
 }

@@ -38,7 +38,7 @@
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-const char* host PROGMEM = "R2-esp32";
+const char* host = "R2-esp32";
 
 //const char* ssid = "Webmex-Safe-02";
 //const char* password = "tronic307";
@@ -232,7 +232,7 @@ void setup(void) {
   int delayms=100;  ///delay OEM 100
   //----Mp3 play----
   //----Read imformation----
-  if (DEBUG_OUTPUT){
+  if (DEBUG_SOUND){
   Serial.println( F("readState--------------------"));
   Serial.println( myDFPlayer.readState()); //read mp3 state
   Serial.println( F("readVolume--------------------"));
@@ -300,10 +300,6 @@ void setup(void) {
   digitalWrite(GRIP_MOTA2, LOW); //L298 0 0 is Stop
   digitalWrite(GRIP_MOTB1, LOW); //L298 0 0 is Stop
   digitalWrite(GRIP_MOTB2, LOW); //L298 0 0 is Stop
-
-  
-  
-  
     
   Serial.println(F("R2...Ready"));
    
@@ -433,34 +429,7 @@ void loop() {
   readWifi();
   readCom(); 
   
-  if(DEBUG_COM){
-  Serial.print(S_DEBUG_COM);
-  //Serial.print("vol ");
-  //Serial.println(vol);
-  //showinfo(S_DEBUG_COM);
-  S_DEBUG_COM = "";
-  }
-  if(DEBUG_INPUT){
-  Serial.print(S_DEBUG_INPUT);
-  S_DEBUG_INPUT = "";
-  }
-  if(DEBUG_STICK){
-  Serial.print(S_DEBUG_STICK);
-  S_DEBUG_STICK = "";
-  }
-
-  if(( DEBUG_IR) && (S_DEBUG_IR != "") ){
-   
-  Serial.print(S_DEBUG_IR);
-  S_DEBUG_IR = "";
-  
-  }
-  
-  if(DEBUG_OUTPUT){
-  Serial.print(S_DEBUG_OUTPUT);
-  S_DEBUG_OUTPUT = "";
-  }
-
+ 
   if (CONFIG)
   {
     

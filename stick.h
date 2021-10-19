@@ -39,8 +39,6 @@ void notify()
       STcmd ="#OP01";
       }
 
-    
-
     //L1 Shift
     if( Ps3.event.button_down.down && (SHIFT == SH_L1))  { STcmd =":SE08";}
     if( Ps3.event.button_down.left && (SHIFT == SH_L1))  { STcmd =":SE02";}
@@ -55,84 +53,101 @@ void notify()
     } else {
       /*****************##########           ARM Steering       ########### ********/
       if( Ps3.event.button_down.up && (SHIFT == 0))    {
-           //if(Apos <=1800) { Apos = Apos+10;}
-            //S_DEBUG_STICK += "Arm Hoch\n";
-            //output += Apos;
-            //GrippLift.write(Apos);
-           // liftPos = liftPos +100;
-            //myLSS.moveT(1200, 4000);
+           
+           if(DEBUG_STICK) Serial.println (F("Arm Hoch"));
+           
             GRIP_LIFT_STATUS = GRIP_LIFT_TOP;
             
             } 
-      if( Ps3.event.button_up.up && (SHIFT == 0))    {//S_DEBUG_STICK += "Arm Hoch stop\n";
-            //myLSS.hold();
+      if( Ps3.event.button_up.up && (SHIFT == 0))    {
+          if (DEBUG_STICK)Serial.println(F("Arm Hoch stop"));
+          
            GRIP_LIFT_STATUS = GRIP_LIFT_STOP;
         }   
 
        
       if( Ps3.event.button_down.down && (SHIFT == 0))  {
-            //if (Apos >=-1800) {Apos = Apos-10;}
-            //S_DEBUG_STICK += "Arm Down\n"; 
-            //output += Apos;
-            //GrippLift.write(Apos);
-            //myLSS.moveT(-1200, 4000);
-            GRIP_LIFT_STATUS = GRIP_LIFT_DOWN;
             
+            if (DEBUG_STICK) Serial.println(F("Arm Down"));
+           
+            
+            GRIP_LIFT_STATUS = GRIP_LIFT_DOWN;
+           
             }
-      if( Ps3.event.button_up.down && (SHIFT == 0))  {//S_DEBUG_STICK += "Arm Down stop\n"; 
+      if( Ps3.event.button_up.down && (SHIFT == 0))  {
+            if (DEBUG_STICK) Serial.println(F("Arm Down stop"));
+       
            GRIP_LIFT_STATUS = GRIP_LIFT_STOP;
-           //myLSS.hold();
+          
       }
       
       if( Ps3.event.button_down.left && (SHIFT == 0))  {
-        //S_DEBUG_STICK += "Arm Raus start\n";
+       
+        if (DEBUG_STICK)Serial.println(F("Arm Raus start"));
+        
         digitalWrite(GRIP_MOTB1, LOW );
-          digitalWrite(GRIP_MOTB2, HIGH );     
+        digitalWrite(GRIP_MOTB2, HIGH );     
         }
       if( Ps3.event.button_up.left && (SHIFT == 0))  {
-        S_DEBUG_STICK += "Arm Raus stop\n";
+        
+        if (DEBUG_STICK)Serial.println(F("Arm Raus stop"));
+        
           digitalWrite(GRIP_MOTB1,LOW);
           digitalWrite(GRIP_MOTB2,LOW);  
         }    
       if( Ps3.event.button_down.right && (SHIFT == 0))  {
-          //S_DEBUG_STICK += "Arm rein start\n";
+          if (DEBUG_STICK)Serial.println(F("Arm rein start"));
+        
           digitalWrite( GRIP_MOTB1, HIGH ); // direction = forward
-        digitalWrite( GRIP_MOTB2, LOW ); // PWM speed = fast  
+          digitalWrite( GRIP_MOTB2, LOW ); // PWM speed = fast  
                 
           }
       if( Ps3.event.button_up.right && (SHIFT == 0))  {
-          //S_DEBUG_STICK += "Arm rein stop\n";
+          
+          if (DEBUG_STICK)Serial.println(F("Arm rein stop"));
+          
           digitalWrite(GRIP_MOTB1,LOW);
           digitalWrite(GRIP_MOTB2,LOW); 
           } 
       //// Grippter Mode 2 plus L2
 
       if( Ps3.event.button_down.up && (SHIFT == SH_L2)){
-          //S_DEBUG_STICK += "Grip Auf\n";
+          
+          if (DEBUG_STICK)Serial.println(F("Grip Auf"));
+          
           digitalWrite( GRIP_MOTA1, HIGH ); // direction = forward
           digitalWrite( GRIP_MOTA2, LOW ); // PWM speed = fast
           } 
       if( Ps3.event.button_up.up && (SHIFT == SH_L2)){
-          //S_DEBUG_STICK += "Grip Auf stop\n";
+          
+          if (DEBUG_STICK)Serial.println(F("Grip Auf stop"));
+          
           digitalWrite(GRIP_MOTA1,LOW);
           digitalWrite(GRIP_MOTA2,LOW);           
           } 
       
       if( Ps3.event.button_down.down && (SHIFT == SH_L2))  {
-          //S_DEBUG_STICK += "Grip zu\n"; 
+          
+          if (DEBUG_STICK)Serial.println(F("Grip zu"));
+          
           digitalWrite( GRIP_MOTA1, LOW );  
           digitalWrite( GRIP_MOTA2, HIGH );
           
           }
       if( Ps3.event.button_up.down && (SHIFT == SH_L2))  {
-          //S_DEBUG_STICK += "Grip zu stop\n"; 
+         
+          if (DEBUG_STICK) Serial.println(F("Grip zu stop"));
+          
           digitalWrite(GRIP_MOTA1,LOW);
           digitalWrite(GRIP_MOTA2,LOW);       
           }
 
       if( Ps3.event.button_down.left && (SHIFT == SH_L2))  {
           if (Gpos <= 180) {Gpos=Gpos+15;}
-            //S_DEBUG_STICK += "Dreh links start\n";
+            
+            if (DEBUG_STICK) Serial.println(F("Dreh links start"));
+            
+            //Grip zu stop
             //output += Gpos;
             GrippRoll.write(Gpos); 
             
@@ -145,8 +160,9 @@ void notify()
           
       if( Ps3.event.button_down.right && (SHIFT == SH_L2))  {  
           if(Gpos >=0){Gpos=Gpos-15;}
-            //S_DEBUG_STICK += "Dreh rechts start\n";
-            //S_DEBUG_STICK += Gpos;
+
+          if (DEBUG_STICK) Serial.println(F("Dreh rechts start"));
+            
             GrippRoll.write(Gpos);
             
         }
@@ -168,8 +184,12 @@ void notify()
 
     
     if( Ps3.event.button_down.l3 && (SHIFT == SH_L1)) {
-      S_DEBUG_STICK += "Toggle Speed\n"; 
-      S_DEBUG_STICK += OverSpeed;
+
+    if (DEBUG_STICK){
+        Serial.print(F("Toggle Speed"));
+        Serial.println(OverSpeed);
+    }
+      
       ToggleSpeed(); 
       SHIFT = 0;
       
@@ -229,9 +249,10 @@ void notify()
       if( Ps3.data.button.l2 ) {
 
         if (DEBUG_STICK){
-        S_DEBUG_STICK += "\nDome- posX=";
-        S_DEBUG_STICK += posX;
-        S_DEBUG_STICK += "\n";
+          
+       Serial.print (F( "\nDome- posX="));
+       Serial.println ( posX );
+       
         }
 
         //Serial.println(posX);
@@ -239,53 +260,17 @@ void notify()
         DomeRot.write(posX);
       } else {
      
-        //if (mode = 1)
-       //Serial.print(" posX="); Serial.println(posX);
-       //DriveDir.write(posX);
-
        
-
-     // }
-
-     // Serial.print(" posY="); Serial.println(posY);
-
-     
-     // Gerade aus
-     
-
-      
-      //Serial.print(" Dir :");
-      //Serial.print(posX);
-
-      //Serial.print(" correction : ");
       int corr = map(posX, 30,150,-10,10);
-      //Serial.print(corr);
-    
-      // mitte 90 finden
-
-      // 95  links   85 rechts
-      
-     //if (posX == 90){
+     
      if (inRange(posX, 70, 110)){
        DriveSpeed.write(posY); //right
        DriveDir.write(posY);   //left
-       
-       //Serial.print("|  left pwm :");
-       //Serial.print(posY);
-       //Serial.print(" right pwm :");
-       //Serial.println(posY);
-
-
-         
+          
      } else {
       
        DriveSpeed.write(posY - corr); //right
        DriveDir.write(posY + corr);   //left
-       
-       //Serial.print("|  left pwm :");
-       //Serial.print(posY - corr);
-       //Serial.print(" right pwm :");
-       //Serial.println(posY + corr);
       
      }
 
@@ -293,18 +278,14 @@ void notify()
 
       } //End Drive 
       
-     
-
-     
-
        
 
      if (DEBUG_STICK){  
-     S_DEBUG_STICK += "\n posY=";
-     S_DEBUG_STICK += posY;
-     S_DEBUG_STICK += "\nSHIFT: ";
-     S_DEBUG_STICK += SHIFT;
-     S_DEBUG_STICK += "\n";
+     Serial.print(F( "\n posY="));
+     Serial.print (posY);
+     Serial.print(F( "\nSHIFT: "));
+     Serial.print ( SHIFT );
+     
      }
     } 
     
@@ -316,8 +297,8 @@ void notify()
         
         //Serial.print("The controller battery is ");
         if (DEBUG_STICK){
-          S_DEBUG_STICK += "The controller battery is ";
-          S_DEBUG_STICK += "\n";
+          Serial.print (F( "The controller battery is: "));
+          
         }
         
         if( battery == ps3_status_battery_charging )      STICK_AKKU_STAT = CHARGING;
@@ -326,38 +307,47 @@ void notify()
         else if( battery == ps3_status_battery_low)       STICK_AKKU_STAT = LOWR;
         else if( battery == ps3_status_battery_dying )    STICK_AKKU_STAT = DYING;
         else if( battery == ps3_status_battery_shutdown ) STICK_AKKU_STAT = SHUTDOWN;
-        else S_DEBUG_STICK += "UNDEFINED \n";
+        else STICK_AKKU_STAT = NOT_CONNECT;
 
         //oled.clear();
 
         switch (STICK_AKKU_STAT){
           case CHARGING:
-          S_DEBUG_STICK += "CHARGING \n";
-          //oled.println("Stick CHARGING");
+          if (DEBUG_STICK) Serial.println (F("Stick CHARGING"));
           break;
           case FULL:
-          S_DEBUG_STICK += "FULL \n";
-          //oled.println("Stick Full");
+          //S_DEBUG_STICK += "FULL \n";
+          if (DEBUG_STICK) Serial.println (F("FULL"));
           break;
           case HIGHT:
-          S_DEBUG_STICK += "HIGHT \n";
+          //S_DEBUG_STICK += "HIGHT \n";
+          if (DEBUG_STICK) Serial.println (F("HIGHT"));
           //oled.println("Stick High\r");
           break;
           case LOWR:
-          S_DEBUG_STICK += "LOWR \n";
+          //S_DEBUG_STICK += "LOWR \n";
+          if (DEBUG_STICK) Serial.println (F("LOWR"));
           //oled.println("Stick Low");
           break;
           case DYING:
-          S_DEBUG_STICK += "DYING \n";
+          //S_DEBUG_STICK += "DYING \n";
+          if (DEBUG_STICK) Serial.println (F("DYING"));
           //oled.println("Stick DYING");
           break;
           case SHUTDOWN:
-          S_DEBUG_STICK += "SHUTDOWN \n";
+          //S_DEBUG_STICK += "SHUTDOWN \n";
+          if (DEBUG_STICK) Serial.println (F("SHUTDOWN"));
+          //oled.println("Stick GO DOWN");
+          break;
+
+          case NOT_CONNECT:
+          //S_DEBUG_STICK += "SHUTDOWN \n";
+          if (DEBUG_STICK) Serial.println (F("NOT_CONNECT"));
           //oled.println("Stick GO DOWN");
           break;
 
           default:
-
+          if (DEBUG_STICK) Serial.println (F("Undefined"));
           break;
 
 
