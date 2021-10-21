@@ -1,24 +1,46 @@
 #include <Arduino.h>                           
 
-//#define DEBUG       ///print "output" all Debug on Serial
-//#define DEBUG_COM   ///print "com_output" Debug
-
-byte DEBUG_COM = false;
-String S_DEBUG_COM;
-
 byte DEBUG_INPUT = false;
-String S_DEBUG_INPUT ;
-
 byte DEBUG_STICK = false;
-String S_DEBUG_STICK;
-
 byte DEBUG_OUTPUT = false;
-String S_DEBUG_OUTPUT;
-
 byte DEBUG_SOUND = false;
-
 byte DEBUG_IR = false;
-String S_DEBUG_IR;
+byte DEBUG_FUEL = false;
+
+byte IR = true;
+byte FUEL = true;
+byte DISP = true;
+
+///EEPROM ADRESSES
+//int adr0=103; //WEB -|| OTA-ON =1 | OTA-OFF = 2 :  0: undefined  1: true  2:false
+
+#define RE true
+#define WR false
+
+#define C_WEB 1 // EPROM SPEICHER
+#define OTA_ON 1 //true
+#define OTA_OFF 0 //false
+
+#define C_IR 2 // EPROM IR Sensor 
+#define IR_ON 1
+#define IR_OFF 0
+
+#define C_FUEL 3 //Internal Fuel Cell Control  1:true 2:false
+#define FUEL_ON 1  
+#define FUEL_OFF 0
+
+#define C_DISPL 4
+#define DISPL_ON 1
+#define DISPL_OFF 0
+
+#define C_MOD 5
+
+int k;
+//// END EEPROM
+
+byte CONFIG = false;
+String S_CONFIG = "";
+
 
 // Command processing stuff
 // maximum number of characters in a command (63 chars since we need the null termination)
@@ -30,12 +52,17 @@ char cmdString[CMD_MAX_LENGTH];
 
 unsigned long previousMillis = 0;      
 byte web = false;
+int line = 0;
+
+String IPADRESS = "00.00.00.00";
 
 byte State;
 int wait = 0;
 int battery = 0;
-byte StickConnect = 0;
-byte OverSpeed = 0; //1 High  0 Low
+byte StickConnect = false;
+byte OverSpeed = false; //1 High  0 Low
+byte next = false;
+String STcmd = "";
 
 // constants won't change :
 const long interval = 5000;           // interval at which to blink (milliseconds)
@@ -45,13 +72,14 @@ const long interval = 5000;           // interval at which to blink (millisecond
 
 String cmd; //Consolen Input
 //byte debug = false; //Debug function
+String tmp_cmd;
 
 String data; //Serial Data
 String inm = "COIN"; //Inputmode String
 String calldata; //String Datarequest
 String calldatabuff;
 
-int mode = 1; // Default Mode  0 = Random
+int mode = 3; // Default Mode  0 = Random
               // RC Mode       1 = RC Control
               // RC Show       2 = Human
               // RC Show       3 = Service Arm Control
@@ -91,7 +119,7 @@ int PAGE = 0;  //9 = NotConnect| 0= start| 1=com | 2=setup | 3= move
 float COR =  4.7;
 int TmpCor ;
 int NewCor = COR*100 ;
-int adr0=103; //COR
+//int adr0=103; //COR
 byte flash = false;
 
 const int NRED = 63488;
@@ -137,7 +165,16 @@ int countTrig = 1;
 #define GRIP_LIFT 5
 #define GRIP_ROLL 15
 
+int liftPos = 0;
 
+#define GRIP_LIFT_TOP 1
+#define GRIP_LIFT_DOWN 2
+#define GRIP_LIFT_STOP 3
+
+int GRIP_LIFT_STATUS = GRIP_LIFT_STOP;
+int GRIP_LIFT_STATUS_BEFORE = GRIP_LIFT_STOP;
+
+unsigned long startTime = millis();
 
 //Define Arm Move
 #define ARM_IN_OUT  1
@@ -180,7 +217,7 @@ const float vCC = 4.85;  ///Systemspannung
 /// MP3 
 // Set some defaults for start up
 // 0 = full volume, 255 off
-byte vol = 20;
+int vol = 20;
 boolean firstLoadOnConnect = false;
 
 

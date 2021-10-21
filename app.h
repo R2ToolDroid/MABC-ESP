@@ -62,7 +62,7 @@ void App(){
     
   } else {
     if(connected) {
-      Serial.println("TCP disconnected");
+      Serial.println(F("TCP disconnected"));
       connected = false;
     }
   }

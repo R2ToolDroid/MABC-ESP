@@ -7,6 +7,51 @@ bool inRange(int val, int minimum, int maximum)
 }
 
 
+void loadDefault(){
+  
+    //k = eepromReadInt(adr0);
+    web = EEPROM.read(C_WEB);
+    IR =  EEPROM.read(C_IR);
+    FUEL = EEPROM.read(C_FUEL);
+    DISP = EEPROM.read(C_DISPL);
+    mode = EEPROM.read(C_MOD);
+
+    if (web = 255) web = 1;
+    if (IR = 255) IR = 1;
+    if (FUEL = 255) FUEL = 1;
+    if (DISP = 255) DISP = 1;
+    if (mode = 255) mode = 0;
+ 
+}
+
+void shwConfig(byte STATE){
+
+    
+    Serial.print(F( "-Config- "));
+    if (STATE){
+      Serial.println(F(" READ"));
+    } else {
+      Serial.println(F( " WRITE"));
+    }
+    
+    Serial.print(F("WEB:"));
+    Serial.print (web);
+     Serial.print(F(" IR: "));
+    Serial.print (IR) ;
+
+    Serial.print(F(" FUEL-Sens: "));
+    Serial.print ( FUEL) ;
+    
+    Serial.print(F(" Mod: "));
+    Serial.print (mode);
+
+    Serial.print(F(" Displ: "));
+    Serial.print ( DISP);
+   
+}
+
+
+
 void randomSound(int minINT, int maxINT, int maxFiles){
 
   // check to see if it's time to blink the LED; that is, if the difference
@@ -16,15 +61,15 @@ void randomSound(int minINT, int maxINT, int maxFiles){
 
   //RNDinterval = random(3000, 5000);
   if (DEBUG_SOUND){
-  Serial.print(" | interv ");
+  Serial.print(F(" | interv "));
   Serial.print(RNDinterval);
-  Serial.print(" | cur ");
+  Serial.print(F(" | cur "));
   Serial.print(RNDcurrentMillis);
-  Serial.print(" | prev ");
+  Serial.print(F(" | prev "));
   Serial.print(RNDpreviousMillis);
-  Serial.print(" | diff ");
+  Serial.print(F(" | diff "));
   Serial.print(RNDcurrentMillis - RNDpreviousMillis);
-  Serial.print(" | State ");
+  Serial.print(F(" | State "));
   }
   //delay(50);
 
@@ -36,7 +81,7 @@ void randomSound(int minINT, int maxINT, int maxFiles){
 
     file = random(1, maxFiles);
     if (DEBUG_SOUND){
-    Serial.print("beeep.. NR:  ");
+    Serial.print(F("beeep.. NR:  "));
     Serial.print(file);
     }
 
@@ -45,41 +90,23 @@ void randomSound(int minINT, int maxINT, int maxFiles){
   }
   
   if (DEBUG_SOUND){
-  Serial.println("..");
-    delay(50);
+  Serial.println(F(".."));
+    //delay(50);
   }
 
   
 }
 
 void onConnect(){
-    Serial.println("Stick Connected.");   
-    delay(200);
+    Serial.println(F("Stick Connected."));   
+    
     myDFPlayer.playFolder(01, 2);
 }
 
 
 
-
-/*//Play Sounds
-void Play(int folder, int file){
-  //delay(500);
-  myDFPlayer.playFolder(folder, file);
-  
-}
-
-void PlayNext(){
-  
-  myDFPlayer.next();
-  
-}
-*/
-
 void resetSequence(){
   
- //servoSequencer.play(SeqBodyPanelAllSoftClose, SizeOfArray(SeqBodyPanelAllSoftClose), (GROUP_DOORS));
-  
-  //Serial3.print(":CL00");           // hier geht es weiter zum Marcduino Dome Controller
   Serial2.print(":SE00");           // hier geht es weiter zum Marcduino Dome Controller
   Serial2.print('\r');
 
@@ -131,6 +158,14 @@ float readFuel(unsigned char PIN){
       if (result <= 16) {result = 16;} 
       if (result >= 17) {result = 17;}
      //Serial.println(result);
+
+     if (DEBUG_FUEL) {
+      Serial.print(F("Read Fuel Data from PIN: "));
+      Serial.print(PIN);
+      Serial.print(F(" Result"));
+      Serial.println(result);
+     }
+     
       
      return result;  
 }
@@ -211,21 +246,7 @@ void NextUpdate(int TT) {
    }
 
   
-  //Serial.println(readFuel(FUEL_CELL_A));
-  //Serial.println(ReadFuel(FUEL_CELL_B));
-    
-  //FuelA = readFuel(FUEL_CELL_A);
-   
-  //FuelB = readFuel(FUEL_CELL_B);
-
-  //Serial1.print("n1.val=");
-  //Serial.print(FuelA);
-  //NextEnd();
-
-  //int FuelA_P =  map(FuelA, 16, 19, 0, 100); ///Map for 100%
-
-  // FOR STICK BATTERY STATUS
-
+ 
   
 
   switch (STICK_AKKU_STAT){
@@ -333,18 +354,37 @@ if (TT > 100) {TT = 0;}
 }
 
 
+void ArmMove( int GRIP_LIFT_STATUS ){
 
-void CheckCellCon(){
-
-  //Serial.println(FUEL_CELL_B);
-
-  
-  if (analogRead(FUEL_CELL_B) < 500){
-    Serial.println("Fuel Cell connected WIFI OTA MODE START");
-    //Serial.println("To activate WIFI OTA diconnect FuelCell_B");
-    web = true;
-  } else {
-    Serial.println("Fuel Cell not connected WIFI APP MODE START");
-  }
+     if ( GRIP_LIFT_STATUS_BEFORE != GRIP_LIFT_STATUS  ){
+         
+      switch (GRIP_LIFT_STATUS){
+        
+        case GRIP_LIFT_TOP:   
+        myLSS.moveT(1200, 3000);
+        liftPos = liftPos+5;
+        break;
+      
+        case GRIP_LIFT_DOWN:
+        myLSS.moveT(-1200, 3000);
+        liftPos = liftPos-5;
+        break;
+      
+        case GRIP_LIFT_STOP:
+        myLSS.hold();
+        liftPos = liftPos;
+        break;
+      
+      default:
+      myLSS.hold();
+      liftPos = liftPos;
+      break;
+      
+     }// End Switch
+     
+    } // end Each
     
+     GRIP_LIFT_STATUS_BEFORE = GRIP_LIFT_STATUS;
+
+      
 }

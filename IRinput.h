@@ -5,8 +5,11 @@ void IRSensor(){
   int16_t t = pulseIn(sensorPin, HIGH);
   
   unsigned long curMillis = millis();
-
-  
+    if (DEBUG_IR){
+    Serial.print(F( "IR Signal "));
+    Serial.println(t);
+    
+    }
   /// Wartet bis 7000 von Ping verstrichen sind
   
    if (curMillis - prevTick >= interval) { 
