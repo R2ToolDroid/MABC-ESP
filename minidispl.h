@@ -35,6 +35,12 @@ for(int16_t i=0; i<= 100; i++) {
 }
 
 void OLED_status(bool web, String IPADRESS, String cmd, int mode, byte stick, int STICK_AKKU, int vol,int FuelB) {
+  
+     unsigned long currentMillis2 = millis();
+
+  if (currentMillis2 - previousMillis2 >= 1000) {
+    // save the last time you blinked the LED
+    previousMillis2 = currentMillis2;
 
   String calldatabuff;
   int FuelA;
@@ -112,7 +118,7 @@ void OLED_status(bool web, String IPADRESS, String cmd, int mode, byte stick, in
   display.print("C ");
   display.println(cmd);
   display.display(); 
-
+  } // END INTERVall
   
 }
 

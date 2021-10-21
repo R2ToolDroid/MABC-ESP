@@ -42,12 +42,13 @@ void IRSensor(){
       //prevTick = curMillis;
 
       if (in == true){
-        
-        //Serial.print(" Ping A ");
-        //Serial.print(d);
-        //Serial.println(" mm");
-        //Serial.println(" Tig Nummer:");
 
+        if (DEBUG_IR){    
+        Serial.print(" Ping A ");
+        Serial.print(d);
+        Serial.print(" mm");
+        Serial.println(" Tig Nummer:");
+        }
         if (countTrig >= 15 ) {countTrig = 2;}
         countTrig++;
 

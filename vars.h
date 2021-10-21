@@ -50,7 +50,8 @@ String S_CONFIG = "";
 char cmdString[CMD_MAX_LENGTH];
 
 
-unsigned long previousMillis = 0;      
+unsigned long previousMillis = 0;   
+unsigned long previousMillis2 = 0;      
 byte web = false;
 int line = 0;
 
