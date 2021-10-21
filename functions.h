@@ -8,19 +8,18 @@ bool inRange(int val, int minimum, int maximum)
 
 
 void loadDefault(){
-  
-    //k = eepromReadInt(adr0);
+    
     web = EEPROM.read(C_WEB);
     IR =  EEPROM.read(C_IR);
     FUEL = EEPROM.read(C_FUEL);
     DISP = EEPROM.read(C_DISPL);
     mode = EEPROM.read(C_MOD);
 
-    if (web = 255) web = 1;
-    if (IR = 255) IR = 1;
-    if (FUEL = 255) FUEL = 1;
-    if (DISP = 255) DISP = 1;
-    if (mode = 255) mode = 0;
+    //if (web = 255) web = 1;
+    //if (IR = 255) IR = 1;
+    //if (FUEL = 255) FUEL = 1;
+    //if (DISP = 255) DISP = 1;
+    //if (mode = 255) mode = 0;
  
 }
 
@@ -35,18 +34,18 @@ void shwConfig(byte STATE){
     }
     
     Serial.print(F("WEB:"));
-    Serial.print (web);
+    Serial.print (EEPROM.read(C_WEB));
      Serial.print(F(" IR: "));
-    Serial.print (IR) ;
+    Serial.print (EEPROM.read(C_IR)) ;
 
     Serial.print(F(" FUEL-Sens: "));
-    Serial.print ( FUEL) ;
+    Serial.print ( EEPROM.read(C_FUEL)) ;
     
     Serial.print(F(" Mod: "));
-    Serial.print (mode);
+    Serial.print (EEPROM.read(C_MOD));
 
     Serial.print(F(" Displ: "));
-    Serial.print ( DISP);
+    Serial.println ( EEPROM.read(C_DISPL));
    
 }
 
@@ -137,33 +136,38 @@ void ToggleSpeed(){
    }
 }
 
-float readFuel(unsigned char PIN){
-      /* OLD
-      float sensorValue = analogRead(PIN);
-       // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):
-      float voltage = sensorValue * (5 / 1023.0);
-      // print out the value you read:
-      // FAKTOR 4.59 bei 10 Volt //
-      //Serial.println(voltage * 4.59);
-      float result = voltage * COR;
-      //Serial.println(result); //Endgültigen Spannungswert im seriellen Monitor anzeigen
-      //float result = wert2;
-      END OLD*/
-      
-       voltageSensorVal1 = analogRead(PIN);    // read the current sensor value (0 - 1023) 
-       vOut1 = (voltageSensorVal1 / 1024) * vCC;             // convert the value to the real voltage on the analog pin
-      float result =  vOut1 * factor;     
+uint32_t readADC_Cal(int ADC_Raw)
+{
+  esp_adc_cal_characteristics_t adc_chars;
+  
+  esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 1100, &adc_chars);
+  return(esp_adc_cal_raw_to_voltage(ADC_Raw, &adc_chars));
+}
 
+float readFuel(unsigned char PIN){
+
+      //float MV = analogReadMilliVolts(PIN);
       
-      if (result <= 16) {result = 16;} 
-      if (result >= 17) {result = 17;}
-     //Serial.println(result);
+      AN_Pot1_Result = analogRead(PIN);
+      if (AN_Pot1_Result >= 4060) AN_Pot1_Result = 0;
+      Voltage = readADC_Cal(AN_Pot1_Result);
+      float  result = Voltage/100.0;
+      result = result + COR;
+      //Serial.println(Voltage/1000.0); // Print Voltage (in V)
+      
+      if (result <= 3) result=0;
 
      if (DEBUG_FUEL) {
       Serial.print(F("Read Fuel Data from PIN: "));
       Serial.print(PIN);
-      Serial.print(F(" Result"));
-      Serial.println(result);
+      Serial.print(F(" Result "));
+      Serial.print(result);
+
+      Serial.print(F( " Analog Data: "));
+      Serial.println(AN_Pot1_Result);
+
+      //Serial.print(F(" Mini Volt "));
+      //Serial.println(MV);
      }
      
       
@@ -303,8 +307,8 @@ void NextUpdate(int TT) {
 
 /// END FUEL A
 
-  if ( (FuelB >= 14)&&(FuelB <= 20)){
-  FuelB_P =  map(FuelB, 14, 19, 0, 100); ///Map for 100%
+  if ( (FuelB >= 8)&&(FuelB <= 25)){
+  FuelB_P =  map(FuelB, 8, 22, 0, 100); ///Map for 100%
   }
   
   if (FuelB_P < 30){

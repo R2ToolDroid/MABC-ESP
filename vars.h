@@ -116,7 +116,11 @@ int FuelB_P = 0;
 //////TELEMETRIE
 
 int PAGE = 0;  //9 = NotConnect| 0= start| 1=com | 2=setup | 3= move
-float COR =  4.7;
+float COR =  1.1 ;  //Voltage Reading Correction Faktor
+int AN_Pot1_Result = 0;
+float Voltage = 0.0;
+
+
 int TmpCor ;
 int NewCor = COR*100 ;
 //int adr0=103; //COR

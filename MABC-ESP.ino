@@ -27,6 +27,7 @@
 #include <Wire.h> 
 #include <LSS.h>
 #include "DFRobotDFPlayerMini.h"
+#include "esp_adc_cal.h"
 
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
@@ -90,8 +91,7 @@ void setup(void) {
   randomSeed(analogRead(0));  //Random ??
 
   EEPROM.begin(2048);
-  
-  pinMode(FUEL_CELL_B, INPUT_PULLUP);
+ 
   Serial.begin(115200);  
   
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
@@ -317,6 +317,8 @@ void setup(void) {
   ShwMode();
 
   liftPos = 0;   
+
+  
   
 }
 
@@ -386,6 +388,8 @@ void readWifi(){
 
 void loop() {
 
+  if(FUEL) FuelB = readFuel(FUEL_CELL_B);
+  
   
   if ( mode == 2 ){
    IRSensor();
@@ -428,13 +432,9 @@ void loop() {
   readNextion();
   readWifi();
   readCom(); 
-  
- 
-  if (CONFIG)
-  {
-    
-  } else {
-  OLED_status(web,IPADRESS,tmp_cmd,mode,StickConnect, STICK_AKKU_STAT, vol);
+
+  if (DISP){ 
+  OLED_status(web,IPADRESS,tmp_cmd,mode,StickConnect, STICK_AKKU_STAT, vol, FuelB);
   }
   
   if (next){

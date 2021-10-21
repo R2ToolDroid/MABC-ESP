@@ -34,12 +34,13 @@ for(int16_t i=0; i<= 100; i++) {
    
 }
 
-void OLED_status(bool web, String IPADRESS, String cmd, int mode, byte stick, int STICK_AKKU, int vol) {
+void OLED_status(bool web, String IPADRESS, String cmd, int mode, byte stick, int STICK_AKKU, int vol,int FuelB) {
 
   String calldatabuff;
   int FuelA;
-  int FuelB;
+  //int FuelB;
   int volumen = map(vol,-100,150, 0,32);
+  int mainBatt = map(FuelB, 24,0, 0,32);
   display.clearDisplay();
 
   //display.drawCircle(0, 100, 4, WHITE);
@@ -47,9 +48,9 @@ void OLED_status(bool web, String IPADRESS, String cmd, int mode, byte stick, in
   display.drawRect(118, 0, 10, 32, WHITE);
   display.drawRect(106, 0, 10, 32, WHITE);
 
-  display.fillRect(101,volumen,3,32,WHITE); //BattFuel
+  display.fillRect(101,volumen,3,32,WHITE); //Lautstärke
 
-  display.fillRect(120,15,6,30,WHITE); //BattFuel
+  display.fillRect(120,mainBatt,6,30,WHITE); //BattFuel
 
   if (stick == false) {
     //Stick inActiv:
@@ -59,7 +60,7 @@ void OLED_status(bool web, String IPADRESS, String cmd, int mode, byte stick, in
   
   } else {
     //Stick Activ
-    display.fillRoundRect(90,12,8,20,3,WHITE);  //Stick Fuel
+    display.fillRoundRect(90,12,8,20,3,WHITE);  //Batt Fuel
     display.fillCircle(93, 7, 4, WHITE);
 
     FuelA = map(STICK_AKKU,0,6, 1,32);

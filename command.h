@@ -77,8 +77,32 @@ void parseCommand(String cmd) {
        EEPROM.commit();    
        shwConfig(WR);
     } 
-    
-   
+
+    if (cmd == "FUEL-ON") {
+       EEPROM.write(C_FUEL, FUEL_ON);
+       EEPROM.commit();    
+       shwConfig(WR);
+    } 
+
+    if (cmd == "FUEL-OFF") {
+       EEPROM.write(C_FUEL, FUEL_OFF);
+       EEPROM.commit();    
+       shwConfig(WR);
+    } 
+
+    if (cmd == "DISPL-OFF") {
+       EEPROM.write(C_DISPL, DISPL_OFF);
+       EEPROM.commit();    
+       shwConfig(WR);
+    } 
+
+    if (cmd == "DISPL-ON") {
+       EEPROM.write(C_DISPL, DISPL_ON);
+       EEPROM.commit();    
+       shwConfig(WR);
+    } 
+  
+      
    
    ///Sound Sqeuenzes DFPlayer ///
       if (cmd == ":SE00"){myDFPlayer.playFolder(01,8);}
@@ -112,27 +136,29 @@ void parseCommand(String cmd) {
         
   
   Serial.println ( __FILE__ " " __DATE__ " " __TIME__);
-  Serial.println (F( "##### Master_Body_Controller ESP32  #####"));
-  Serial.println (F(  "Comandos von RC - CoinTaster - Wfif Modul werde verarbeitet"));
+  Serial.println (F( "# Master_Body_Controller ESP32  #"));
+  Serial.println (F(  "Comandos von RC - CoinTaster - Wifi Modul werde verarbeitet"));
   Serial.println (F("INPUT:"));
   Serial.println (F("..... Nextion Display .............Serial 1 RX"));
   Serial.println (F("..... From WIFI....................Serial 2 RX"));
   Serial.println (F("OUTPUT:"));
-  Serial.println (F("\n..... NEXTION Display an ..........Serial 1 TX"));
-  Serial.println (F("\n..... To Dome Drive................Serial 2 TX"));
+  Serial.println (F("..... NEXTION Display an ..........Serial 1 TX"));
+  Serial.println (F("..... To Dome Drive................Serial 2 TX"));
   Serial.println (F("...fuer DebugMode debug eingeben..."));
-  Serial.println (F( "...ende DebugMode debug off eingeben..."));
-  Serial.println (F( "...SERIAL is DEBUG 115200 - 9600 BAUD !!"));
+  Serial.println (F("...ende DebugMode debug off eingeben..."));
+  Serial.println (F("...SERIAL is DEBUG 115200 - 9600 BAUD !!"));
+  Serial.println (F("........................................"));
+  Serial.println (F("DEBUG_STICK"));
+  Serial.println (F("DEBUG_INPUT"));
+  Serial.println (F("DEBUG_OUTPUT"));
+  Serial.println (F("DEBUG_SOUND"));
+  Serial.println (F("DEBUG_FUEL"));
+  Serial.println (F("DEBUG_IR"));
   Serial.println (F( "........................................"));
-  Serial.println (F( "DEBUG_STICK"));
-  Serial.println (F( "DEBUG_INPUT"));
-  Serial.println (F( "DEBUG_OUTPUT"));
-  Serial.println (F( "DEBUG_SOUND"));
-  Serial.println (F( "........................................"));
-  Serial.println (F("DF Player Status"));
-  Serial.println (F("readState--------------------"));
+  Serial.print (F("DF Player Status"));
+  Serial.print (F(" readState----"));
   Serial.println ( myDFPlayer.readState()); //read mp3 state
-  Serial.println (F("readVolume--------------------"));
+  Serial.print (F("readVolume--------------------"));
   Serial.println ( myDFPlayer.readVolume()); //read current volume
   Serial.print (F("...MODE = "));
   Serial.println (mode);
@@ -141,11 +167,11 @@ void parseCommand(String cmd) {
   Serial.print (F( "...Stick Enable = "));
   Serial.println ( StickConnect);
   Serial.print (F("####Fuel Data A% = "));
-  Serial.println( FuelA_P);
+  Serial.print( FuelA_P);
   Serial.print  (F(" Fuel A: "));
   Serial.println(FuelA);
   Serial.print  (F("####Fuel Data B% = "));
-  Serial.println ( FuelB_P);
+  Serial.print ( FuelB_P);
   Serial.print  (F(" Fuel B: "));
   Serial.println ( FuelB);
   Serial.print  (F("- Akku Status Stick : "));
@@ -169,7 +195,7 @@ void parseCommand(String cmd) {
     if (cmd == "DEBUG_SOUND") { DEBUG_SOUND = true;}
     if (cmd == "DEBUG_STICK") { DEBUG_STICK = true;}
     if (cmd == "DEBUG_IR") { DEBUG_IR = true;}
-
+    if (cmd == "DEBUG_FUEL") { DEBUG_FUEL = true;}
 
 
     
