@@ -2,6 +2,8 @@
 
 byte DEBUG_INPUT = false;
 byte DEBUG_STICK = false;
+byte DEBUG_DRIVE = false;
+
 byte DEBUG_OUTPUT = false;
 byte DEBUG_SOUND = false;
 byte DEBUG_IR = false;

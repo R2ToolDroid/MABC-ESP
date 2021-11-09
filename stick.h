@@ -242,7 +242,7 @@ void notify()
         posY = map(Ps3.data.analog.stick.ly, -128, 128, 70, 110); //Speed should be manipulated
        }
 
-       if ((posY >= 85) && (posY <=  95)) { posY = 90;} ///Death Zone Range
+       if ((posY >= 90) && (posY <=  100)) { posY = 90;} ///Death Zone Range
        
       
 
@@ -266,14 +266,26 @@ void notify()
      if (inRange(posX, 70, 110)){
        DriveSpeed.write(posY); //right
        DriveDir.write(posY);   //left
+       if (DEBUG_DRIVE){ 
+       Serial.print (F( "DRIVE right= "));
+       Serial.print ( posY - corr );
+       Serial.print (F( " left= "));
+       Serial.println ( posY - corr );
+        }
+       
           
      } else {
       
        DriveSpeed.write(posY - corr); //right
        DriveDir.write(posY + corr);   //left
-      
+       if (DEBUG_DRIVE){ 
+       Serial.print (F( "DRIVE COR right= "));
+       Serial.print ( posY - corr );
+       Serial.print (F( " left= "));
+       Serial.println ( posY + corr );
+        }
      }
-
+      
 
 
       } //End Drive 

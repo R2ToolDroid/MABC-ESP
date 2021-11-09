@@ -154,6 +154,7 @@ void parseCommand(String cmd) {
   Serial.println (F("DEBUG_SOUND"));
   Serial.println (F("DEBUG_FUEL"));
   Serial.println (F("DEBUG_IR"));
+  Serial.println (F("DEBUG_DRIVE"));
   Serial.println (F( "........................................"));
   Serial.print (F("DF Player Status"));
   Serial.print (F(" readState----"));
@@ -188,6 +189,7 @@ void parseCommand(String cmd) {
       DEBUG_STICK = false;
       DEBUG_IR = false;
       DEBUG_FUEL = false;
+      DEBUG_DRIVE = false;
     }
 
     if (cmd == "DEBUG_OUTPUT") { DEBUG_OUTPUT = true;}
@@ -196,6 +198,7 @@ void parseCommand(String cmd) {
     if (cmd == "DEBUG_STICK") { DEBUG_STICK = true;}
     if (cmd == "DEBUG_IR") { DEBUG_IR = true;}
     if (cmd == "DEBUG_FUEL") { DEBUG_FUEL = true;}
+    if (cmd == "DEBUG_DRIVE") { DEBUG_DRIVE = true;}
 
 
     

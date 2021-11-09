@@ -62,7 +62,8 @@ void IRSensor(){
         } else {
           
         myDFPlayer.playFolder(04,countTrig);
-        //SendOutput("center");
+        SendOutput("center");
+        STcmd = ":SE53";
         
         }
         prevTick = curMillis;
