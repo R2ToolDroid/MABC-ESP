@@ -393,7 +393,9 @@ void loop() {
   
   
   if ( mode == 2 ){
-   IRSensor();
+    
+   if (IR) IRSensor();
+   
   }
 
   

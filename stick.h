@@ -256,7 +256,7 @@ void notify()
         }
 
         //Serial.println(posX);
-        isCenter = false;
+       
         DomeRot.write(posX);
       } else {
      

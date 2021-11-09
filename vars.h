@@ -234,29 +234,3 @@ byte NachR = false;
 byte Mitte = false;
 byte Ping = false;
 int Sdiff = 0;
-
-
-
-
-//AutoDome function
-
-// Dome Automation Variables
-boolean domeAutomation = true;
-int domeTurnDirection = 1;  // 1 = positive turn, -1 negative turn
-float domeTargetPosition = 0; // (0 - 359) - degrees in a circle, 0 = home
-unsigned long domeStopTurnTime = 0;    // millis() when next turn should stop
-unsigned long domeStartTurnTime = 0;  // millis() when next turn should start
-int domeStatus = 0;  // 0 = stopped, 1 = prepare to turn, 2 = turning
-int time360DomeTurn = 2500;  // milliseconds for dome to complete 360 turn at domeAutoSpeed - Valid Values: 2000 - 8000 (2000 = 2 seconds)
-byte domeAutoSpeed = 50;     // Speed used when dome automation is active - Valid Values: 50 - 100
-
-byte isCenter = false;
-byte findCenter = true;
-byte domePos = false;
-unsigned long domeFindCenterTime = 0;
-unsigned long CurDomeFindTime = 0;
-unsigned long maxFindTime = 3000;
-///Position Find
-int DomeGyroPos = 0;
-bool DomeTurnPos = false;
-int TargetPos = 0;
