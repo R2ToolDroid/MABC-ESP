@@ -420,10 +420,10 @@ void parseCommand(String cmd) {
      
     }
 
-    if (cmd.startsWith("#")) {
-      
+    if (cmd.startsWith("#")) {   
      
       SendOutput(cmd);
+      
     }
     
 
