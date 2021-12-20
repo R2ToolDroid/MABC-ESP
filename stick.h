@@ -173,7 +173,15 @@ void notify()
     if( Ps3.event.button_down.right && (SHIFT == SH_PLUS)) { STcmd ="C";}
     
     if( Ps3.event.button_down.left && (SHIFT == SH_PLUS))  {
-       STcmd ="#OP01";
+
+          if (DoorOpen){
+              STcmd ="#OP01";
+              DoorOpen = true;
+              } else {
+                      STcmd ="#CL01";
+                      DoorOpen = false;
+                      }
+      
       }
       /*
     if( Ps3.event.button_down.left && (SHIFT == 0))  {S_DEBUG_STICK += "Mid Awake + Human"; parseCommand(":SE14");}
@@ -261,7 +269,7 @@ void notify()
       } else {
      
        
-      int corr = map(posX, 30,150,-10,10);
+      int corr = map(posX, 30,150,-20,20);
      
      if (inRange(posX, 70, 110)){
        DriveSpeed.write(posY); //right
