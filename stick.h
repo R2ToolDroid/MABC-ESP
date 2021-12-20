@@ -36,7 +36,17 @@ void notify()
 
     
     if( Ps3.event.button_down.left && (SHIFT == SH_PLUS))  {
-      STcmd ="#OP01";
+              if (DoorOpen == false){
+              //Serial.println("false");
+              STcmd ="#OP01";
+              DoorOpen = true;
+              } else {
+                //Serial.println("true");
+                      STcmd ="#CL01";
+                      DoorOpen = false;
+                      }
+
+      
       }
 
     //L1 Shift
@@ -174,10 +184,14 @@ void notify()
     
     if( Ps3.event.button_down.left && (SHIFT == SH_PLUS))  {
 
-          if (DoorOpen){
+      //Serial.print("DoorOpen =");
+
+          if (DoorOpen == false){
+              //Serial.println("false");
               STcmd ="#OP01";
               DoorOpen = true;
               } else {
+                //Serial.println("true");
                       STcmd ="#CL01";
                       DoorOpen = false;
                       }

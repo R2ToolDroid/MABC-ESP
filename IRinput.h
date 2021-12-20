@@ -63,7 +63,13 @@ void IRSensor(){
           
         myDFPlayer.playFolder(04,countTrig);
         //SendOutput("center");
-        
+          if (HoloAction == true){
+            SendOutput("*RD01");
+            HoloAction = false;
+          } else {
+              SendOutput("*RC01");
+              HoloAction = true;
+          }
         
         }
         prevTick = curMillis;

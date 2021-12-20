@@ -15,6 +15,8 @@ byte DISP = true;
 
 byte DoorOpen = false;
 
+byte HoloAction = false;
+
 ///EEPROM ADRESSES
 //int adr0=103; //WEB -|| OTA-ON =1 | OTA-OFF = 2 :  0: undefined  1: true  2:false
 
