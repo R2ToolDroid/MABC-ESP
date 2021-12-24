@@ -416,7 +416,7 @@ void loop() {
  
   
   if (RNDSound){
-    randomSound(5000,20000,maxFilesinFolder);
+    randomSound(8000,20000,maxFilesinFolder);
     //randomSound(int minINT, int maxINT, int maxFiles)
   }
   
