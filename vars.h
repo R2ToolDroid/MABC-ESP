@@ -100,6 +100,9 @@ byte RNDSound = false;
 int file = 4;
 int maxFilesinFolder;      
 
+int TalkFolder;
+int IRFolder;
+
 //int INmode = 1; /// 0 == Input auf Coin und Nextion
 //                /// 1 == Input auf  Stick and Nextion
 
@@ -164,6 +167,7 @@ unsigned long prevTick = 0;
 //const long interval = 7000;
 byte in = true;
 int countTrig = 1;
+int countTrig2 = 1;
 
 //Claw
 #define GRIP_MOTA1 33  //vorher 32

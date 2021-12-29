@@ -254,7 +254,10 @@ int wlwait = 0;
   Serial.println( F("---Wait---"));
   
   } // End Debug
+
+  TalkFolder = myDFPlayer.readFileCountsInFolder(1);
   maxFilesinFolder = myDFPlayer.readFileCountsInFolder(1);
+  IRFolder = myDFPlayer.readFileCountsInFolder(4);
 
   OLED_Start();
  
@@ -446,7 +449,12 @@ void loop() {
   }
   
   if (next){
-     myDFPlayer.next();
+    // myDFPlayer.next();
+    if (countTrig2 >= TalkFolder ) {countTrig2 = 1;}
+        countTrig2++;
+        
+      myDFPlayer.playFolder(01,countTrig2);
+     
      next=false;
   }
 

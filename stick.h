@@ -264,25 +264,14 @@ void notify()
         posY = map(Ps3.data.analog.stick.ly, -128, 128, 70, 110); //Speed should be manipulated
        }
 
-       if ((posY >= 90) && (posY <=  100)) { posY = 90;} ///Death Zone Range
+       if ((posY >= 85) && (posY <=  95)) { posY = 90;} ///Death Zone Range
        
       
 
       if( Ps3.data.button.l2 ) {
 
-        if (DEBUG_STICK){
-          
-       Serial.print (F( "\nDome- posX="));
-       Serial.println ( posX );
-       
-        }
-
-        //Serial.println(posX);
-       
-        DomeRot.write(posX);
-      } else {
-     
-       
+        DomeRot.write(90);
+        ///////////////////////////////////////
       int corr = map(posX, 30,150,-20,20);
      
      if (inRange(posX, 70, 110)){
@@ -308,7 +297,32 @@ void notify()
         }
      }
       
+      /////////////////////////////////////////////////
 
+        
+
+        
+      } else {
+
+        
+
+        ///////////////////////////////////////
+        if (DEBUG_STICK){
+          
+       Serial.print (F( "\nDome- posX="));
+       Serial.println ( posX );
+       
+        }
+
+        if (posY != 90){
+         DriveSpeed.write(90); //right
+         DriveDir.write(90);   //left
+        }
+        //Serial.println(posX);
+       
+        DomeRot.write(posX);
+        ////////////////////////////////////////
+        
 
       } //End Drive 
       

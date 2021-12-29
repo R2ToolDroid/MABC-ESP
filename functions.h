@@ -15,11 +15,11 @@ void loadDefault(){
     DISP = EEPROM.read(C_DISPL);
     mode = EEPROM.read(C_MOD);
 
-    //if (web = 255) web = 1;
-    //if (IR = 255) IR = 1;
-    //if (FUEL = 255) FUEL = 1;
-    //if (DISP = 255) DISP = 1;
-    //if (mode = 255) mode = 0;
+    if (web == 255) web = 1;
+    if (IR == 255) IR = 1;
+    if (FUEL == 255) FUEL = 1;
+    if (DISP == 255) DISP = 1;
+    if (mode == 255) mode = 0;
  
 }
 

@@ -8,7 +8,8 @@ void IRSensor(){
     if (DEBUG_IR){
     Serial.print(F( "IR Signal "));
     Serial.println(t);
-    
+    Serial.print(F(" CountTrig"));
+    Serial.println(countTrig);
     }
   /// Wartet bis 7000 von Ping verstrichen sind
   
@@ -49,7 +50,7 @@ void IRSensor(){
         Serial.print(" mm");
         Serial.println(" Tig Nummer:");
         }
-        if (countTrig >= 15 ) {countTrig = 2;}
+        if (countTrig >= IRFolder ) {countTrig = 2;}
         countTrig++;
 
         //Serial.print(countTrig);
@@ -65,9 +66,12 @@ void IRSensor(){
         //SendOutput("center");
           if (HoloAction == true){
             SendOutput("*RD01");
+            SendOutput("center");
+            SendOutput("*H110");
             HoloAction = false;
           } else {
               SendOutput("*RC01");
+              SendOutput("center");
               HoloAction = true;
           }
         
