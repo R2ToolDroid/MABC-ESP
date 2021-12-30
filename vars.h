@@ -166,6 +166,8 @@ const uint8_t sensorPin = IR_SENSOR;
 unsigned long prevTick = 0;  
 //const long interval = 7000;
 byte in = true;
+byte Hin;
+byte t_Hin ;
 int countTrig = 1;
 int countTrig2 = 1;
 

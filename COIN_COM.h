@@ -9,7 +9,7 @@
     
     SendOutput("mode1");
     //delay(100);
-    SendOutput(":SE00");
+    SendOutput(":SE10");
     //delay(100);
     SendOutput("center");
     //delay(100);

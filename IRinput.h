@@ -11,6 +11,9 @@ void IRSensor(){
     Serial.print(F(" CountTrig"));
     Serial.println(countTrig);
     }
+
+
+    
   /// Wartet bis 7000 von Ping verstrichen sind
   
    if (curMillis - prevTick >= interval) { 
@@ -18,6 +21,24 @@ void IRSensor(){
       //Serial.println("auslöser blocken");    
       in = true;
       }
+
+    //Serial.print("current Time ");
+    //Serial.print(curMillis);
+    //Serial.print(" last Tick ");
+    //Serial.print(prevTick);
+    //Serial.println(" .");
+
+    if (curMillis - prevTick >= 15000){
+      if (Hin == true) {
+      ///Reset Action 10 Seconds after Tick
+        
+       // Serial.println(" .Action");
+        SendOutput("*RC00");
+        myDFPlayer.playFolder(03,06);
+        
+        Hin = false;
+      }
+    }
   
   if (t == 0)
   {
@@ -44,10 +65,14 @@ void IRSensor(){
 
       if (in == true){
 
-        if (DEBUG_IR){    
+        if (DEBUG_INPUT){    
         Serial.print(" Ping A ");
         Serial.print(d);
-        Serial.print(" mm");
+        Serial.print(" mm ");
+
+
+        
+        
         Serial.println(" Tig Nummer:");
         }
         if (countTrig >= IRFolder ) {countTrig = 2;}
@@ -56,10 +81,11 @@ void IRSensor(){
         //Serial.print(countTrig);
         if ( d <= 150 ){
           
-          myDFPlayer.playFolder(04,2);
+          myDFPlayer.playFolder(04,05);
           SendOutput("center");
           STcmd = ":SE53";
-          
+          SendOutput("*RD00");
+          Hin = true;
         } else {
           
         myDFPlayer.playFolder(04,countTrig);
@@ -69,15 +95,19 @@ void IRSensor(){
             SendOutput("center");
             SendOutput("*H110");
             HoloAction = false;
+            Hin = true;
           } else {
-              SendOutput("*RC01");
-              //SendOutput("center");
+            
+              //SendOutput("*RC01");
+              SendOutput("*RD01");
               HoloAction = true;
+              Hin = true;
           }
         
         }
         prevTick = curMillis;
         in = false;
+        
       }
         
       
