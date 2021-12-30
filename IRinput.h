@@ -71,7 +71,7 @@ void IRSensor(){
             HoloAction = false;
           } else {
               SendOutput("*RC01");
-              SendOutput("center");
+              //SendOutput("center");
               HoloAction = true;
           }
         
