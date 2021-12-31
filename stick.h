@@ -14,7 +14,7 @@ void notify()
     if (mode != 3){   
     if( Ps3.event.button_down.down && (SHIFT == 0))  {STcmd =":SE10";} //Play the first mp3 }
     if( Ps3.event.button_down.left && (SHIFT == 0))  {STcmd =":SE13";}
-    if( Ps3.event.button_down.up && (SHIFT == 0))    {STcmd =":SE11"; }    
+    if( Ps3.event.button_down.up && (SHIFT == 0))    {STcmd =":SE14"; }    
     if( Ps3.event.button_down.right && (SHIFT == 0)) {next=true;} 
     
     ///Circle shift --> ab hier noch die MD Codes einfügen

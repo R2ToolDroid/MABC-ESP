@@ -28,7 +28,7 @@ void IRSensor(){
     //Serial.print(prevTick);
     //Serial.println(" .");
 
-    if (curMillis - prevTick >= 15000){
+    if (curMillis - prevTick >= 10000){
       if (Hin == true) {
       ///Reset Action 10 Seconds after Tick
         
