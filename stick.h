@@ -259,9 +259,9 @@ void notify()
       // posX = map(Ps3.data.analog.stick.lx, -128, 128, 0, 180);
        posX = map(Ps3.data.analog.stick.lx, -128, 128, 30, 150);
        if (OverSpeed == 1){
-       posY = map(Ps3.data.analog.stick.ly, -128, 128, 30, 150); //Speed should be manipulated
+       posY = map(Ps3.data.analog.stick.ly, -128, 128, 0, 180); //Speed should be manipulated
        } else {
-        posY = map(Ps3.data.analog.stick.ly, -128, 128, 70, 110); //Speed should be manipulated
+        posY = map(Ps3.data.analog.stick.ly, -128, 128, 30, 150); //Speed should be manipulated
        }
 
        if ((posY >= 85) && (posY <=  95)) { posY = 90;} ///Death Zone Range
@@ -272,7 +272,9 @@ void notify()
 
         DomeRot.write(90);
         ///////////////////////////////////////
-      int corr = map(posX, 30,150,-20,20);
+      int corr = map(posX, 30,150,-70,70);
+
+      //int corr = map(posX, 0,180,-50,50);
      
      if (inRange(posX, 70, 110)){
        DriveSpeed.write(posY); //right
