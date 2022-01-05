@@ -89,7 +89,7 @@ void IRSensor(){
         } else {
           
         myDFPlayer.playFolder(04,countTrig);
-        //SendOutput("center");
+            SendOutput("center");
           if (HoloAction == true){
             SendOutput("*RD01");
             SendOutput("center");
