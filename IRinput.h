@@ -33,7 +33,7 @@ void IRSensor(){
       ///Reset Action 10 Seconds after Tick
         
        // Serial.println(" .Action");
-        SendOutput("*RC00");
+        SendOutput("*ST00");
         myDFPlayer.playFolder(03,06);
         
         Hin = false;
