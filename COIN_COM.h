@@ -70,7 +70,7 @@
     if (cmd == "CB0") {         
       //mode=1;
       SendOutput("usb");     
-      delay(500);
+      //delay(500);
       SendOutput(":OP03");
       //delay(100);
       
@@ -80,7 +80,7 @@
     if (cmd == "CB1") {
       //mode=1;
       SendOutput("tool1");
-      delay(500); 
+      //delay(500); 
       SendOutput(":OP04");
       //delay(100);
       
@@ -91,7 +91,7 @@
     if (cmd == "CB2") {       
       //mode=1;
        SendOutput("tool3");     
-      delay(500);
+      //delay(500);
       SendOutput(":OP06");
      // delay(100);
      
@@ -173,13 +173,24 @@
     }
 
     if (cmd == "CB16") {
-    SendOutput("#OP00");
+
+      if (mode == 3) {
+        SendOutput("C");
+      } else {
+        SendOutput("#OP00");
+      }
+    
     
       
     }
 
     if (cmd == "CB17") {
-    SendOutput("#CL00");
+
+      if (mode == 3) {
+        SendOutput("DRIVE");
+      } else {
+        SendOutput("#CL00");
+      }
     
       
     }
