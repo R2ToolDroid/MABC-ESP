@@ -4,14 +4,19 @@ void notify()
 {
     /* Stick Command */   
     //SHIFT
-    if( Ps3.event.button_down.circle && (SHIFT == 0))  {SHIFT = SH_CIRCLE;}
-    if( Ps3.event.button_down.cross && (SHIFT == 0))  {SHIFT = SH_CROSS;}
+    
+    
+    
     if( Ps3.event.button_down.ps && (SHIFT == 0))  {SHIFT = SH_PLUS;}
     if( Ps3.event.button_down.l1 && (SHIFT == 0))  {SHIFT = SH_L1;}
     if( Ps3.event.button_down.l2 && (SHIFT == 0))  {SHIFT = SH_L2;}
     
     ///no Mode 3 activ
     if (mode != 3){   
+
+    if( Ps3.event.button_down.circle && (SHIFT == 0))  {SHIFT = SH_CIRCLE;}
+    if( Ps3.event.button_down.cross && (SHIFT == 0))  {SHIFT = SH_CROSS;}
+      
     if( Ps3.event.button_down.down && (SHIFT == 0))  {STcmd =":SE10";} //Play the first mp3 }
     if( Ps3.event.button_down.left && (SHIFT == 0))  {STcmd =":SE13";}
     if( Ps3.event.button_down.up && (SHIFT == 0))    {STcmd =":SE14"; }    
@@ -61,6 +66,13 @@ void notify()
     
 
     } else {
+
+      if( Ps3.event.button_down.circle && (SHIFT == 0))  {next=true;}
+      if( Ps3.event.button_down.cross && (SHIFT == 0))  {
+        RNDSound = false;
+        STcmd ="CROSS";
+        }
+      
       /*****************##########           ARM Steering       ########### ********/
       if( Ps3.event.button_down.up && (SHIFT == 0))    {
            

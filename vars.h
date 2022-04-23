@@ -170,6 +170,7 @@ byte Hin;
 byte t_Hin ;
 int countTrig = 1;
 int countTrig2 = 1;
+int countTrig3 = 2;
 
 //Claw
 #define GRIP_MOTA1 33  //vorher 32

@@ -195,18 +195,22 @@ void ShwMode(){
           case 0:
           calldatabuff = " 0-RANDOM ";
           myDFPlayer.playFolder(01,023);
+          
           break;
           case 1:
           calldatabuff = " 1-REMOTE ";
           myDFPlayer.playFolder(02,001);
+          
           break;
           case 2:
           calldatabuff = " 2-HUMAN  ";
           myDFPlayer.playFolder(02,004);
+          
            break; 
           case 3:
           calldatabuff = " 3-SERVICE";
           myDFPlayer.playFolder(02,005);
+          
           break;
     
           default:

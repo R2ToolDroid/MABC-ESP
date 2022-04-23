@@ -129,7 +129,14 @@ void parseCommand(String cmd) {
       if (cmd == "$3"){myDFPlayer.playFolder(02,6);}  //Happy
       if (cmd == "NO"){myDFPlayer.playFolder(03,7);}  //NO
       if (cmd == "$2"){myDFPlayer.next();}  //Talk  
+      if (cmd == "CROSS"){
+        myDFPlayer.playFolder(04,countTrig3);
+        countTrig3++;
+        if (countTrig3 >= 15) countTrig3 = 2;
+        
+        }  //Talk Service 
       if (cmd == "#OF00"){myDFPlayer.playFolder(01,20);}   
+      
       
         
   if (cmd == "debug") {
@@ -291,6 +298,8 @@ void parseCommand(String cmd) {
       mode=1;
       
       ShwMode();
+      SendOutput("@3M-Remote-1");
+      SendOutput("@3t");
     }
   
     if (cmd == "mode2") {
@@ -298,6 +307,9 @@ void parseCommand(String cmd) {
       Serial2.print("mode2\r");       
       mode=2;
       ShwMode();
+
+      SendOutput("@3M-Human-2");
+      SendOutput("@3t");
     }
   
     if (cmd == "mode3") {
@@ -305,6 +317,8 @@ void parseCommand(String cmd) {
       Serial2.print("mode3\r");
       mode=3;
       ShwMode();
+      SendOutput("@3M-Service-3");
+      SendOutput("@3t");
     }
   
     if (cmd == "mode0") {
@@ -313,6 +327,9 @@ void parseCommand(String cmd) {
       SendOutput("mode0");
       mode=0;
       ShwMode();
+      
+      SendOutput("@3M-RND-0");
+      SendOutput("@3t");
     }
 
     ///VOICE COMMANDS///
