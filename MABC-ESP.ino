@@ -454,6 +454,12 @@ void loop() {
         countTrig2++;
         
       myDFPlayer.playFolder(01,countTrig2);
+
+      if (DEBUG_SOUND){
+        Serial.print(F(" | Sound Folder 01  "));
+        Serial.print(countTrig2);
+  
+       }
      
      next=false;
   }
