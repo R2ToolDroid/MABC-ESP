@@ -82,6 +82,9 @@
        mode++;
       if (mode >= 4) mode=0;
         ShwMode();
+
+      SendOutput("@3M-Service-3");
+      SendOutput("@3t");
       
       delay(100);
       Serial2.print("mode");
